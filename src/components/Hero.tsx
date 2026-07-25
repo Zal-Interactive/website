@@ -82,12 +82,6 @@ export default function Hero() {
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[120px]" />
 
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-violet-500/20 bg-violet-500/5 mb-8">
-          <span className="w-2 h-2 rounded-full bg-violet-400 animate-pulse" />
-          <span className="text-xs text-violet-300 tracking-wide uppercase">
-            Now in Development
-          </span>
-        </div>
 
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6">
           <span className="bg-gradient-to-r from-white via-white to-violet-200 bg-clip-text text-transparent">
