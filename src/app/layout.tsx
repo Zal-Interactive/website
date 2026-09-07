@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description:
     "Zal Interactive is an independent game studio based in Stockholm.",
   keywords: ["game development", "indie games", "game studio", "Zal Interactive"],
-  icons: { icon: "/zal-mark.svg" },
+  icons: { icon: "/zal-mark.png" },
   openGraph: {
     title: "Zal Interactive | Game Studio",
     description: "Independent game studio based in Stockholm.",

@@ -10,7 +10,7 @@ export default function Hero() {
 
       <div className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
         <Image
-          src="/zal-mark.svg"
+          src="/zal-mark-2048.png"
           alt="Zal Interactive"
           width={460}
           height={460}
