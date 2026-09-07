@@ -8,14 +8,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Zal Interactive — Worlds Worth Remembering",
+  title: "Zal Interactive | Game Studio",
   description:
-    "An independent game studio in Stockholm creating expressive games shaped by bold ideas and enduring stories.",
+    "Zal Interactive is an independent game studio based in Stockholm.",
   keywords: ["game development", "indie games", "game studio", "Zal Interactive"],
   icons: { icon: "/zal-mark.svg" },
   openGraph: {
-    title: "Zal Interactive — Worlds Worth Remembering",
-    description: "Independent games shaped by bold ideas and enduring stories.",
+    title: "Zal Interactive | Game Studio",
+    description: "Independent game studio based in Stockholm.",
     type: "website",
   },
 };

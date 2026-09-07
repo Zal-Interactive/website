@@ -1,111 +1,19 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const links = [
-    { href: "#studio", label: "Studio" },
-    { href: "#approach", label: "Approach" },
-    { href: "#contact", label: "Contact" },
-  ];
-
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#050508]/80 backdrop-blur-xl border-b border-white/5"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-10 py-4 flex items-center justify-between">
-        <a href="#" className="flex items-center" aria-label="Zal Interactive home">
-          <Image
-            src="/zal-mark.svg"
-            alt=""
-            width={500}
-            height={740}
-            priority
-            className="h-10 w-auto object-contain"
-          />
-          <span className="ml-2.5 leading-none">
-            <span className="block text-[1.02rem] font-semibold tracking-[0.18em] text-[#f4f0e8]">
-              ZAL
-            </span>
-            <span className="mt-1 block text-[0.55rem] font-medium tracking-[0.28em] text-white/55">
-              INTERACTIVE
-            </span>
+    <header className="absolute inset-x-0 top-0 z-20">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 md:px-10 md:py-8">
+        <a href="/" className="flex items-center gap-3" aria-label="Zal Interactive home">
+          <Image src="/zal-mark.svg" alt="" width={32} height={32} className="h-8 w-8 object-contain" priority />
+          <span className="text-xs font-semibold uppercase tracking-[.22em] text-[var(--ivory)]">
+            Zal Interactive
           </span>
         </a>
-
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-9">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-xs font-medium uppercase tracking-[.18em] text-white/45 hover:text-white transition-colors duration-200"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-
-        {/* Mobile menu button */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden rounded-full border border-white/10 p-2 text-white/60 hover:text-white"
-          aria-label="Toggle menu"
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            {menuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            )}
-          </svg>
-        </button>
+        <a href="mailto:hello@zalinteractive.com" className="border-b border-[var(--amber)]/60 pb-1 text-xs font-medium uppercase tracking-[.18em] text-[var(--silver)] transition hover:text-[var(--ivory)]">
+          Contact
+        </a>
       </div>
-
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-[#050508]/95 backdrop-blur-xl border-b border-white/5 px-6 pb-4">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="block py-2 text-sm text-white/60 hover:text-white transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      )}
-    </nav>
+    </header>
   );
 }
