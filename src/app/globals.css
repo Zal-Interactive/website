@@ -1,30 +1,77 @@
 @import "tailwindcss";
 
 :root {
-  --color-background: #050508;
-  --color-foreground: #f0f0f5;
-  --color-accent: #7c3aed;
-  --color-accent-light: #a78bfa;
-  --color-surface: #0f0f14;
-  --color-surface-light: #1a1a24;
-  --color-muted: #6b7280;
+  --ink: #07070a;
+  --ink-soft: #101016;
+  --ivory: #f4f0e8;
+  --silver: #aaa8b3;
+  --violet: #8b5cf6;
+  --violet-bright: #a78bfa;
+  --line: rgba(244, 240, 232, 0.12);
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0;
+  background: var(--ink);
+  color: var(--ivory);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  overflow-x: hidden;
 }
 
-::selection {
-  background: var(--color-accent);
-  color: white;
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+a, button, input, textarea { -webkit-tap-highlight-color: transparent; }
+::selection { background: var(--violet); color: white; }
+.display-face { font-family: Georgia, "Times New Roman", serif; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  color: var(--violet-bright);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before { content: ""; width: 1.75rem; height: 1px; background: currentColor; }
+
+.feather-grid {
+  background-image:
+    linear-gradient(rgba(244,240,232,.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244,240,232,.032) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, black, transparent 88%);
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate3d(0,0,0) rotate(-7deg); }
+  50% { transform: translate3d(10px,-14px,0) rotate(-4deg); }
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-reveal { animation: reveal .9s cubic-bezier(.2,.8,.2,1) both; }
+.hero-reveal-delay { animation-delay: .14s; }
+.hero-reveal-late { animation-delay: .28s; }
+.mark-drift { animation: drift 9s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero-reveal, .mark-drift { animation: none; }
 }

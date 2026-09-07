@@ -14,6 +14,8 @@ export default function Navbar() {
   }, []);
 
   const links = [
+    { href: "#studio", label: "Studio" },
+    { href: "#approach", label: "Approach" },
     { href: "#contact", label: "Contact" },
   ];
 
@@ -25,18 +27,18 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 md:px-10 py-4 flex items-center justify-between">
         <a href="#" className="flex items-center" aria-label="Zal Interactive home">
           <Image
-            src="/zal-mark.png"
+            src="/zal-mark.svg"
             alt=""
             width={500}
             height={740}
             priority
-            className="h-11 w-auto object-contain"
+            className="h-10 w-auto object-contain"
           />
           <span className="ml-2.5 leading-none">
-            <span className="block text-[1.05rem] font-semibold tracking-[0.16em] text-white">
+            <span className="block text-[1.02rem] font-semibold tracking-[0.18em] text-[#f4f0e8]">
               ZAL
             </span>
             <span className="mt-1 block text-[0.55rem] font-medium tracking-[0.28em] text-white/55">
@@ -46,12 +48,12 @@ export default function Navbar() {
         </a>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-9">
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-white/60 hover:text-white transition-colors duration-200"
+              className="text-xs font-medium uppercase tracking-[.18em] text-white/45 hover:text-white transition-colors duration-200"
             >
               {link.label}
             </a>
@@ -61,7 +63,7 @@ export default function Navbar() {
         {/* Mobile menu button */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-white/60 hover:text-white"
+          className="md:hidden rounded-full border border-white/10 p-2 text-white/60 hover:text-white"
           aria-label="Toggle menu"
         >
           <svg

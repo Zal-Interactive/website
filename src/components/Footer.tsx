@@ -1,20 +1,19 @@
+import Image from "next/image";
+
 export default function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] py-12 px-6">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="text-center md:text-left">
-          <div className="text-lg font-bold tracking-tight mb-1">
-            <span className="text-violet-400">Zal</span>{" "}
-            <span className="text-white/90">Interactive</span>
+    <footer className="px-6 py-10 md:px-10">
+      <div className="mx-auto flex max-w-7xl flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex items-center gap-3">
+          <Image src="/zal-mark.svg" alt="" width={40} height={40} className="h-9 w-9 object-contain" />
+          <div className="text-xs font-semibold uppercase leading-5 tracking-[.2em]">
+            Zal<br /><span className="text-white/35">Interactive</span>
           </div>
-          <p className="text-sm text-white/30">
-            Crafting immersive worlds, one pixel at a time.
-          </p>
         </div>
-
-        <p className="text-xs text-white/20">
-          © {new Date().getFullYear()} Zal Interactive. All rights reserved.
-        </p>
+        <div className="flex flex-col gap-3 text-xs uppercase tracking-[.18em] text-white/30 sm:items-end">
+          <a href="#top" className="transition hover:text-white">Return to the sky ↑</a>
+          <p>© {new Date().getFullYear()} Zal Interactive · Stockholm</p>
+        </div>
       </div>
     </footer>
   );
