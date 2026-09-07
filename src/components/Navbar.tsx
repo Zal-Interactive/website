@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -25,9 +26,23 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#" className="text-xl font-bold tracking-tight">
-          <span className="text-violet-400">Zal</span>{" "}
-          <span className="text-white/90">Interactive</span>
+        <a href="#" className="flex items-center" aria-label="Zal Interactive home">
+          <Image
+            src="/zal-mark.png"
+            alt=""
+            width={500}
+            height={740}
+            priority
+            className="h-11 w-auto object-contain"
+          />
+          <span className="ml-2.5 leading-none">
+            <span className="block text-[1.05rem] font-semibold tracking-[0.16em] text-white">
+              ZAL
+            </span>
+            <span className="mt-1 block text-[0.55rem] font-medium tracking-[0.28em] text-white/55">
+              INTERACTIVE
+            </span>
+          </span>
         </a>
 
         {/* Desktop nav */}
