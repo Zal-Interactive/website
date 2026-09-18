@@ -25,6 +25,11 @@ body {
 
 ::selection { background: var(--violet); color: white; }
 
+a:focus-visible {
+  outline: 2px solid var(--lilac);
+  outline-offset: 6px;
+}
+
 @keyframes arrive {
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }

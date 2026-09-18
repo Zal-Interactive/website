@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="390" viewBox="0 0 920 390">
+  <rect width="920" height="390" rx="12" fill="#252525"/>
+  <rect x="18" y="18" width="884" height="38" rx="4" fill="#3b3b3b"/>
+  <text x="34" y="43" fill="#fff" font-family="Segoe UI, sans-serif" font-size="15">Apply All Safe Changes</text>
+  <text x="220" y="43" fill="#ddd" font-family="Segoe UI, sans-serif" font-size="15">Discard All</text>
+  <text x="325" y="43" fill="#ddd" font-family="Segoe UI, sans-serif" font-size="15">Select All</text>
+  <text x="420" y="43" fill="#ddd" font-family="Segoe UI, sans-serif" font-size="15">Select None</text>
+  <text x="34" y="94" fill="#fff" font-family="Segoe UI, sans-serif" font-size="19" font-weight="600">Tracked Components</text>
+  <rect x="28" y="108" width="864" height="45" rx="5" fill="#333"/>
+  <text x="44" y="136" fill="#ddd" font-family="Segoe UI, sans-serif" font-size="15">SampleScene    Player    PlayerMovement    Review    Mapped</text>
+  <text x="34" y="196" fill="#fff" font-family="Segoe UI, sans-serif" font-size="19" font-weight="600">Pending Changes</text>
+  <rect x="28" y="211" width="864" height="151" rx="5" fill="#333"/>
+  <text x="44" y="240" fill="#eee" font-family="Segoe UI, sans-serif" font-size="16">▾ SampleScene / Player / PlayerMovement</text>
+  <rect x="46" y="263" width="14" height="14" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/>
+  <path d="M49 270 L52 273 L57 267" fill="none" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="66" y="275" fill="#ddd" font-family="Segoe UI, sans-serif" font-size="15">Speed</text>
+  <text x="390" y="275" fill="#bbb" font-family="Segoe UI, sans-serif" font-size="15">5</text>
+  <text x="470" y="275" fill="#bbb" font-family="Segoe UI, sans-serif" font-size="15">→</text>
+  <text x="530" y="275" fill="#9fd18b" font-family="Segoe UI, sans-serif" font-size="15">8</text>
+  <rect x="46" y="298" width="14" height="14" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/>
+  <path d="M49 305 L52 308 L57 302" fill="none" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="66" y="310" fill="#ddd" font-family="Segoe UI, sans-serif" font-size="15">Acceleration</text>
+  <text x="390" y="310" fill="#bbb" font-family="Segoe UI, sans-serif" font-size="15">12</text>
+  <text x="470" y="310" fill="#bbb" font-family="Segoe UI, sans-serif" font-size="15">→</text>
+  <text x="530" y="310" fill="#9fd18b" font-family="Segoe UI, sans-serif" font-size="15">16</text>
+  <rect x="46" y="333" width="14" height="14" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/>
+  <text x="66" y="345" fill="#ddd" font-family="Segoe UI, sans-serif" font-size="15">GroundMask</text>
+  <text x="390" y="345" fill="#bbb" font-family="Segoe UI, sans-serif" font-size="15">Default</text>
+  <text x="470" y="345" fill="#bbb" font-family="Segoe UI, sans-serif" font-size="15">→</text>
+  <text x="530" y="345" fill="#efc779" font-family="Segoe UI, sans-serif" font-size="15">Ground</text>
+</svg>

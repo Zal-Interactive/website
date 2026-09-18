@@ -1,0 +1,2100 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Nebula</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="/docs/site_libs/clipboard/clipboard.min.js"></script>
+<script src="/docs/site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="/docs/site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="/docs/site_libs/quarto-html/popper.min.js"></script>
+<script src="/docs/site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="/docs/site_libs/quarto-html/anchor.min.js"></script>
+<link href="/docs/site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="/docs/site_libs/quarto-html/quarto-syntax-highlighting-dark-5a1953863e1f72ef3b996ef827f01ca7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="/docs/site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="/docs/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="/docs/site_libs/bootstrap/bootstrap-57aa938a728fd560aa206219eeb09304.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+
+
+<link rel="stylesheet" href="/docs/theme.css">
+<link rel="icon" href="/zal-mark.png"></head>
+
+<body class="fullcontent quarto-light"><header class="site-header"><div class="site-header-inner"><a class="site-brand" href="/" aria-label="Zal Interactive home"><img src="/zal-mark.png" alt="" width="32" height="32">Zal Interactive</a><nav aria-label="Main navigation"><a href="/unity-packages">Unity Packages</a><a href="mailto:hello@zalinteractive.com">Contact</a></nav></div></header>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content"><nav class="package-navigation" aria-label="Breadcrumb"><a href="/unity-packages">Unity Packages</a> / <span>Nebula</span></nav>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Nebula</h1>
+<p class="subtitle lead">com.zalinteractive.nebula</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="nebula-quick-start-guide" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Nebula Quick Start Guide</h1>
+<p>Nebula is a froxel-based volumetric fog renderer for Unity’s Universal Render Pipeline (URP). This guide takes an existing URP project from an installed Nebula asset to visible global fog, volumetric lights, local fog volumes, and correctly fogged transparent materials.</p>
+<p>For a complete control and scripting reference, see the Nebula Manual chapter below.</p>
+<section id="explore-the-included-demo" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="explore-the-included-demo"><span class="header-section-number">1.1</span> Explore the included demo</h2>
+<p>Import <strong>Nebula Demo</strong> from Package Manager, then open its <code>Nebula Demo.unity</code> scene and enter Play mode. The four bounded arrangements demonstrate god rays, dense wind-driven fog, supported realtime and fog-only light types, shadows, and light cookies using only Unity primitives. Use the on-screen buttons, Left/Right or A/D, or number keys 1-4 to change arrangements.</p>
+<p>Import <strong>Exponential Terrain Fog</strong> for a focused example of a global exponential layer following an explicitly selected Unity Terrain.</p>
+</section>
+<section id="check-the-requirements" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="check-the-requirements"><span class="header-section-number">1.2</span> 1. Check the requirements</h2>
+<p>Nebula requires:</p>
+<ul>
+<li>Unity 6000.0, 6000.3, or 6000.5 with the matching URP 17.x package.</li>
+<li>URP RenderGraph. Do not enable URP Compatibility Mode.</li>
+<li>A base Game camera or the Scene view. Camera-stack overlay cameras and XR are not supported.</li>
+<li>Compute shaders, 3D textures, and the texture formats described in the Requirements and compatibility section below.</li>
+<li>Direct3D 11, Vulkan, Metal, or OpenGL ES 3.1+ on Android.</li>
+</ul>
+<p>This repository currently uses Unity 6000.0.82f1 and URP 17.0.4. Its PC renderer is configured for Nebula. The mobile renderer intentionally does not include Nebula yet because physical-device qualification is still pending.</p>
+</section>
+<section id="add-nebula-to-the-urp-renderer" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="add-nebula-to-the-urp-renderer"><span class="header-section-number">1.3</span> 2. Add Nebula to the URP renderer</h2>
+<p>Nebula must be added to every URP renderer that should draw fog.</p>
+<ol type="1">
+<li>Locate the <code>ScriptableRendererData</code> used by the target URP pipeline asset. In this repository the configured PC renderer is <code>PC_Renderer.asset</code>.</li>
+<li>In its Inspector, select <strong>Add Renderer Feature</strong> and add <strong>Volumetric Lighting Renderer Feature</strong>.</li>
+<li>Confirm <strong>Shader Data</strong> was assigned automatically. Explicit custom Shader Data assignments are preserved.</li>
+<li>Start with the <strong>Medium</strong> quality preset. On a mobile device, begin with <strong>Very Low</strong> or <strong>Low</strong> and profile on physical hardware.</li>
+<li>Leave <strong>Debug Visualization</strong> set to <strong>None</strong> for normal rendering.</li>
+</ol>
+<p>The feature safely skips rendering and reports an error when its packaged Shader Data cannot be found or is invalid. In the Editor or a Development build, open <strong>Window &gt; Analysis &gt; Rendering Debugger &gt; Nebula &gt; Frame</strong> to see the structured reason.</p>
+</section>
+<section id="create-and-enable-the-global-fog-volume" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="create-and-enable-the-global-fog-volume"><span class="header-section-number">1.4</span> 3. Create and enable the global fog Volume</h2>
+<ol type="1">
+<li>Create or select a Unity <strong>Global Volume</strong>.</li>
+<li>Create or assign a Volume Profile.</li>
+<li>Select <strong>Add Override &gt; Post-processing Custom &gt; Volumetric Lighting</strong>.</li>
+<li>Enable the override checkbox beside <strong>Enabled</strong>, then enable its value.</li>
+<li>Enable the override checkboxes for the settings you want this Volume to control.</li>
+</ol>
+<p>Good starter values are:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Setting</th>
+<th style="text-align: right;">Starter value</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Enabled</td>
+<td style="text-align: right;">On</td>
+<td>Activates Nebula for the blended camera Volume stack.</td>
+</tr>
+<tr class="even">
+<td>Scattering Intensity</td>
+<td style="text-align: right;">1</td>
+<td>Scales incident-light scattering without changing extinction or emission.</td>
+</tr>
+<tr class="odd">
+<td>Global Fog Density</td>
+<td style="text-align: right;">2</td>
+<td>Controls global fog thickness. Try 0.5–2 for subtle fog.</td>
+</tr>
+<tr class="even">
+<td>Lit Fog Color</td>
+<td style="text-align: right;">White</td>
+<td>HDR fog-lighting color where the participating main light is visible.</td>
+</tr>
+<tr class="odd">
+<td>Shadowed Fog Color</td>
+<td style="text-align: right;">Black</td>
+<td>HDR fog-lighting color where the participating main light is blocked.</td>
+</tr>
+<tr class="even">
+<td>Artistic Color Influence</td>
+<td style="text-align: right;">0</td>
+<td>Blends lit and shadowed fog colors with normal incident lighting.</td>
+</tr>
+<tr class="odd">
+<td>Global Scattering Albedo</td>
+<td style="text-align: right;">White</td>
+<td>Controls the scattered color and absorption.</td>
+</tr>
+<tr class="even">
+<td>Global Emission</td>
+<td style="text-align: right;">Black</td>
+<td>HDR linear radiance emitted by the global medium. Alpha is ignored.</td>
+</tr>
+<tr class="odd">
+<td>Scattering Distribution</td>
+<td style="text-align: right;">0.2</td>
+<td>Adds mild forward scattering and visible light shafts.</td>
+</tr>
+<tr class="even">
+<td>Start Distance</td>
+<td style="text-align: right;">0</td>
+<td>Starts the represented fog at the camera near plane.</td>
+</tr>
+<tr class="odd">
+<td>Near Fade Distance</td>
+<td style="text-align: right;">0</td>
+<td>Disables the near fade. Increase it to keep the camera area clear.</td>
+</tr>
+<tr class="even">
+<td>Maximum Distance</td>
+<td style="text-align: right;">64</td>
+<td>Limits the camera-relative fog interval and GPU work distribution.</td>
+</tr>
+</tbody>
+</table>
+<p>Fog renders only when the blended Volume stack contains this component and <strong>Enabled</strong> resolves to on. A component present in an unused profile, a disabled Volume, or an unchecked <strong>Enabled</strong> override does not activate Nebula.</p>
+<p>To preview fog while editing, use a Shaded or Shaded Wireframe Scene view and enable <strong>Effects &gt; Fog</strong>. Perspective, orthographic, and 2D views are supported. Enable <strong>Scene Lighting</strong> to preview the scene’s lighting.</p>
+<p>For outdoor height fog, enable <strong>Use Global Height Attenuation</strong> and select <strong>Exponential</strong>. <strong>Base Height</strong> keeps full density at and below that height; <strong>Attenuation Distance</strong> is the vertical distance over which density falls to about 36.8 percent. Leave <strong>Height Reference</strong> at <strong>World</strong> for a fixed layer.</p>
+<p>To fit the layer to Unity Terrain, add one <code>FogTerrainHeightField</code> component to the scene, assign the Terrain tiles, and change <strong>Height Reference</strong> to <strong>Terrain</strong>. The default 1024 resolution is a good starting point. Select <strong>Suppress Fog</strong> to omit terrain-relative fog outside the selected tiles and over holes, or <strong>Use World Height</strong> to evaluate the same profile there using world height. The same field can serve global fog and local fog volumes.</p>
+<section id="emissive-fog-recipe" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="emissive-fog-recipe"><span class="header-section-number">1.4.1</span> Emissive fog recipe</h3>
+<p>To make unlit fog glow, keep <strong>Global Fog Density</strong> above zero, set <strong>Global Emission</strong> to a nonblack HDR color, set <strong>Scattering Intensity</strong> to zero, and remove or black out incident lighting. The glow is emitted inside the froxel medium, so it is integrated, temporally reconstructed, and depth-clipped with the rest of the fog. It is not bloom and does not light nearby geometry. Alpha on an emission color is ignored.</p>
+<p>For a local glow pocket, set a <code>VolumetricFog</code> object’s <strong>Emission</strong> and nonzero <strong>Fog Density</strong>. Additive local volumes add their weighted emission. A Replacing volume blends the accumulated emission toward its own value, so a full black replacement clears underlying glow. Global and local height/noise attenuation apply through their existing density and influence rules. <strong>Density In Light</strong> and <strong>Density In Shadow</strong> also scale emission because they scale the composed fog density.</p>
+</section>
+</section>
+<section id="light-the-fog" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="light-the-fog"><span class="header-section-number">1.5</span> 4. Light the fog</h2>
+<p>Visible URP Directional, Point, and Spot lights contribute automatically. A <code>VolumetricRealtimeLight</code> component is not required for the default contribution.</p>
+<p>Add <code>VolumetricRealtimeLight</code> to a Light when you need to:</p>
+<ul>
+<li>Exclude that light from Nebula.</li>
+<li>Scale only its volumetric scattering contribution.</li>
+<li>Make temporal reconstruction react more quickly to a moving or rapidly changing light.</li>
+</ul>
+<p>Nebula respects the camera and light culling masks. Main and additional realtime shadows are supported. Main and additional light cookies are supported when both URP and the renderer feature enable cookies.</p>
+</section>
+<section id="add-a-local-fog-volume" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="add-a-local-fog-volume"><span class="header-section-number">1.6</span> 5. Add a local fog volume</h2>
+<p>Use <strong>GameObject &gt; Effects &gt; Nebula - Local Fog Volume</strong>. The command creates a reusable local fog object with a <code>VolumetricFog</code> component.</p>
+<ul>
+<li>Position, rotate, and scale the Transform to define the local volume.</li>
+<li>Choose <strong>Box</strong> or <strong>Ellipsoid</strong> for the transformed unit shape.</li>
+<li>Set <strong>Color</strong>, HDR <strong>Emission</strong>, and a nonnegative <strong>Fog Density</strong>.</li>
+<li>Use <strong>Boundary Fade</strong> for a soft edge.</li>
+<li>Use <strong>Additive</strong> to add medium to the global and lower-priority fog, or <strong>Replacing</strong> to blend toward this local medium.</li>
+<li>Give overlapping Replacing volumes explicit <strong>Blend Priority</strong> values. Lower priorities evaluate first.</li>
+<li>Enable <strong>Height Attenuation</strong> to choose the same bounded or exponential height profiles available to global fog.</li>
+<li>Choose <strong>Terrain</strong> as the height reference when the volume should follow the shared terrain height field.</li>
+</ul>
+<p>Create a prefab when the same local fog object is repeated. Local volumes outside the camera frustum, outside the camera culling mask, excluded, disabled, or invalid are ignored safely.</p>
+</section>
+<section id="fog-transparent-materials" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="fog-transparent-materials"><span class="header-section-number">1.7</span> 6. Fog transparent materials</h2>
+<p>Nebula composites the opaque scene and sky before URP draws transparencies. Stock URP transparent shaders do not sample Nebula and therefore are not fogged at their own surface depth.</p>
+<p>For a lit transparent material:</p>
+<ol type="1">
+<li>Change its shader to <strong>Nebula/Transparent Lit Fog</strong>.</li>
+<li>Set the base color and alpha; the material is always transparent.</li>
+<li>Choose Alpha, Premultiply, or Additive blending. Multiply is not supported.</li>
+<li>Nebula fog is applied automatically whenever the renderer publishes a fog volume.</li>
+<li>Keep <strong>Enable Transparent Fog</strong> enabled on the Nebula renderer feature.</li>
+</ol>
+<p>For a simple straight-alpha unlit material, use <strong>Nebula/Transparent Unlit Fog</strong>.</p>
+<p>For a custom transparent URP Unlit Shader Graph:</p>
+<ol type="1">
+<li>Add <strong>Nebula/Transparent/Nebula Transparent Fog</strong>.</li>
+<li>Pass straight, scene-linear RGB and Alpha into the subgraph.</li>
+<li>Connect <strong>Straight Alpha RGB</strong>, <strong>Premultiplied RGB</strong>, or <strong>Additive RGB</strong> to Base Color, matching the graph’s configured blend mode.</li>
+<li>Connect the subgraph’s <strong>Alpha</strong> output to the fragment Alpha block.</li>
+</ol>
+<p>Multiply is unsupported. The subgraph is exact for Unlit/final-RGB graphs only; use <strong>Nebula/Transparent Lit Fog</strong> for Lit materials because standard Lit Shader Graph subgraphs run before URP produces the final lighting result.</p>
+<p>When a valid Nebula volume is unavailable, the Lit shader falls back to its normal URP Lit result and URP fog path. The Unlit helper leaves its input color unchanged. Custom transparent shaders can use <code>Nebula_TransparentFog.hlsl</code>; see the Transparent materials section below for the required blend formulas.</p>
+</section>
+<section id="verify-the-result" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="verify-the-result"><span class="header-section-number">1.8</span> 7. Verify the result</h2>
+<p>With a base Game camera selected or Play mode running, confirm:</p>
+<ul>
+<li>Opaque geometry and sky receive fog.</li>
+<li>Directional, Point, or Spot lights illuminate the fog.</li>
+<li>Local volumes follow their transforms and fade at their boundaries.</li>
+<li>Nebula-aware transparent materials fog at their own depth.</li>
+<li><strong>Rendering Debugger &gt; Nebula &gt; Frame &gt; Recorded</strong> is true in the Editor or a Development build.</li>
+</ul>
+<p>For performance, open <strong>Window &gt; Analysis &gt; Profiler</strong>, enable the <strong>Nebula Fog</strong> module, and inspect CPU, delayed GPU, froxel, and memory values. Do not select a final quality tier from Editor timing alone; profile the target device and resolution.</p>
+</section>
+<section id="common-setup-failures" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="common-setup-failures"><span class="header-section-number">1.9</span> Common setup failures</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symptom</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>No fog anywhere</td>
+<td>The active renderer contains the feature, its automatically assigned Shader Data is valid, and the blended Volume component is enabled.</td>
+</tr>
+<tr class="even">
+<td>Works in Scene view but not Game view</td>
+<td>The camera uses the configured renderer, is a base camera, and has valid URP additional camera data.</td>
+</tr>
+<tr class="odd">
+<td>Works on PC but not the mobile pipeline</td>
+<td>Add Nebula to the mobile renderer only after qualifying its target devices and use a supported graphics API.</td>
+</tr>
+<tr class="even">
+<td>Transparent objects stay clear</td>
+<td>Use a Nebula-aware transparent shader and enable transparent publication on the renderer feature.</td>
+</tr>
+<tr class="odd">
+<td>Local fog is missing</td>
+<td>Check Excluded, component and GameObject state, camera culling mask, transform scale, density, color range, and local settings.</td>
+</tr>
+<tr class="even">
+<td>Emission is black unexpectedly</td>
+<td>Check the emission RGB is finite and nonnegative, density is nonzero, and <strong>Global Emission Error</strong> or <strong>Local Emission Error</strong> in Rendering Debugger.</td>
+</tr>
+<tr class="odd">
+<td>Artistic fog colors do not appear</td>
+<td>Ensure a participating main light is visible to the camera, set <strong>Artistic Color Influence</strong> above zero, and check <strong>Artistic Fog Color Error</strong> in Rendering Debugger.</td>
+</tr>
+<tr class="even">
+<td>A light does not affect fog</td>
+<td>Check its type, visibility, culling masks, intensity, range, Excluded state, and the renderer’s additional-light setting.</td>
+</tr>
+<tr class="odd">
+<td>Temporal trails follow a changing light</td>
+<td>Add <code>VolumetricRealtimeLight</code> and raise <strong>Temporal Responsiveness</strong>, or enable the relevant rejection control.</td>
+</tr>
+<tr class="even">
+<td>Fog crosses foreground silhouettes</td>
+<td>Enable <strong>Conservative Depth</strong> and tune <strong>Surface Depth Bias</strong>.</td>
+</tr>
+<tr class="odd">
+<td>A debug view replaces the final image</td>
+<td>Set <strong>Debug Visualization</strong> back to <strong>None</strong>.</td>
+</tr>
+<tr class="even">
+<td>The effect is skipped with no release-player message</td>
+<td>Reproduce in the Editor or a Development build and inspect <strong>Rendering Debugger &gt; Nebula &gt; Frame</strong>.</td>
+</tr>
+</tbody>
+</table>
+<section id="lit-and-shadow-density" class="level3" data-number="1.9.1">
+<h3 data-number="1.9.1" class="anchored" data-anchor-id="lit-and-shadow-density"><span class="header-section-number">1.9.1</span> Lit and shadow density</h3>
+<p>Set <strong>Density In Light</strong> and <strong>Density In Shadow</strong> on the Nebula Volume override to scale global and local fog using the main light’s shadow and cookie coverage. Both default to <strong>1</strong>. Try <strong>1</strong> and <strong>0.2</strong> respectively to clear shadowed fog; values above <strong>1</strong> strengthen density. These controls affect extinction, scattering, and emission together, independently of <strong>Scattering Intensity</strong>. Without a participating main light, density stays unchanged.</p>
+</section>
+<section id="lit-and-shadow-colors" class="level3" data-number="1.9.2">
+<h3 data-number="1.9.2" class="anchored" data-anchor-id="lit-and-shadow-colors"><span class="header-section-number">1.9.2</span> Lit and shadow colors</h3>
+<p>Set <strong>Lit Fog Color</strong>, <strong>Shadowed Fog Color</strong>, and <strong>Artistic Color Influence</strong> on the Nebula Volume override to author the fog’s illuminated and shadowed appearance. Main-light shadow visibility and cookie coverage interpolate between the two HDR colors. Alpha is ignored. At an influence of <strong>0</strong>, Nebula retains normal ambient, main-light, and additional-light scattering. At <strong>1</strong>, the authored color replaces all of that incident lighting while global and local fog albedo, density, and extinction still shape the result.</p>
+<p>Emission remains independent. Artistic fog coloring needs a participating main light; an absent, excluded, or camera-filtered main light leaves normal fog lighting unchanged. Smooth Volume changes use Nebula’s regular temporal accumulation. For an abrupt scripted change, call <code>VolumetricLightingRendererFeature.ResetTemporalHistory(camera)</code>. Import <strong>Lit and Shadow Colors</strong> for an editable scene with Neutral, Partial, and Full profiles.</p>
+</section>
+</section>
+</section>
+<section id="nebula-manual" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Nebula Manual</h1>
+<p>Nebula is a froxel-based volumetric fog renderer for Unity’s Universal Render Pipeline (URP). It represents the camera-visible medium in a clustered 3D grid, evaluates global and local fog against URP lighting, reconstructs the result over time, integrates physical in-scattering and transmittance, and composites the result before transparent rendering.</p>
+<p>This is the package-user and scripting manual. For the shortest setup path, start with the Quick Start Guide chapter in this PDF.</p>
+<section id="requirements-and-compatibility" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="requirements-and-compatibility"><span class="header-section-number">2.1</span> Requirements and compatibility</h2>
+<section id="unity-and-urp" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="unity-and-urp"><span class="header-section-number">2.1.1</span> Unity and URP</h3>
+<p>Nebula targets these Unity and URP families:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Unity</th>
+<th>URP family</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>6000.0</td>
+<td>17.0.x</td>
+<td>Current repository version is Unity 6000.0.82f1 with URP 17.0.4.</td>
+</tr>
+<tr class="even">
+<td>6000.3</td>
+<td>17.3</td>
+<td>Supported target; must be qualified in an installation of that editor.</td>
+</tr>
+<tr class="odd">
+<td>6000.5</td>
+<td>17.5</td>
+<td>Supported target; must be qualified in an installation of that editor.</td>
+</tr>
+</tbody>
+</table>
+<p>Nebula requires URP’s RenderGraph path. Compatibility Mode is not a production path. The implementation records a normal <code>ScriptableRenderPass</code> through <code>RecordRenderGraph</code> and does not store frame-local RenderGraph handles between frames.</p>
+</section>
+<section id="graphics-device-requirements" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="graphics-device-requirements"><span class="header-section-number">2.1.2</span> Graphics device requirements</h3>
+<p>Nebula supports these graphics APIs:</p>
+<ul>
+<li>Direct3D 11</li>
+<li>Vulkan</li>
+<li>Metal</li>
+<li>OpenGL ES 3.1 or later on Android</li>
+</ul>
+<p>The device must support compute shaders, sampled 3D textures, 3D RenderTextures, and sampled, linear-filtered, and random-write <code>R16G16B16A16_SFloat</code> textures. Conservative depth additionally uses sampled and random-write <code>R32_SFloat</code>; Nebula disables that optional stage when either usage is unsupported. Reference temporal history-miss supersampling and responsive-light volumes use sampled and random-write <code>R16_SFloat</code>. An unsupported <code>R16_SFloat</code> configuration reduces reference history-miss sampling to one and omits responsive-light volumes. The active camera color format must support rendering and blending.</p>
+<p>Android builds using OpenGL ES must require ES 3.1. A successful shader import on one desktop API does not qualify a different API or physical device.</p>
+<p>The scattering kernels bind exactly two Nebula-owned structured buffers: one <code>float4</code> stream for light, local-fog, and responsive-light attributes, and one <code>uint</code> stream with a compact header, global indices, active cluster ranges, and cluster assignments. This leaves two of OpenGL ES 3.1’s four guaranteed compute-buffer bindings available to URP’s Adaptive Probe Volume L0 lookup when that variant is active. Scattering outputs remain random-write textures and do not consume this buffer allowance.</p>
+</section>
+<section id="cameras-and-rendering-features" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="cameras-and-rendering-features"><span class="header-section-number">2.1.3</span> Cameras and rendering features</h3>
+<p>Nebula accepts base Game cameras and the Scene view. Important restrictions are:</p>
+<ul>
+<li>Temporal reconstruction is enabled only for Game cameras. Scene view renders without temporal history.</li>
+<li>Camera-stack overlay cameras are skipped. Content rendered only by an overlay camera does not receive a separate Nebula pass.</li>
+<li>Reflection, Preview, and other camera types are skipped.</li>
+<li>XR rendering is rejected by the current implementation.</li>
+<li>The effect samples camera depth, so the selected URP renderer must provide a valid depth texture path.</li>
+<li>A Game camera uses <code>UniversalAdditionalCameraData</code> and URP camera history for temporal reconstruction. When either is unavailable, Nebula continues with non-temporal rendering for that frame.</li>
+</ul>
+<p>Scene view supports perspective, orthographic, and 2D navigation, including framing, orbiting, zooming, and resizing. Enable <strong>Fog</strong> in the Scene view <strong>Effects</strong> controls to preview Nebula. Turning off Fog or the Effects master control also disables fog on transparent materials for that view. Fog appears in Shaded and Shaded Wireframe views; wireframe and diagnostic draw modes omit it. Each Scene view uses its own controls and camera state.</p>
+<p><strong>Scene Lighting</strong> and post-processing controls can intentionally change the preview’s appearance. For comparison with a Game camera, match its position, projection, Volume settings, lighting, and post-processing, and disable temporal reconstruction. Orthographic cameras can have a negative near clip plane; Nebula starts at the configured nonnegative Start Distance or the near plane, whichever is farther forward. If the visible clip range does not intersect the configured fog range, no fog is rendered.</p>
+</section>
+<section id="mobile-status" class="level3" data-number="2.1.4">
+<h3 data-number="2.1.4" class="anchored" data-anchor-id="mobile-status"><span class="header-section-number">2.1.4</span> Mobile status</h3>
+<p>Nebula is designed for mobile-compatible URP rendering and includes Low and Very Low workload tiers. Physical-device qualification is still pending for Android Vulkan, Android OpenGL ES 3.1, and iOS Metal across every target Unity version. Consequently, <code>Mobile_Renderer.asset</code> intentionally has no Nebula feature. The package does not automatically reduce workload quality to meet a performance or memory budget. It only disables optional stages whose required device or camera capability is unavailable.</p>
+<p>Add Nebula to a mobile renderer only as part of target-device qualification. Begin at Very Low or Low, verify supported formats, record GPU and memory results at the shipping resolution, and test thermal behavior over a representative play session.</p>
+</section>
+</section>
+<section id="how-nebula-renders-fog" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="how-nebula-renders-fog"><span class="header-section-number">2.2</span> How Nebula renders fog</h2>
+<section id="froxel-volume" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="froxel-volume"><span class="header-section-number">2.2.1</span> Froxel volume</h3>
+<p>The camera volume is divided into screen-space tiles and depth slices called froxels. The XY dimensions follow the camera’s scaled resolution and the selected pixels-per-froxel tier. The Z dimension follows the selected depth-slice tier between the effective fog near and far distances:</p>
+<ul>
+<li>Effective near distance is the greater of the camera near clip and <strong>Start Distance</strong>.</li>
+<li>Effective far distance is the lesser of the camera far clip and <strong>Maximum Distance</strong>.</li>
+<li>The frame is rejected safely if the interval is empty or invalid.</li>
+</ul>
+<p>Logarithmic and quadratic depth distributions place more resolution near the camera. Logarithmic is the default and its positive scale controls how strongly slices are concentrated near the camera.</p>
+</section>
+<section id="medium-and-lighting" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="medium-and-lighting"><span class="header-section-number">2.2.2</span> Medium and lighting</h3>
+<p>Every accepted froxel begins with the global extinction, scattering albedo, and emission from the blended Unity Volume stack. Visible local fog volumes then add to or replace that medium according to their influence, blend mode, and priority.</p>
+<p>Emission is HDR linear RGB radiance per unit distance. Alpha is ignored. Its source follows the medium that owns it: the global source is <code>GlobalEmission × global extinction × global density influence</code>, while a local source is <code>Emission × local density</code>. Additive local volumes add the source after their influence; Replacing volumes interpolate the accumulated source toward their own source. Thus, a full-weight black replacement removes underlying emission, and a zero-density volume emits nothing. Emission is independent of albedo, phase, ambient lighting, and light color. It enters the source field before temporal reconstruction and integration. For homogeneous unlit fog over length <code>L</code>, this produces <code>Emission × (1 - exp(-extinction × L))</code>.</p>
+<p><strong>Scattering Intensity</strong> multiplies incident-light scattering only. Main-light density modulation from <strong>Density In Light</strong> and <strong>Density In Shadow</strong> applies once to both extinction and emission because it modulates the composed medium density. It does not make emission depend on light brightness, color, phase, or shadow attenuation.</p>
+<p>Nebula evaluates:</p>
+<ul>
+<li>The URP main light.</li>
+<li>Visible additional Directional, Point, and Spot lights.</li>
+<li>Main and additional realtime shadows when URP supplies the shadow textures.</li>
+<li>Main- and additional-light cookies when enabled.</li>
+<li>Ambient-probe lighting or Adaptive Probe Volume isotropic L0 incident lighting when probe volumes are active.</li>
+<li>A Henyey-Greenstein phase function using the global or a local override scattering distribution.</li>
+</ul>
+<p>Lights and fog volumes are assigned to compact camera-space clusters. Global directional lights are kept in a separate logical list, while bounded lights and local fogs are evaluated only by overlapping clusters. After cluster construction, a Burst <code>IJobFor</code> packs per-cluster ranges only for active light, fog, and responsive-light streams, followed by their assignment indices in disjoint portions of the shared topology stream. The render thread packs the four-word topology header, global indices, and smaller fixed-size scene records before performing the two GPU uploads. Native staging arrays and GPU buffers grow to satisfy observed scene data and are reused by later frames.</p>
+</section>
+<section id="temporal-reconstruction" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="temporal-reconstruction"><span class="header-section-number">2.2.3</span> Temporal reconstruction</h3>
+<p>On Game cameras, temporal reconstruction reprojects the previous per-camera volumetric field into the current froxel grid. History is double-buffered: a frame reads the previous 3D texture and writes a different current 3D texture. The default production path fuses current scattering and temporal reconstruction.</p>
+<p>History is invalidated or reallocated when required by events such as:</p>
+<ul>
+<li>A new Play session or camera history.</li>
+<li>An explicit URP history reset or <code>ResetTemporalHistory</code> request.</li>
+<li>A camera cut, large transform change, or significant projection change.</li>
+<li>Resolution, render scale, dynamic-resolution state, viewport, or froxel-layout changes.</li>
+<li>Fog depth-distribution or represented-field changes.</li>
+</ul>
+<p>A missing history manager or item, duplicate producer, invalid or aliased history texture, or failed history preparation disables temporal reconstruction for that frame. Current scattering still renders through the non-temporal path, and Nebula retries temporal history on later frames.</p>
+<p>Temporal sampling quality controls jitter period, history-miss supersampling, and the cap used when temporal reconstruction is disabled. Scattering and extinction history weights control the stability-to-responsiveness tradeoff. <code>VolumetricRealtimeLight.TemporalResponsiveness</code> reduces reliance on history around a changing light. Optional lighting and motion rejection further reduce history where current lighting or reprojected motion diverges.</p>
+</section>
+<section id="conservative-depth" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="conservative-depth"><span class="header-section-number">2.2.4</span> Conservative depth</h3>
+<p>Conservative depth finds the nearest opaque depth at froxel XY resolution and moves boundary samples in front of that surface by <strong>Surface Depth Bias</strong>. It reduces foreground bleeding and silhouette leaks at the cost of an extra compute pass and one <code>R32_SFloat</code> 2D texture.</p>
+</section>
+<section id="integration-and-composite" class="level3" data-number="2.2.5">
+<h3 data-number="2.2.5" class="anchored" data-anchor-id="integration-and-composite"><span class="header-section-number">2.2.5</span> Integration and composite</h3>
+<p>Nebula integrates each view ray front-to-back using Beer-Lambert transmittance. The integrated 3D texture stores:</p>
+<ul>
+<li>RGB: accumulated in-scattering <code>L</code></li>
+<li>Alpha: remaining transmittance <code>T</code></li>
+</ul>
+<p>The opaque scene and sky are composited before transparencies using:</p>
+<pre class="text"><code>C_out = L + C_camera * T</code></pre>
+<p>The composite is a blend-only fullscreen pass; it does not copy camera color. When transparent publication is enabled, RenderGraph publishes the same integrated volume and depth mapping for participating transparent shaders.</p>
+</section>
+</section>
+<section id="installation-and-renderer-setup" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="installation-and-renderer-setup"><span class="header-section-number">2.3</span> Installation and renderer setup</h2>
+<p>Nebula is installed as <code>com.zalinteractive.nebula</code>. Its runtime assembly is <code>Zal.Nebula.Runtime</code>, its root namespace is <code>Zal.Nebula</code>, and the assembly is automatically referenced.</p>
+<p>For each URP renderer that needs Nebula:</p>
+<ol type="1">
+<li>Select its <code>ScriptableRendererData</code> asset.</li>
+<li>Add <strong>Volumetric Lighting Renderer Feature</strong>.</li>
+<li>Confirm <strong>Shader Data</strong> was assigned automatically. Explicit custom Shader Data assignments are preserved.</li>
+<li>Choose a fixed quality preset or Custom configuration.</li>
+<li>Configure rendered content, depth, temporal reconstruction, and debug visualization.</li>
+</ol>
+<p><code>PC_Renderer.asset</code> is the repository’s configured example. The active PC pipeline asset is <code>PC_RPAsset.asset</code>.</p>
+<p>The renderer feature is shared by every camera that uses that renderer data. Runtime calls such as <code>ApplyPreset</code> therefore affect all those cameras for the remainder of the process; they do not persist an asset change into a built player.</p>
+</section>
+<section id="renderer-feature-reference" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="renderer-feature-reference"><span class="header-section-number">2.4</span> Renderer feature reference</h2>
+<section id="resources-and-preset" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="resources-and-preset"><span class="header-section-number">2.4.1</span> Resources and preset</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Control</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Shader Data</td>
+<td>Automatically references every Nebula compute shader, material, and kernel. Explicit custom assignments are preserved; missing or invalid resources cause the frame to be skipped.</td>
+</tr>
+<tr class="even">
+<td>Quality Preset</td>
+<td>Applies one tier to froxel resolution, froxel sampling, temporal sampling, and cluster granularity. It preserves unrelated behavior toggles. Editing a grouped tier makes the preset Custom.</td>
+</tr>
+</tbody>
+</table>
+<p>Selecting <code>Custom</code> alone does not invent new values; it preserves the currently serialized group settings. Calling <code>ApplyPreset(NebulaQualityPreset.Custom)</code> similarly changes only the preset label.</p>
+</section>
+<section id="quality-and-performance-groups" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="quality-and-performance-groups"><span class="header-section-number">2.4.2</span> Quality and performance groups</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Control</th>
+<th>Behavior and cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Froxel Resolution</td>
+<td>Selects pixels per froxel and depth slices. Higher tiers increase 3D texture dimensions, compute work, and memory.</td>
+</tr>
+<tr class="even">
+<td>Froxel Sampling</td>
+<td>Selects close, near, middle, and far spatial sample targets used when temporal reconstruction is off. Temporal Sampling caps those targets.</td>
+</tr>
+<tr class="odd">
+<td>Temporal Sampling</td>
+<td>Selects jitter length, history-miss samples, and non-temporal sample cap. Higher tiers spend more work when history is unavailable and when temporal reconstruction is disabled.</td>
+</tr>
+<tr class="even">
+<td>Cluster Granularity</td>
+<td>Selects screen tile size and cluster depth. Finer clusters increase cluster construction and storage but can reduce per-froxel contributor tests.</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="#quality-and-performance">Quality and performance</a> for exact mappings.</p>
+</section>
+<section id="rendered-content" class="level3" data-number="2.4.3">
+<h3 data-number="2.4.3" class="anchored" data-anchor-id="rendered-content"><span class="header-section-number">2.4.3</span> Rendered content</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Control</th>
+<th>Behavior and cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Enable Transparent Fog</td>
+<td>Publishes the integrated volume before transparencies. This retains its RenderGraph lifetime and adds publication bandwidth, but no camera-color copy.</td>
+</tr>
+<tr class="even">
+<td>Enable Additional Lights</td>
+<td>Collects supported non-main lights and evaluates their clustered volumetric contribution. The main light remains available.</td>
+</tr>
+<tr class="odd">
+<td>Inverse Squared Light Distance Bias Scale</td>
+<td>Scales the froxel-diagonal footprint added to inverse-square light falloff. Higher values suppress source singularity aliasing and flicker while softening peak local-light intensity. Default is 1.</td>
+</tr>
+<tr class="even">
+<td>Enable Light Cookies</td>
+<td>Samples main- and additional-light cookies when URP provides them. It can add texture sampling; Nebula uses URP-provided cookie textures and does not allocate its own.</td>
+</tr>
+<tr class="odd">
+<td>Enable Local Fog Volumes</td>
+<td>Collects and clusters registered <code>VolumetricFog</code> components. Disabling it leaves only the global medium.</td>
+</tr>
+<tr class="even">
+<td>Enable Local Fog Height Attenuation</td>
+<td>Gates each local volume’s own Height Attenuation setting. Disabling it removes local height attenuation without changing the global medium.</td>
+</tr>
+<tr class="odd">
+<td>Enable Local Fog Noise</td>
+<td>Gates each local volume’s own Noise Attenuation setting. When no accepted local volume uses noise and global noise is off, Nebula selects a shader variant with the three-octave, 24-lattice-hash noise path compiled out.</td>
+</tr>
+</tbody>
+</table>
+<p>The local feature gates preserve their serialized values from earlier Nebula versions, but now control only the per-volume flags described by their Inspector labels.</p>
+</section>
+<section id="depth-and-surfaces" class="level3" data-number="2.4.4">
+<h3 data-number="2.4.4" class="anchored" data-anchor-id="depth-and-surfaces"><span class="header-section-number">2.4.4</span> Depth and surfaces</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Control</th>
+<th>Behavior and cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Depth Distribution</td>
+<td>Selects Logarithmic or Quadratic placement of depth slices.</td>
+</tr>
+<tr class="even">
+<td>Logarithmic Depth Scale</td>
+<td>Positive curve scale used only by Logarithmic mode. Larger values concentrate more slices near the camera. Default is 32.</td>
+</tr>
+<tr class="odd">
+<td>Enable Conservative Depth</td>
+<td>Reduces foreground bleeding using closest opaque depth. Adds a compute pass and one froxel-resolution 2D texture.</td>
+</tr>
+<tr class="even">
+<td>Surface Depth Bias</td>
+<td>World-space gap kept in front of opaque depth. Default is 0.05 world units. Too much bias can pull fog away from surfaces.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="temporal-reconstruction-controls" class="level3" data-number="2.4.5">
+<h3 data-number="2.4.5" class="anchored" data-anchor-id="temporal-reconstruction-controls"><span class="header-section-number">2.4.5</span> Temporal reconstruction controls</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Control</th>
+<th>Behavior and cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Enable Temporal Reprojection</td>
+<td>Allocates double-buffered per-camera 3D history and reuses prior scattering/extinction on Game cameras. It usually provides the best quality-to-cost balance.</td>
+</tr>
+<tr class="even">
+<td>Scattering History Weight</td>
+<td>Weights reprojected scattering from 0 to 1. Higher values reduce static jitter but respond more slowly to lighting changes. Default is 0.9.</td>
+</tr>
+<tr class="odd">
+<td>Extinction History Weight</td>
+<td>Weights reprojected extinction from 0 to 1. Higher values reduce static density jitter but respond more slowly to medium changes. Default is 0.9.</td>
+</tr>
+<tr class="even">
+<td>Enable Lighting Rejection</td>
+<td>Reduces history when current and reprojected scattering luminance disagree. Adds per-froxel comparisons.</td>
+</tr>
+<tr class="odd">
+<td>Enable Motion Rejection</td>
+<td>Reduces history as reprojected froxel motion increases. Adds per-froxel comparisons.</td>
+</tr>
+</tbody>
+</table>
+<p>The rejection thresholds and camera-cut thresholds are current implementation defaults rather than public Inspector controls. Temporal compute kernels use a fixed 4x4x4 thread group.</p>
+</section>
+<section id="debug-visualization" class="level3" data-number="2.4.6">
+<h3 data-number="2.4.6" class="anchored" data-anchor-id="debug-visualization"><span class="header-section-number">2.4.6</span> Debug visualization</h3>
+<p>Debug rendering and its serialized settings are active only when development diagnostics are compiled. Release players resolve to production output.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mode</th>
+<th>Displays</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td>Normal integrated and composited fog.</td>
+</tr>
+<tr class="even">
+<td>Conservative Depth</td>
+<td>The reduced opaque surface depth used by boundary froxels.</td>
+</tr>
+<tr class="odd">
+<td>Raw Scattering Slice / Raw Extinction Slice</td>
+<td>Current un-reconstructed source or extinction at <strong>Debug Slice</strong>.</td>
+</tr>
+<tr class="even">
+<td>Resolved Scattering Slice / Resolved Extinction Slice</td>
+<td>Temporally resolved field at <strong>Debug Slice</strong>.</td>
+</tr>
+<tr class="odd">
+<td>Integrated Radiance Slice / Integrated Transmittance Slice</td>
+<td>Front-to-back integrated values at <strong>Debug Slice</strong>.</td>
+</tr>
+<tr class="even">
+<td>Composite Lookup Depth</td>
+<td>The volume depth selected for opaque compositing.</td>
+</tr>
+<tr class="odd">
+<td>History Validity / History Weight</td>
+<td>History acceptance and applied contribution.</td>
+</tr>
+<tr class="even">
+<td>Reprojection Motion / Rejection Cause</td>
+<td>Reprojection displacement and rejection reason.</td>
+</tr>
+<tr class="odd">
+<td>Jitter</td>
+<td>The temporal sample offset pattern.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Debug Slice</strong> is normalized from 0 to 1. Modes requiring raw or temporal-debug resources select the reference temporal path in development. A temporal-only debug view is disabled safely when temporal reconstruction is off.</p>
+</section>
+</section>
+<section id="global-volume-reference" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="global-volume-reference"><span class="header-section-number">2.5</span> Global Volume reference</h2>
+<p>Add <strong>Post-processing Custom &gt; Volumetric Lighting</strong> to a Unity Volume Profile. Unity blends each parameter using the normal Volume priority, weight, layer, and override-state rules. The component is active only when its blended <strong>Enabled</strong> value is true.</p>
+<p><strong>Global Fog Density</strong> and local <strong>Fog Density</strong> use an artist-facing scale: 1 corresponds to an extinction coefficient of 0.01 per world unit. Try 0.5–2 for subtle fog. Their sliders cover 0–10 with finer adjustment near zero; the numeric fields accept larger values. Zero removes that medium’s density. Existing fog appearances are preserved. Scripts still use inverse-world-unit coefficients through <code>GlobalExtinction</code> and <code>VolumetricFog.Density</code>; divide an Inspector density by 100 when assigning these APIs. Volume blending is unchanged.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th style="text-align: right;">Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Enabled</td>
+<td style="text-align: right;">Off</td>
+<td>Activates Nebula for the camera’s blended Volume stack.</td>
+</tr>
+<tr class="even">
+<td>Scattering Intensity</td>
+<td style="text-align: right;">1</td>
+<td>Multiplies incident-light scattering without changing extinction or emission. Zero keeps extinction and emission.</td>
+</tr>
+<tr class="odd">
+<td>Global Fog Density</td>
+<td style="text-align: right;">2</td>
+<td>Global fog thickness. Higher values produce denser fog. Must be nonnegative.</td>
+</tr>
+<tr class="even">
+<td>Lit Fog Color</td>
+<td style="text-align: right;">White</td>
+<td>HDR linear RGB fog-lighting color where the participating main light is visible. Alpha is ignored.</td>
+</tr>
+<tr class="odd">
+<td>Shadowed Fog Color</td>
+<td style="text-align: right;">Black</td>
+<td>HDR linear RGB fog-lighting color where the participating main light is blocked. Alpha is ignored.</td>
+</tr>
+<tr class="even">
+<td>Artistic Color Influence</td>
+<td style="text-align: right;">0</td>
+<td>Blends the two artistic colors with normal incident scattering from 0 to 1.</td>
+</tr>
+<tr class="odd">
+<td>Global Scattering Albedo</td>
+<td style="text-align: right;">White</td>
+<td>RGB fraction of extinction that scatters instead of absorbing. Runtime values are clamped to 0–1. Alpha is not used for the medium.</td>
+</tr>
+<tr class="even">
+<td>Global Emission</td>
+<td style="text-align: right;">Black</td>
+<td>HDR linear RGB radiance emitted by global fog. Alpha is ignored. Finite nonnegative RGB is accepted, including values above one.</td>
+</tr>
+<tr class="odd">
+<td>Scattering Distribution</td>
+<td style="text-align: right;">0.2</td>
+<td>Henyey-Greenstein anisotropy from -0.9 to 0.9. Positive values favor forward scattering; negative values favor backward scattering.</td>
+</tr>
+<tr class="even">
+<td>Start Distance</td>
+<td style="text-align: right;">0</td>
+<td>Camera-relative start of the represented fog interval.</td>
+</tr>
+<tr class="odd">
+<td>Near Fade Distance</td>
+<td style="text-align: right;">0</td>
+<td>Distance after the effective start over which integration fades from clear to full influence. Zero disables the fade.</td>
+</tr>
+<tr class="even">
+<td>Maximum Distance</td>
+<td style="text-align: right;">64</td>
+<td>Camera-relative end of the represented fog interval, also limited by the camera far clip.</td>
+</tr>
+<tr class="odd">
+<td>Use Global Height Attenuation</td>
+<td style="text-align: right;">Off</td>
+<td>Enables height attenuation for the global medium only.</td>
+</tr>
+<tr class="even">
+<td>Height Profile</td>
+<td style="text-align: right;">Bounded</td>
+<td>Selects the existing finite Bounded ramp or an Exponential layer.</td>
+</tr>
+<tr class="odd">
+<td>Height Reference</td>
+<td style="text-align: right;">World</td>
+<td>Interprets height controls in world space or as offsets above the shared Terrain height field.</td>
+</tr>
+<tr class="even">
+<td>Missing Terrain</td>
+<td style="text-align: right;">Suppress Fog</td>
+<td>Suppresses terrain-relative fog without a valid ground sample, or falls back to world height.</td>
+</tr>
+<tr class="odd">
+<td>Fog Minimum Height</td>
+<td style="text-align: right;">0</td>
+<td>Bounded profile height at full global influence.</td>
+</tr>
+<tr class="even">
+<td>Fog Maximum Height</td>
+<td style="text-align: right;">100</td>
+<td>Bounded profile height at zero global influence. Must exceed the minimum.</td>
+</tr>
+<tr class="odd">
+<td>Height Attenuation Factor</td>
+<td style="text-align: right;">1</td>
+<td>Positive exponent controlling the Bounded transition.</td>
+</tr>
+<tr class="even">
+<td>Base Height</td>
+<td style="text-align: right;">0</td>
+<td>Exponential profile height at and below which density remains full.</td>
+</tr>
+<tr class="odd">
+<td>Attenuation Distance</td>
+<td style="text-align: right;">100</td>
+<td>Vertical distance above the base over which Exponential density falls to approximately 36.8 percent.</td>
+</tr>
+<tr class="even">
+<td>Use Global Noise Attenuation</td>
+<td style="text-align: right;">Off</td>
+<td>Enables animated procedural noise for the global medium only and selects the noise shader variant.</td>
+</tr>
+<tr class="odd">
+<td>Noise Frequency</td>
+<td style="text-align: right;">5</td>
+<td>Positive world-space procedural-noise frequency.</td>
+</tr>
+<tr class="even">
+<td>Noise Wind Direction</td>
+<td style="text-align: right;">Up</td>
+<td>World-space vector translated over time; its magnitude is preserved.</td>
+</tr>
+<tr class="odd">
+<td>Noise Wind Speed</td>
+<td style="text-align: right;">1</td>
+<td>Nonnegative multiplier applied to the wind vector.</td>
+</tr>
+</tbody>
+</table>
+<p>Global attenuation is applied while constructing the base global medium. Local media are composed afterward, so a global height or noise setting never reduces a local volume’s extinction or scattering.</p>
+<p>The Bounded profile preserves the original Nebula height behavior. The Exponential profile evaluates <code>exp(-max(height - baseHeight, 0) / attenuationDistance)</code>: it is constant below its base, exactly full at the base, and continues decreasing above it without a hard upper boundary. When Terrain is selected, <code>height</code>, minimum, maximum, and base values are measured relative to the sampled ground surface.</p>
+<p>Invalid or non-finite global values are replaced or clamped to safe defaults during frame resolution. Invalid emission is replaced with black only; extinction, scattering, and the remaining medium configuration remain active. Invalid artistic fog colors or influence disable only artistic coloring for that frame and retain normal lighting. In diagnostic builds, <strong>Rendering Debugger &gt; Nebula &gt; Configuration</strong> exposes the typed reason through <strong>Global Emission Error</strong> or <strong>Artistic Fog Color Error</strong>. Inactive global height and noise parameters resolve to neutral defaults and do not count as corrections.</p>
+</section>
+<section id="local-fog-volumes" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="local-fog-volumes"><span class="header-section-number">2.6</span> Local fog volumes</h2>
+<section id="creation-and-transform" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="creation-and-transform"><span class="header-section-number">2.6.1</span> Creation and transform</h3>
+<p>Use <strong>GameObject &gt; Effects &gt; Nebula - Local Fog Volume</strong>, or add <code>VolumetricFog</code> to an existing GameObject. The component has no required collider or renderer. Its Transform maps a centered unit volume to world space:</p>
+<ul>
+<li><strong>Box</strong> occupies the transformed cube from -0.5 to +0.5 on each local axis.</li>
+<li><strong>Ellipsoid</strong> occupies the inscribed transformed ellipsoid.</li>
+<li>Nonuniform scale produces a box or ellipsoid with the same nonuniform world dimensions.</li>
+</ul>
+<p>Nebula registers enabled components without scanning the scene every frame. It ignores disabled, excluded, invalid, layer-invisible, render-stage-ineligible, and frustum-culled components. Use prefabs for repeated local fog objects.</p>
+</section>
+<section id="local-fog-controls" class="level3" data-number="2.6.2">
+<h3 data-number="2.6.2" class="anchored" data-anchor-id="local-fog-controls"><span class="header-section-number">2.6.2</span> Local fog controls</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Control</th>
+<th style="text-align: right;">Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Color</td>
+<td style="text-align: right;">White</td>
+<td>Local scattering albedo. Every RGB component must be finite and within 0–1.</td>
+</tr>
+<tr class="even">
+<td>Emission</td>
+<td style="text-align: right;">Black</td>
+<td>HDR linear RGB radiance emitted by this medium. Alpha is ignored. Finite nonnegative RGB is accepted, including values above one.</td>
+</tr>
+<tr class="odd">
+<td>Fog Density</td>
+<td style="text-align: right;">100</td>
+<td>Local fog thickness, using the same scale as Global Fog Density. Must be finite and nonnegative.</td>
+</tr>
+<tr class="even">
+<td>Blend Mode</td>
+<td style="text-align: right;">Additive</td>
+<td>Adds the local medium or replaces prior medium according to influence.</td>
+</tr>
+<tr class="odd">
+<td>Blend Priority</td>
+<td style="text-align: right;">0</td>
+<td>Lower values evaluate first; higher values are layered afterward.</td>
+</tr>
+<tr class="even">
+<td>Shape</td>
+<td style="text-align: right;">Box</td>
+<td>Box or Ellipsoid influence inside the transformed unit volume.</td>
+</tr>
+<tr class="odd">
+<td>Boundary Fade</td>
+<td style="text-align: right;">0</td>
+<td>Normalized inward soft-edge distance. Zero produces a hard shape boundary.</td>
+</tr>
+<tr class="even">
+<td>Radial Fade Start</td>
+<td style="text-align: right;">1</td>
+<td>Normalized center-to-edge fade start. One disables radial fading.</td>
+</tr>
+<tr class="odd">
+<td>Height Attenuation</td>
+<td style="text-align: right;">Off</td>
+<td>Enables per-volume height attenuation.</td>
+</tr>
+<tr class="even">
+<td>Height Profile</td>
+<td style="text-align: right;">Bounded</td>
+<td>Selects a finite Bounded ramp or an Exponential layer.</td>
+</tr>
+<tr class="odd">
+<td>Height Reference</td>
+<td style="text-align: right;">World</td>
+<td>Interprets height controls in world space or as offsets above Terrain.</td>
+</tr>
+<tr class="even">
+<td>Missing Terrain</td>
+<td style="text-align: right;">Suppress Fog</td>
+<td>Suppresses this volume without a valid terrain sample, or falls back to world height.</td>
+</tr>
+<tr class="odd">
+<td>Minimum Height</td>
+<td style="text-align: right;">0</td>
+<td>Bounded profile height at full local influence.</td>
+</tr>
+<tr class="even">
+<td>Maximum Height</td>
+<td style="text-align: right;">100</td>
+<td>Bounded profile height at zero local influence. Must exceed the minimum.</td>
+</tr>
+<tr class="odd">
+<td>Height Factor</td>
+<td style="text-align: right;">1</td>
+<td>Positive exponent controlling the Bounded transition.</td>
+</tr>
+<tr class="even">
+<td>Base Height</td>
+<td style="text-align: right;">0</td>
+<td>Exponential profile height at and below which local density remains full.</td>
+</tr>
+<tr class="odd">
+<td>Attenuation Distance</td>
+<td style="text-align: right;">100</td>
+<td>Vertical distance above the base over which Exponential density falls to approximately 36.8 percent.</td>
+</tr>
+<tr class="even">
+<td>Noise Attenuation</td>
+<td style="text-align: right;">Off</td>
+<td>Multiplies this volume’s influence by animated procedural noise.</td>
+</tr>
+<tr class="odd">
+<td>Noise Frequency</td>
+<td style="text-align: right;">5</td>
+<td>Positive world-space local noise frequency.</td>
+</tr>
+<tr class="even">
+<td>Noise Wind Direction</td>
+<td style="text-align: right;">Up</td>
+<td>Local noise translation vector in world space.</td>
+</tr>
+<tr class="odd">
+<td>Noise Wind Strength</td>
+<td style="text-align: right;">1</td>
+<td>Nonnegative animation multiplier.</td>
+</tr>
+<tr class="even">
+<td>Override Anisotropy</td>
+<td style="text-align: right;">Off</td>
+<td>Uses the local scattering distribution for this medium instead of the global value.</td>
+</tr>
+<tr class="odd">
+<td>Scattering Distribution</td>
+<td style="text-align: right;">0.2</td>
+<td>Local Henyey-Greenstein value from -0.9 to 0.9.</td>
+</tr>
+<tr class="even">
+<td>Excluded</td>
+<td style="text-align: right;">Off</td>
+<td>Keeps the component registered but prevents it from contributing.</td>
+</tr>
+</tbody>
+</table>
+<p><code>Additive</code> increases extinction, scattering, and emission according to influence. <code>Replacing</code> interpolates the accumulated medium toward the local medium, including emission. Replacing also interpolates phase scattering when anisotropy is involved. Give overlapping Replacing volumes different priorities rather than relying on object identity to break equal-priority ties.</p>
+<p>Property setters on <code>VolumetricFog</code> intentionally expose the serialized values directly. They do not clamp every assignment. A local fog with invalid transform, color, density, enum, fade, anisotropy, height, or noise values is ignored for that frame instead of being submitted to the GPU. Invalid emission is different: its emission alone is replaced with black, preserving the volume’s extinction, scattering, blend participation, and ordering. The typed reason appears as <strong>Local Emission Error</strong> in Rendering Debugger. Height and noise values are validated only when the component setting and its corresponding renderer feature gate are both active.</p>
+</section>
+<section id="terrain-fitting" class="level3" data-number="2.6.3">
+<h3 data-number="2.6.3" class="anchored" data-anchor-id="terrain-fitting"><span class="header-section-number">2.6.3</span> Terrain fitting</h3>
+<p>Add one <code>FogTerrainHeightField</code> component to an enabled scene GameObject and explicitly assign every Unity Terrain tile that terrain-relative fog may use. One GPU height and validity field per active renderer-feature instance serves all cameras using that renderer, global fog, and local fog volumes. It rebuilds after a selected Terrain heightmap or holes texture changes, when a selected Terrain moves or changes data, when the selection changes, or when <code>RequestRefresh()</code> is called.</p>
+<p>The <strong>Resolution</strong> is the longest field axis: 256, 512, 1024 by default, or 2048 samples. The shorter axis preserves the combined Terrain bounds’ aspect ratio. Each active renderer-feature instance uses two persistent R32F textures, so a square field consumes approximately 0.5 MiB, 2 MiB, 8 MiB, or 32 MiB respectively. Overlapping tiles keep the highest valid surface. Terrain holes and positions outside all selected tiles are invalid samples. Manual validity-aware filtering uses nearby valid samples without bleeding a zero height across tile borders or holes.</p>
+<p>Selected Terrain objects must be axis aligned, unscaled, finite, and backed by valid <code>TerrainData</code>. An invalid provider reports a typed <code>TerrainHeightFieldError</code>, logs once per distinct error, displays the error in its Inspector, and publishes <code>TerrainHeightFieldUnavailable</code> in the Rendering Debugger while rendering continues with each fog’s configured missing-terrain behavior. Only one enabled provider may be active at a time.</p>
+</section>
+</section>
+<section id="realtime-lights" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="realtime-lights"><span class="header-section-number">2.7</span> Realtime lights</h2>
+<p>Nebula accepts visible Directional, Point, and Spot lights from URP. The main light and additional lights contribute without a <code>VolumetricRealtimeLight</code> marker, using scattering intensity 1 and temporal responsiveness 0.</p>
+<p>Add <code>VolumetricRealtimeLight</code> to customize a Light:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Control</th>
+<th style="text-align: right;">Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Excluded</td>
+<td style="text-align: right;">Off</td>
+<td>Removes this light from Nebula without disabling the Unity Light.</td>
+</tr>
+<tr class="even">
+<td>Volumetric Scattering Intensity</td>
+<td style="text-align: right;">1</td>
+<td>Nonnegative multiplier applied only to this light’s volumetric contribution.</td>
+</tr>
+<tr class="odd">
+<td>Temporal Responsiveness</td>
+<td style="text-align: right;">0</td>
+<td>Value from 0 to 1 that favors current scattering over history near the light.</td>
+</tr>
+</tbody>
+</table>
+<p>The component requires a Unity <code>Light</code>, disallows duplicates, and registers in Edit and Play modes. Its numeric property setters clamp finite values; a non-finite scattering intensity becomes 1 and a non-finite responsiveness becomes 0.</p>
+<p>Light acceptance also requires valid finite transform, color, intensity, and range data. The Light’s GameObject layer must be visible to the camera, and its culling mask must overlap the camera culling mask. Additional-light count follows <code>UniversalRenderPipeline.maxVisibleAdditionalLights</code>, so the platform’s URP limit remains authoritative.</p>
+</section>
+<section id="transparent-materials" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="transparent-materials"><span class="header-section-number">2.8</span> Transparent materials</h2>
+<section id="why-shader-participation-is-required" class="level3" data-number="2.8.1">
+<h3 data-number="2.8.1" class="anchored" data-anchor-id="why-shader-participation-is-required"><span class="header-section-number">2.8.1</span> Why shader participation is required</h3>
+<p>The opaque composite happens before URP transparencies. After normal transparency blending, a renderer feature no longer knows each transparent fragment’s surface depth, radiance, alpha convention, or ordering. A correct result therefore requires the transparent shader to sample Nebula at its own positive eye depth.</p>
+<p>A post-transparent fullscreen pass would fog all transparent layers at opaque depth. A transparent depth prepass would represent only one layer and still require compatible material passes. Nebula deliberately uses shader participation instead of those approximations.</p>
+</section>
+<section id="included-shaders" class="level3" data-number="2.8.2">
+<h3 data-number="2.8.2" class="anchored" data-anchor-id="included-shaders"><span class="header-section-number">2.8.2</span> Included shaders</h3>
+<p><code>Nebula/Transparent Lit Fog</code> is a URP Lit-compatible transparent shader with Metallic or Specular workflows, standard Lit surface inputs, details, emission, and shadows. It always participates in Nebula fog and supports:</p>
+<ul>
+<li>Straight-alpha blending</li>
+<li>Premultiplied-alpha blending</li>
+<li>Additive blending</li>
+</ul>
+<p>Materials are always transparent. Multiply is migrated to Alpha, and Preserve Specular is always disabled so alpha-zero fragments remain a framebuffer no-op. The shader omits motion-vector passes and does not implement refraction or arbitrary scene-color sampling. It is not guaranteed to match stock URP Lit for every custom transparent material.</p>
+<p>The Inspector normalizes legacy Opaque materials to Transparent and Multiply to Alpha when editing or assigning the shader. Other supported blend modes, textures, and detail scales are preserved. The old per-material fog toggle is ignored.</p>
+<p><code>Nebula/Transparent Unlit Fog</code> is a minimal straight-alpha helper with a base color and fixed transparent render state.</p>
+</section>
+<section id="blend-formulas" class="level3" data-number="2.8.3">
+<h3 data-number="2.8.3" class="anchored" data-anchor-id="blend-formulas"><span class="header-section-number">2.8.3</span> Blend formulas</h3>
+<p>The shared include returns in-scattering <code>L</code> and transmittance <code>T</code>. Apply them before the material’s framebuffer blend using the matching convention:</p>
+<pre class="text"><code>Straight alpha:      L + T * rgb
+Premultiplied alpha: alpha * L + T * premultipliedRgb
+Additive:            T * rgb</code></pre>
+<p>Fog changes RGB while preserving material alpha. The shared API is in <code>Nebula_TransparentFog.hlsl</code>:</p>
+<pre class="hlsl"><code>NebulaTransparentFogSample fog;
+if (Nebula_SampleTransparentFog(input.positionCS, input.positionWS, fog))
+{
+    color = Nebula_ApplyTransparentFogStraightAlpha(color, fog);
+}</code></pre>
+<p>Use <code>Nebula_ApplyTransparentFogPremultiplied</code> or <code>Nebula_ApplyTransparentFogAdditive</code> for the other conventions. Sampling safely returns no fog when publication is invalid, the fragment depth is invalid, or the fragment lies outside the published camera viewport.</p>
+</section>
+<section id="shader-graph" class="level3" data-number="2.8.4">
+<h3 data-number="2.8.4" class="anchored" data-anchor-id="shader-graph"><span class="header-section-number">2.8.4</span> Shader Graph</h3>
+<p>Use <strong>Nebula/Transparent/Nebula Transparent Fog</strong> for custom transparent URP Unlit Shader Graphs and other graphs where Base Color is the final framebuffer RGB. The subgraph accepts straight, scene-linear <strong>Color</strong> and <strong>Alpha</strong>, samples Nebula once, and provides four outputs:</p>
+<ul>
+<li><strong>Straight Alpha RGB</strong> for the Alpha blend mode.</li>
+<li><strong>Premultiplied RGB</strong> for the Premultiply blend mode. The subgraph performs the premultiplication.</li>
+<li><strong>Additive RGB</strong> for the Additive blend mode.</li>
+<li><strong>Alpha</strong>, which must be connected to the fragment Alpha block.</li>
+</ul>
+<p>Set the graph Surface Type to <strong>Transparent</strong>, select the matching blend mode, connect its matching RGB output to Base Color, and keep <strong>Enable Transparent Fog</strong> enabled on the Nebula renderer feature. Multiply is unsupported. When Nebula publication is unavailable, straight-alpha and additive colors pass through unchanged, while the premultiplied output still performs the premultiplication required by URP.</p>
+<p>The standard URP Lit target evaluates a subgraph before its final lighting, reflections, and specular contribution exist. Unity 6000.0 does not expose a public post-lighting Shader Graph extension point, so the subgraph cannot fog a Lit graph exactly. Use <code>Nebula/Transparent Lit Fog</code> for Lit materials. Do not connect the subgraph to Lit surface inputs as an approximation.</p>
+<p>Transparent publication adds one integrated 3D volume sample per participating fragment. It does not add a camera-color copy, fullscreen pass, persistent transparent texture, GPU readback, or steady-state managed allocation.</p>
+</section>
+</section>
+<section id="quality-and-performance" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="quality-and-performance"><span class="header-section-number">2.9</span> Quality and performance</h2>
+<section id="fixed-quality-tiers" class="level3" data-number="2.9.1">
+<h3 data-number="2.9.1" class="anchored" data-anchor-id="fixed-quality-tiers"><span class="header-section-number">2.9.1</span> Fixed quality tiers</h3>
+<p>A fixed preset applies the same tier index to all four grouped controls. Behavior toggles such as additional lights or temporal reprojection are preserved.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tier</th>
+<th style="text-align: right;">Froxel pixels</th>
+<th style="text-align: right;">Depth slices</th>
+<th>Close / near / middle / far samples</th>
+<th style="text-align: right;">Jitter frames</th>
+<th style="text-align: right;">History-miss samples</th>
+<th style="text-align: right;">Non-temporal cap</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Very Low</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">32</td>
+<td>1 / 1 / 1 / 1</td>
+<td style="text-align: right;">1024</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>Low</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">64</td>
+<td>1 / 1 / 1 / 1</td>
+<td style="text-align: right;">1024</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td>Medium</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">64</td>
+<td>2 / 1 / 1 / 1</td>
+<td style="text-align: right;">1024</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>High</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">96</td>
+<td>2 / 2 / 1 / 1</td>
+<td style="text-align: right;">1024</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td>Very High</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">96</td>
+<td>4 / 2 / 1 / 1</td>
+<td style="text-align: right;">1024</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+</tr>
+</tbody>
+</table>
+<p>At 1920x1080, these grids contain approximately 0.26, 0.92, 2.07, 3.11, and 5.53 million froxels. Render scale and camera resolution change those totals directly.</p>
+<p>When temporal reconstruction is enabled, normal current scattering uses one spatial sample per froxel; the temporal tier controls jitter and history-miss supersampling. When temporal reconstruction is disabled, each depth band uses the lesser of its Froxel Sampling target and the Temporal Sampling non-temporal cap.</p>
+</section>
+<section id="cluster-tiers" class="level3" data-number="2.9.2">
+<h3 data-number="2.9.2" class="anchored" data-anchor-id="cluster-tiers"><span class="header-section-number">2.9.2</span> Cluster tiers</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tier</th>
+<th style="text-align: right;">Cluster tile</th>
+<th style="text-align: right;">Cluster depth</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Very Low</td>
+<td style="text-align: right;">64 px</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td>Low</td>
+<td style="text-align: right;">48 px</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td>Medium</td>
+<td style="text-align: right;">32 px</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="even">
+<td>High</td>
+<td style="text-align: right;">24 px</td>
+<td style="text-align: right;">24</td>
+</tr>
+<tr class="odd">
+<td>Very High</td>
+<td style="text-align: right;">16 px</td>
+<td style="text-align: right;">32</td>
+</tr>
+</tbody>
+</table>
+<p>Finer clusters can reduce light and fog evaluation per froxel but increase CPU cluster construction, reference storage, and GPU buffer memory. The best tier depends on contributor density, not only screen resolution.</p>
+</section>
+<section id="memory-behavior" class="level3" data-number="2.9.3">
+<h3 data-number="2.9.3" class="anchored" data-anchor-id="memory-behavior"><span class="header-section-number">2.9.3</span> Memory behavior</h3>
+<p>The dominant resources are half-float 3D textures:</p>
+<ul>
+<li>Current or resolved scattering/extinction: RGBA16F at froxel dimensions.</li>
+<li>Integrated fog: RGBA16F with one extra depth boundary.</li>
+<li>Temporal history: two persistent RGBA16F 3D textures per active Game-camera history.</li>
+<li>Conservative depth: one transient R32F 2D texture at froxel XY dimensions when enabled.</li>
+<li>Terrain fitting: two persistent R32F 2D textures shared by all cameras when a terrain-relative fog consumes them.</li>
+</ul>
+<p>Scattering scene attributes use 16 bytes per additional light, 144 bytes per local fog, and 64 bytes per responsive light. Topology uses a 16-byte header, four bytes per global index and assignment, and eight bytes per cluster for each active light, fog, or responsive-light stream. A scene without global indices or active cluster streams uploads only the header. Staging and GPU capacity remain at their observed high-water mark, while each upload uses only the current compact logical length.</p>
+<p>Temporal history is absent when temporal reconstruction is off. Transparent publication retains the integrated texture later into the frame but does not create a persistent copy. Backend alignment, aliasing, and driver allocation can differ from Nebula’s logical estimates.</p>
+</section>
+<section id="tuning-order" class="level3" data-number="2.9.4">
+<h3 data-number="2.9.4" class="anchored" data-anchor-id="tuning-order"><span class="header-section-number">2.9.4</span> Tuning order</h3>
+<p>For a GPU-bound target, tune in this order:</p>
+<ol type="1">
+<li>Lower Froxel Resolution; it has the broadest effect on compute and 3D memory.</li>
+<li>Reduce Maximum Distance if the game does not need long-range fog.</li>
+<li>Keep temporal reconstruction enabled and choose an appropriate Temporal Sampling tier.</li>
+<li>Disable features the content does not use: transparent publication, additional lights, cookies, local volumes, conservative depth, global/local noise, or optional rejection. With both noise sources inactive, the noise code is absent from the selected compute-shader variant.</li>
+<li>Tune Cluster Granularity against the real light and local-fog population.</li>
+<li>Profile the shipping camera resolution, render scale, graphics API, and physical device.</li>
+</ol>
+<p>Nebula never silently drops quality to meet a budget. Missing core capabilities or invalid core configuration skip the frame safely. Unsupported optional stages and unavailable camera history use the effective fallback configuration and expose exact degradation flags through development diagnostics.</p>
+</section>
+</section>
+<section id="scripting-manual" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="scripting-manual"><span class="header-section-number">2.10</span> Scripting manual</h2>
+<section id="namespace-and-lifecycle" class="level3" data-number="2.10.1">
+<h3 data-number="2.10.1" class="anchored" data-anchor-id="namespace-and-lifecycle"><span class="header-section-number">2.10.1</span> Namespace and lifecycle</h3>
+<p>Add <code>using Zal.Nebula;</code>. Nebula components follow normal Unity enable/disable and Volume lifecycle rules. Static registries and temporal requests reset at <code>RuntimeInitializeLoadType.SubsystemRegistration</code>, so entering Play mode starts clean even when domain reload is disabled.</p>
+<p>Scripts should supply finite, in-range data. Global Volume settings are corrected to safe frame values, whereas an invalid local fog or light contributor can be ignored. The null checks in the examples are necessary because each referenced component or profile entry is optional configuration supplied through the Inspector.</p>
+</section>
+<section id="change-global-volume-parameters" class="level3" data-number="2.10.2">
+<h3 data-number="2.10.2" class="anchored" data-anchor-id="change-global-volume-parameters"><span class="header-section-number">2.10.2</span> Change global Volume parameters</h3>
+<p>Use <code>Volume.profile</code> when a scene instance needs runtime-owned parameter values. Accessing <code>profile</code> creates the normal Unity runtime instance instead of modifying the shared project asset.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> UnityEngine<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> UnityEngine<span class="op">.</span><span class="fu">Rendering</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">Nebula</span><span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">[</span><span class="fu">RequireComponent</span><span class="op">(</span><span class="kw">typeof</span><span class="op">(</span>Volume<span class="op">))]</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">sealed</span> <span class="kw">class</span> NebulaVolumeController <span class="op">:</span> MonoBehaviour</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    VolumetricLightingVolumeComponent _settings<span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">Awake</span><span class="op">()</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> volume <span class="op">=</span> GetComponent<span class="op">&lt;</span>Volume<span class="op">&gt;();</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        volume<span class="op">.</span><span class="fu">profile</span><span class="op">.</span><span class="fu">TryGet</span><span class="op">(</span><span class="kw">out</span> _settings<span class="op">);</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">SetExtinction</span><span class="op">(</span><span class="dt">float</span> extinction<span class="op">)</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>_settings <span class="op">==</span> <span class="kw">null</span> <span class="op">||</span> <span class="op">!</span><span class="dt">float</span><span class="op">.</span><span class="fu">IsFinite</span><span class="op">(</span>extinction<span class="op">))</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span><span class="op">;</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        _settings<span class="op">.</span><span class="fu">GlobalExtinction</span><span class="op">.</span><span class="fu">Override</span><span class="op">(</span>Mathf<span class="op">.</span><span class="fu">Max</span><span class="op">(</span><span class="dv">0</span>f<span class="op">,</span> extinction<span class="op">));</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">SetMaximumDistance</span><span class="op">(</span><span class="dt">float</span> distance<span class="op">)</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>_settings <span class="op">==</span> <span class="kw">null</span> <span class="op">||</span> <span class="op">!</span><span class="dt">float</span><span class="op">.</span><span class="fu">IsFinite</span><span class="op">(</span>distance<span class="op">))</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span><span class="op">;</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>        _settings<span class="op">.</span><span class="fu">MaxDistance</span><span class="op">.</span><span class="fu">Override</span><span class="op">(</span>Mathf<span class="op">.</span><span class="fu">Max</span><span class="op">(</span><span class="dt">float</span><span class="op">.</span><span class="fu">Epsilon</span><span class="op">,</span> distance<span class="op">));</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>VolumetricLightingVolumeComponent</code> exposes these public Volume parameters:</p>
+<ul>
+<li><code>Enabled</code></li>
+<li><code>Intensity</code></li>
+<li><code>GlobalExtinction</code></li>
+<li><code>DensityInLight</code></li>
+<li><code>DensityInShadow</code></li>
+<li><code>LitColor</code></li>
+<li><code>ShadowedColor</code></li>
+<li><code>ColorInfluence</code></li>
+<li><code>GlobalAlbedo</code></li>
+<li><code>GlobalEmissionColor</code></li>
+<li><code>ScatteringDistribution</code></li>
+<li><code>StartDistance</code></li>
+<li><code>NearFadeDistance</code></li>
+<li><code>MaxDistance</code></li>
+<li><code>UseGlobalHeightAttenuation</code></li>
+<li><code>FogHeightProfile</code></li>
+<li><code>FogHeightReference</code></li>
+<li><code>FogTerrainFallback</code></li>
+<li><code>FogMinHeight</code></li>
+<li><code>FogMaxHeight</code></li>
+<li><code>FogHeightAttenuationFactor</code></li>
+<li><code>FogBaseHeight</code></li>
+<li><code>FogAttenuationDistance</code></li>
+<li><code>UseGlobalNoiseAttenuation</code></li>
+<li><code>FogNoiseFrequency</code></li>
+<li><code>FogNoiseWindDirection</code></li>
+<li><code>FogNoiseWindStrength</code></li>
+</ul>
+<p>Call <code>Override(value)</code> or set both <code>.value</code> and <code>.overrideState</code> according to the intended Unity Volume behavior. <code>IsActive()</code> returns the current <code>Enabled.value</code>.</p>
+</section>
+<section id="control-a-local-fog-prefab" class="level3" data-number="2.10.3">
+<h3 data-number="2.10.3" class="anchored" data-anchor-id="control-a-local-fog-prefab"><span class="header-section-number">2.10.3</span> Control a local fog prefab</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> UnityEngine<span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">Nebula</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">sealed</span> <span class="kw">class</span> LocalFogController <span class="op">:</span> MonoBehaviour</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">[</span>SerializeField<span class="op">]</span> VolumetricFog _fog<span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">SetDensity</span><span class="op">(</span><span class="dt">float</span> density<span class="op">)</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>_fog <span class="op">==</span> <span class="kw">null</span> <span class="op">||</span> <span class="op">!</span><span class="dt">float</span><span class="op">.</span><span class="fu">IsFinite</span><span class="op">(</span>density<span class="op">))</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span><span class="op">;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        _fog<span class="op">.</span><span class="fu">Density</span> <span class="op">=</span> Mathf<span class="op">.</span><span class="fu">Max</span><span class="op">(</span><span class="dv">0</span>f<span class="op">,</span> density<span class="op">);</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">SetBoundaryFade</span><span class="op">(</span><span class="dt">float</span> fade<span class="op">)</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>_fog <span class="op">==</span> <span class="kw">null</span> <span class="op">||</span> <span class="op">!</span><span class="dt">float</span><span class="op">.</span><span class="fu">IsFinite</span><span class="op">(</span>fade<span class="op">))</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span><span class="op">;</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>        _fog<span class="op">.</span><span class="fu">BoundaryFade</span> <span class="op">=</span> Mathf<span class="op">.</span><span class="fu">Clamp01</span><span class="op">(</span>fade<span class="op">);</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">SetExcluded</span><span class="op">(</span><span class="dt">bool</span> excluded<span class="op">)</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>_fog <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>            _fog<span class="op">.</span><span class="fu">Excluded</span> <span class="op">=</span> excluded<span class="op">;</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>VolumetricFog</code> exposes public get/set properties for every Inspector control: <code>Color</code>, <code>EmissionColor</code>, <code>Density</code>, <code>BlendMode</code>, <code>BlendPriority</code>, <code>Shape</code>, <code>BoundaryFade</code>, <code>RadialFadeStart</code>, <code>UseHeightAttenuation</code>, <code>HeightProfile</code>, <code>HeightReference</code>, <code>TerrainFallback</code>, <code>MinimumHeight</code>, <code>MaximumHeight</code>, <code>HeightAttenuationFactor</code>, <code>BaseHeight</code>, <code>AttenuationDistance</code>, <code>UseNoiseAttenuation</code>, <code>NoiseFrequency</code>, <code>NoiseWindDirection</code>, <code>NoiseWindStrength</code>, <code>OverrideScatteringDistribution</code>, <code>ScatteringDistribution</code>, and <code>Excluded</code>.</p>
+<p><code>FogTerrainHeightField</code> exposes its selected <code>Terrains</code>, the <code>Resolution</code>, the current typed <code>Error</code>, <code>SetTerrains</code>, and <code>RequestRefresh</code>. <code>SetTerrains</code> returns an empty <code>Optional&lt;TerrainHeightFieldError&gt;</code> on success. Passing a null array returns <code>InvalidConfiguration</code> and preserves the previous selection.</p>
+</section>
+<section id="customize-a-realtime-light" class="level3" data-number="2.10.4">
+<h3 data-number="2.10.4" class="anchored" data-anchor-id="customize-a-realtime-light"><span class="header-section-number">2.10.4</span> Customize a realtime light</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> UnityEngine<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">Nebula</span><span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">[</span><span class="fu">RequireComponent</span><span class="op">(</span><span class="kw">typeof</span><span class="op">(</span>Light<span class="op">))]</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">sealed</span> <span class="kw">class</span> VolumetricLightController <span class="op">:</span> MonoBehaviour</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    VolumetricRealtimeLight _volumetricLight<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">Awake</span><span class="op">()</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        _volumetricLight <span class="op">=</span> VolumetricRealtimeLight<span class="op">.</span><span class="fu">GetForLight</span><span class="op">(</span>GetComponent<span class="op">&lt;</span>Light<span class="op">&gt;());</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">SetResponse</span><span class="op">(</span><span class="dt">float</span> scatteringIntensity<span class="op">,</span> <span class="dt">float</span> temporalResponsiveness<span class="op">)</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>_volumetricLight <span class="op">==</span> <span class="kw">null</span><span class="op">)</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span><span class="op">;</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        _volumetricLight<span class="op">.</span><span class="fu">VolumetricScatteringIntensity</span> <span class="op">=</span> scatteringIntensity<span class="op">;</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        _volumetricLight<span class="op">.</span><span class="fu">TemporalResponsiveness</span> <span class="op">=</span> temporalResponsiveness<span class="op">;</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>GetForLight</code> returns the registered marker for that exact Light or <code>null</code> when none exists. Use a prefab containing both components when the customized light is repeated.</p>
+</section>
+<section id="change-quality-at-runtime" class="level3" data-number="2.10.5">
+<h3 data-number="2.10.5" class="anchored" data-anchor-id="change-quality-at-runtime"><span class="header-section-number">2.10.5</span> Change quality at runtime</h3>
+<p>Assign the renderer-feature subasset to a serialized reference. A preset changes shared renderer behavior for every camera using that renderer data.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> UnityEngine<span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">Nebula</span><span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">sealed</span> <span class="kw">class</span> NebulaQualityController <span class="op">:</span> MonoBehaviour</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">[</span>SerializeField<span class="op">]</span> VolumetricLightingRendererFeature _feature<span class="op">;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">ApplyMobileQuality</span><span class="op">(</span><span class="dt">bool</span> higherQuality<span class="op">)</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>_feature <span class="op">==</span> <span class="kw">null</span><span class="op">)</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span><span class="op">;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        _feature<span class="op">.</span><span class="fu">ApplyPreset</span><span class="op">(</span>higherQuality</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>            <span class="op">?</span> NebulaQualityPreset<span class="op">.</span><span class="fu">Low</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>            <span class="op">:</span> NebulaQualityPreset<span class="op">.</span><span class="fu">VeryLow</span><span class="op">);</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>QualityPreset</code> reports the current preset label. <code>ApplyPreset</code> accepts VeryLow, Low, Medium, High, VeryHigh, or Custom. An invalid enum value falls back to Medium. Fixed presets apply all grouped quality values; Custom preserves the existing group values.</p>
+</section>
+<section id="reset-temporal-history" class="level3" data-number="2.10.6">
+<h3 data-number="2.10.6" class="anchored" data-anchor-id="reset-temporal-history"><span class="header-section-number">2.10.6</span> Reset temporal history</h3>
+<p>Request a reset after an application-defined camera teleport, discontinuous world-origin change, or other change that Nebula cannot infer from normal camera metadata:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> UnityEngine<span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">Nebula</span><span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">sealed</span> <span class="kw">class</span> NebulaCameraCut <span class="op">:</span> MonoBehaviour</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">[</span>SerializeField<span class="op">]</span> Camera _camera<span class="op">;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">NotifyCameraCut</span><span class="op">()</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        VolumetricLightingRendererFeature<span class="op">.</span><span class="fu">ResetTemporalHistory</span><span class="op">(</span>_camera<span class="op">);</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The request is consumed by that camera’s next temporal frame. Repeated requests coalesce, stale camera references are pruned, and passing <code>null</code> safely does nothing. URP’s <code>UniversalAdditionalCameraData.resetHistory</code> is also honored.</p>
+</section>
+<section id="froxel-pixel-helper" class="level3" data-number="2.10.7">
+<h3 data-number="2.10.7" class="anchored" data-anchor-id="froxel-pixel-helper"><span class="header-section-number">2.10.7</span> Froxel pixel helper</h3>
+<p><code>VolumetricLightingRendererFeature.GetFroxelSizePixels(NebulaFroxelPixelSize value)</code> returns 2, 4, 6, 8, 12, or 16 for a supported enum value and defaults to 8 for an invalid value. The fixed renderer presets use 6, 8, 12, and 16; 2 and 4 remain public for calculations and custom/internal configurations.</p>
+</section>
+<section id="public-enums" class="level3" data-number="2.10.8">
+<h3 data-number="2.10.8" class="anchored" data-anchor-id="public-enums"><span class="header-section-number">2.10.8</span> Public enums</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Enum</th>
+<th>Values and use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>NebulaQualityPreset</code></td>
+<td>VeryLow, Low, Medium, High, VeryHigh, Custom; used by the public preset API.</td>
+</tr>
+<tr class="even">
+<td><code>NebulaFroxelResolutionQuality</code></td>
+<td>VeryLow through VeryHigh; serialized renderer resolution group.</td>
+</tr>
+<tr class="odd">
+<td><code>NebulaFroxelSamplingQuality</code></td>
+<td>VeryLow through VeryHigh; serialized renderer spatial-sampling group.</td>
+</tr>
+<tr class="even">
+<td><code>NebulaTemporalSamplingQuality</code></td>
+<td>VeryLow through VeryHigh; serialized renderer temporal-sampling group.</td>
+</tr>
+<tr class="odd">
+<td><code>NebulaClusterGranularity</code></td>
+<td>VeryLow through VeryHigh; serialized renderer clustering group.</td>
+</tr>
+<tr class="even">
+<td><code>NebulaFroxelPixelSize</code></td>
+<td>Pixels2, Pixels4, Pixels6, Pixels8, Pixels12, Pixels16; used by the pixel-size helper.</td>
+</tr>
+<tr class="odd">
+<td><code>NebulaDepthDistributionMode</code></td>
+<td>Logarithmic, Quadratic; serialized depth mapping.</td>
+</tr>
+<tr class="even">
+<td><code>NebulaFogHeightProfile</code></td>
+<td>Bounded, Exponential; vertical density profile.</td>
+</tr>
+<tr class="odd">
+<td><code>NebulaFogHeightReference</code></td>
+<td>World, Terrain; vertical reference surface.</td>
+</tr>
+<tr class="even">
+<td><code>NebulaFogTerrainFallback</code></td>
+<td>SuppressFog, UseWorldHeight; behavior without a valid ground sample.</td>
+</tr>
+<tr class="odd">
+<td><code>NebulaTerrainHeightFieldResolution</code></td>
+<td>Resolution256, Resolution512, Resolution1024, Resolution2048; longest-axis field resolution.</td>
+</tr>
+<tr class="even">
+<td><code>TerrainHeightFieldErrorCode</code></td>
+<td>MissingProvider, DuplicateProvider, MissingTerrain, InvalidConfiguration, UnsupportedGraphicsFormat, ResourceFailure.</td>
+</tr>
+<tr class="odd">
+<td><code>VolumetricFogShape</code></td>
+<td>Box, Ellipsoid; local fog shape.</td>
+</tr>
+<tr class="even">
+<td><code>VolumetricFogBlendMode</code></td>
+<td>Additive, Replacing; local medium composition.</td>
+</tr>
+<tr class="odd">
+<td><code>NebulaDebugMode</code></td>
+<td>None and the development visualization modes listed above.</td>
+</tr>
+</tbody>
+</table>
+<p>The grouped renderer settings are serialized private fields. Only the complete preset has a public runtime setter; do not use reflection or serialized-editor APIs as a player-side workaround for individual groups.</p>
+</section>
+</section>
+<section id="diagnostics-and-profiling" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="diagnostics-and-profiling"><span class="header-section-number">2.11</span> Diagnostics and profiling</h2>
+<section id="rendering-debugger" class="level3" data-number="2.11.1">
+<h3 data-number="2.11.1" class="anchored" data-anchor-id="rendering-debugger"><span class="header-section-number">2.11.1</span> Rendering Debugger</h3>
+<p>In the Editor and diagnostic Development builds, open <strong>Window &gt; Analysis &gt; Rendering Debugger &gt; Nebula</strong>. The panel is the authoritative structured view of Nebula’s latest frame attempt for each camera.</p>
+<p>Its sections include:</p>
+<ul>
+<li><strong>Controls</strong>: select camera/feature entries, retain successful snapshots, capture temporal statistics, override debug visualization, and reset selected camera history.</li>
+<li><strong>Frame</strong>: recorded/skipped outcome, skip reason, structured error, degradation flags, corrected settings, temporal path, history validity/reset reason, texture roles, jitter, and statistics.</li>
+<li><strong>Configuration</strong>: active global attenuation, typed global emission correction, local feature gates, and other frame behavior.</li>
+<li><strong>Scene Data</strong>: registered, visible, accepted, excluded, invalid, and unsupported lights and fogs, including the accepted noisy-fog count used to select the noise shader variant and a typed local emission correction.</li>
+<li><strong>Layout</strong>: froxel and cluster dimensions, formats, and memory estimate.</li>
+<li><strong>Profiling A/B Controls</strong>: development-only isolation toggles for fog, density, lights, shadows, cookies, local volumes, global and local noise together, temporal work, transparent publication, async compute, history, and jitter.</li>
+</ul>
+<p>Successful diagnostic payloads are discarded unless capture is requested. Large scratch data is retained only when needed. Diagnostic UI, debug rendering, statistics, history probes, and snapshot retention are absent from release players.</p>
+</section>
+<section id="unity-profiler" class="level3" data-number="2.11.2">
+<h3 data-number="2.11.2" class="anchored" data-anchor-id="unity-profiler"><span class="header-section-number">2.11.2</span> Unity Profiler</h3>
+<p>Open <strong>Window &gt; Analysis &gt; Profiler</strong> and enable the <strong>Nebula Fog</strong> module. Its headline chart shows:</p>
+<ul>
+<li>CPU</li>
+<li>GPU</li>
+<li>Froxels</li>
+<li>Memory</li>
+</ul>
+<p>The details view breaks down prepare/graph CPU work, delayed GPU prepare/resolve work, workload drivers, warnings, logical memory, and active configuration. Recording in the Unity Profiler automatically enables Nebula’s timing samplers; stopping recording disables the additional sampler recording.</p>
+<p>GPU values come from delayed <code>ProfilingSampler</code> recorders. Nebula does not perform a synchronous GPU readback for timing, so a newly selected frame can report that GPU timing is not yet available. The CPU and GPU Usage modules remain the detailed timeline sources; search for <code>Nebula.</code> CPU roots and <code>Nebula Fog / GPU /</code> samples.</p>
+<p>Unity’s <code>ENABLE_PROFILER</code> controls profiler markers, counters, aggregation, and the custom module independently of development diagnostics. The four combinations of diagnostics and profiler compilation are supported; neither publication path depends on the other.</p>
+</section>
+</section>
+<section id="troubleshooting" class="level2" data-number="2.12">
+<h2 data-number="2.12" class="anchored" data-anchor-id="troubleshooting"><span class="header-section-number">2.12</span> Troubleshooting</h2>
+<section id="frame-is-not-recorded" class="level3" data-number="2.12.1">
+<h3 data-number="2.12.1" class="anchored" data-anchor-id="frame-is-not-recorded"><span class="header-section-number">2.12.1</span> Frame is not recorded</h3>
+<p>Inspect <strong>Rendering Debugger &gt; Nebula &gt; Frame</strong> and resolve the reported cause:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cause</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Missing renderer feature</td>
+<td>Add Nebula to the renderer data actually used by the camera.</td>
+</tr>
+<tr class="even">
+<td>Missing Shader Data or invalid render resource</td>
+<td>Reimport Nebula and ensure all packaged shaders and materials import successfully. New renderer features assign the provided Shader Data automatically.</td>
+</tr>
+<tr class="odd">
+<td>Missing or inactive Volume component</td>
+<td>Add Volumetric Lighting to the blended profile, override Enabled, and turn it on.</td>
+</tr>
+<tr class="even">
+<td>Unsupported camera or Overlay Camera</td>
+<td>Use a base Game camera or Scene view. Render overlay-only content with an explicitly supported strategy.</td>
+</tr>
+<tr class="odd">
+<td>Unsupported XR</td>
+<td>Use a non-XR camera; the current implementation does not claim XR support.</td>
+</tr>
+<tr class="even">
+<td>Unsupported compute, sampled 3D texture, 3D RenderTexture, core format, or color blend</td>
+<td>Use a supported device and graphics API. Optional R32F and R16F limitations appear as degradations instead of skips.</td>
+</tr>
+<tr class="odd">
+<td>Invalid frame configuration</td>
+<td>Check camera clip planes, Start/Maximum Distance, resolution, froxel dimensions, and finite settings.</td>
+</tr>
+</tbody>
+</table>
+<p>If fog renders without an optional stage, inspect <strong>Degradations</strong> in the Frame section. Missing or duplicate camera history selects non-temporal rendering; unsupported R32F disables conservative depth; unsupported R16F reduces reference history-miss sampling and omits responsive-light volumes. <code>TerrainHeightFieldUnavailable</code> applies each terrain-relative fog’s selected missing-terrain behavior.</p>
+</section>
+<section id="fog-appearance-is-wrong" class="level3" data-number="2.12.2">
+<h3 data-number="2.12.2" class="anchored" data-anchor-id="fog-appearance-is-wrong"><span class="header-section-number">2.12.2</span> Fog appearance is wrong</h3>
+<ul>
+<li>Excessive haze: lower Global Fog Density, reduce Maximum Distance, add Near Fade Distance, or adjust global height/noise settings.</li>
+<li>Dim or black fog: verify Scattering Intensity, Global Scattering Albedo, light visibility, light color/intensity, shadows, exposure, and emission RGB/density when using emissive fog.</li>
+<li>Weak shafts: use a positive Scattering Distribution, suitable shadowed lighting, and sufficient depth resolution.</li>
+<li>Local-light source flicker: raise Inverse Squared Light Distance Bias Scale, then raise the history weights for static content if residual temporal variance remains.</li>
+<li>Surface leaks: enable Conservative Depth and tune Surface Depth Bias.</li>
+<li>Temporal trails: raise light responsiveness, enable the relevant rejection control, or explicitly reset history after a discontinuity.</li>
+<li>Local volume does not appear: validate its transform determinant, camera layers, color, nonnegative density, fades, height/noise ranges, Excluded state, and renderer local-volume toggle.</li>
+<li>Terrain-relative fog is missing: enable exactly one <code>FogTerrainHeightField</code>, assign valid Terrain tiles, inspect its typed error and the Rendering Debugger degradation, then verify the selected missing-terrain behavior.</li>
+<li>Replacing volumes produce surprising overlap: assign unique Blend Priority values and check boundary/radial influence.</li>
+<li>Transparent material stays unfogged: use a participating shader, enable its material toggle when applicable, choose a supported blend mode, and enable renderer publication.</li>
+</ul>
+</section>
+<section id="graphics-api-compatibility" class="level3" data-number="2.12.3">
+<h3 data-number="2.12.3" class="anchored" data-anchor-id="graphics-api-compatibility"><span class="header-section-number">2.12.3</span> Graphics API compatibility</h3>
+<p>Remove unsupported graphics APIs from the build target. For Android OpenGL ES, enable the Player setting that requires ES 3.1. Build and test each intended backend separately; a desktop import does not prove Metal or mobile OpenGL ES execution.</p>
+</section>
+<section id="compute-shader-variants-in-builds" class="level3" data-number="2.12.4">
+<h3 data-number="2.12.4" class="anchored" data-anchor-id="compute-shader-variants-in-builds"><span class="header-section-number">2.12.4</span> Compute shader variants in builds</h3>
+<p>Nebula strips scattering variants that the project’s saved URP configurations cannot use. It considers all saved URP assets as well as the build’s Graphics and Quality settings, so switching between saved pipeline assets and activating renderer features at runtime remains supported. Features enabled only by creating or modifying pipeline capabilities at runtime must also be represented in a saved pipeline configuration, as with URP’s own shader stripping. Standalone AssetBundle builds retain configuration-dependent variants because their destination player may use a different pipeline configuration. Platform-specific stripping still removes keyword states that URP does not select, including separate static soft-shadow quality states on macOS.</p>
+</section>
+</section>
+<section id="current-limitations" class="level2" data-number="2.13">
+<h2 data-number="2.13" class="anchored" data-anchor-id="current-limitations"><span class="header-section-number">2.13</span> Current limitations</h2>
+<ul>
+<li>XR is unsupported.</li>
+<li>Camera-stack overlay cameras do not run Nebula.</li>
+<li>Only Directional, Point, and Spot lights contribute.</li>
+<li>Stock URP transparent shaders do not receive depth-correct Nebula fog.</li>
+<li>Multiply transparent blending, general refraction, and arbitrary scene-color transparent shaders require separate integration.</li>
+<li>The included transparent Lit shader omits motion-vector passes.</li>
+<li>Physical mobile and cross-version qualification remains incomplete; the repository’s mobile renderer is not configured with Nebula.</li>
+<li>Individual quality groups have no public player-side setter; the supported runtime API applies complete presets.</li>
+<li>Terrain fitting supports explicitly selected, axis-aligned, unscaled Unity Terrain tiles. Mesh ground capture and baked height-field assets are not provided.</li>
+</ul>
+</section>
+<section id="lit-and-shadow-density-1" class="level2" data-number="2.14">
+<h2 data-number="2.14" class="anchored" data-anchor-id="lit-and-shadow-density-1"><span class="header-section-number">2.14</span> Lit and shadow density</h2>
+<p>The Volume parameters <code>DensityInLight</code> and <code>DensityInShadow</code> are nonnegative multipliers, both defaulting to 1. They blend with Volume weights and affect the composed global and local medium, including additive and replacing local fog. A multiplier of 0 removes extinction, scattering, and emission in the corresponding region; values above 1 increase density. Fog albedo and anisotropy remain intact.</p>
+<p>Main-light shadow visibility and cookie coverage interpolate between shadow and lit density. Soft shadows and shadow-distance fade produce gradual transitions. RGB cookies use alpha as coverage; alpha cookies use alpha and red-channel cookies use red. RGB tint and light brightness do not classify fog as shadowed. Disabling cookie sampling makes cookie coverage fully visible; disabling main shadows makes shadow visibility fully visible. An absent, excluded, or camera-filtered main light leaves density unchanged. Additional lights do not classify density, but their scattering is affected by the resulting medium.</p>
+<p>Use <code>Intensity</code> to change incident-light scattering brightness independently of density and emission. Changes to these density controls use the existing scattering and extinction temporal response settings. Nonfinite values reaching frame resolution revert to 1 and are reported through the existing corrected-settings diagnostics.</p>
+</section>
+<section id="lit-and-shadow-colors-1" class="level2" data-number="2.15">
+<h2 data-number="2.15" class="anchored" data-anchor-id="lit-and-shadow-colors-1"><span class="header-section-number">2.15</span> Lit and shadow colors</h2>
+<p><code>LitColor</code>, <code>ShadowedColor</code>, and <code>ColorInfluence</code> are blended Volume parameters. The colors accept finite, nonnegative HDR linear RGB values and ignore alpha. <code>ColorInfluence</code> defaults to 0 and is clamped to the range from 0 to 1. At zero, the normal ambient, main-light, and additional-light scattering calculation is unchanged.</p>
+<p>Malformed serialized RGB or influence values disable artistic fog coloring and report the precise validation error in the Renderer Debugger and Nebula log.</p>
+<p>When a participating main light exists, its shadow visibility and cookie coverage choose the blend between shadowed and lit artistic colors. At full influence, the result replaces all incident lighting, including additional-light contributions and anisotropic phase lighting. It still multiplies the composed global/local scattering coefficient, so albedo, extinction, additive fog, and replacing fog keep their normal behavior. Artistic fog coloring does not modify emission.</p>
+<p>An absent, excluded, invalid, or camera-filtered main light bypasses artistic colors. Additional lights never choose the lit/shadowed state. Soft shadows, shadow-distance fading, and cookie coverage produce continuous color changes. Smooth Volume changes use the existing temporal reconstruction. Call <code>VolumetricLightingRendererFeature.ResetTemporalHistory(camera)</code> before an abrupt scripted color cut when the existing temporal transition is not appropriate.</p>
+</section>
+</section>
+
+<section class="sample-guides" aria-label="Sample guides"><h2>Sample guides</h2><ul><li><a href="/docs/nebula/Samples/Demo/index.html">Nebula Demo</a></li><li><a href="/docs/nebula/Samples/Exponential%20Terrain%20Fog/index.html">Exponential Terrain Fog</a></li><li><a href="/docs/nebula/Samples/Lit%20and%20Shadow%20Colors/index.html">Lit and Shadow Colors</a></li><li><a href="/docs/nebula/Samples/Lit%20and%20Shadow%20Density/index.html">Lit and Shadow Density</a></li></ul></section></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

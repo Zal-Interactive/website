@@ -1,0 +1,669 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>UI Shadow</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="/docs/site_libs/clipboard/clipboard.min.js"></script>
+<script src="/docs/site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="/docs/site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="/docs/site_libs/quarto-html/popper.min.js"></script>
+<script src="/docs/site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="/docs/site_libs/quarto-html/anchor.min.js"></script>
+<link href="/docs/site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="/docs/site_libs/quarto-html/quarto-syntax-highlighting-dark-5a1953863e1f72ef3b996ef827f01ca7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="/docs/site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="/docs/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="/docs/site_libs/bootstrap/bootstrap-57aa938a728fd560aa206219eeb09304.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+
+
+<link rel="stylesheet" href="/docs/theme.css">
+<link rel="icon" href="/zal-mark.png"></head>
+
+<body class="fullcontent quarto-light"><header class="site-header"><div class="site-header-inner"><a class="site-brand" href="/" aria-label="Zal Interactive home"><img src="/zal-mark.png" alt="" width="32" height="32">Zal Interactive</a><nav aria-label="Main navigation"><a href="/unity-packages">Unity Packages</a><a href="mailto:hello@zalinteractive.com">Contact</a></nav></div></header>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content"><nav class="package-navigation" aria-label="Breadcrumb"><a href="/unity-packages">Unity Packages</a> / <span>UI Shadow</span></nav>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">UI Shadow</h1>
+<p class="subtitle lead">com.zalinteractive.ui-shadow</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="zal-ui-shadow" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Zal UI Shadow</h1>
+<p>Zal UI Shadow adds soft outer shadows, inset shadows, and glows to Unity uGUI graphics. It targets Unity 6000.0 and newer and uses Universal Render Pipeline (URP) with RenderGraph.</p>
+<section id="five-minute-setup" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="five-minute-setup"><span class="header-section-number">1.1</span> Five-minute setup</h2>
+<ol type="1">
+<li>Add a concrete uGUI <code>Graphic</code>, such as <code>Image</code>, <code>RawImage</code>, <code>Text</code>, or TextMesh Pro text.</li>
+<li>Add <strong>UI &gt; Effects &gt; UI Shadow</strong> to the same GameObject.</li>
+<li>Choose Outer or Inset mode and tune Size, Distance, Angle, Spread, and Color.</li>
+<li>Add more UI Shadow components to create layered effects.</li>
+</ol>
+<p>Generated renderer objects are transient. Do not edit or save them.</p>
+</section>
+<section id="compatibility" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="compatibility"><span class="header-section-number">1.2</span> Compatibility</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Area</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Unity 6000.0</td>
+<td>Supported</td>
+</tr>
+<tr class="even">
+<td>Unity 6000.3</td>
+<td>Supported</td>
+</tr>
+<tr class="odd">
+<td>Unity 6000.5</td>
+<td>Supported</td>
+</tr>
+<tr class="even">
+<td>Unity 2022.3 and earlier</td>
+<td>Not supported</td>
+</tr>
+<tr class="odd">
+<td>Universal Render Pipeline with RenderGraph</td>
+<td>Required</td>
+</tr>
+<tr class="even">
+<td>Built-in Render Pipeline or HDRP</td>
+<td>Not supported</td>
+</tr>
+<tr class="odd">
+<td>uGUI</td>
+<td>Supported</td>
+</tr>
+<tr class="even">
+<td>UI Toolkit</td>
+<td>Not supported</td>
+</tr>
+<tr class="odd">
+<td>TextMesh Pro standard subset</td>
+<td>Supported</td>
+</tr>
+<tr class="even">
+<td>TMP underlay, glow, bevel, or custom shaders</td>
+<td>Requires custom integration</td>
+</tr>
+<tr class="odd">
+<td>Unknown standard-like Graphic</td>
+<td>Best effort</td>
+</tr>
+<tr class="even">
+<td>Arbitrary custom shader</td>
+<td>Requires explicit capture integration</td>
+</tr>
+<tr class="odd">
+<td>Graphic on its rendering Canvas GameObject in Outer mode</td>
+<td>Unsupported; wrap the Graphic</td>
+</tr>
+<tr class="even">
+<td>Descendant override-sorting Canvas</td>
+<td>Outer ordering is limited; a warning is reported</td>
+</tr>
+</tbody>
+</table>
+<p>Runtime targets include mobile, WebGL, PC, and console. Platform texture limits may downscale oversized requests and report the result through diagnostics.</p>
+<p>Mutable pixel content, including an in-place modified <code>Texture2D</code>, <code>RenderTexture</code>, or video-like producer, requires explicit invalidation or a Dynamic Caster helper.</p>
+</section>
+<section id="samples" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="samples"><span class="header-section-number">1.3</span> Samples</h2>
+<p>Import any sample independently from Package Manager:</p>
+<ul>
+<li>Getting Started</li>
+<li>Feature Matrix</li>
+<li>Custom Integration</li>
+<li>Cache and Performance</li>
+<li>Demo Gallery</li>
+</ul>
+<p>Each sample contains its own README and assembly definition. TMP examples use the project’s TMP Essential Resources and do not include a font.</p>
+</section>
+<section id="documentation" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="documentation"><span class="header-section-number">1.4</span> Documentation</h2>
+<p>The sections below contain the user guide, architecture, public API, TMP support, custom integration, masking, performance, and troubleshooting details.</p>
+</section>
+</section>
+<section id="user-guide" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> User guide</h1>
+<p>Add <code>UIShadow</code> beside an enabled uGUI <code>Graphic</code>. Outer mode places a generated sibling behind the caster. Inset mode places a generated child behind user content. Generated objects are hidden, transient implementation details; never edit or serialize them.</p>
+<p>Image shadows use the active sprite’s separate alpha texture when Unity supplies one. Changing <code>overrideSprite</code>, returning to the original sprite, or switching to a sprite without separate alpha updates the captured coverage automatically. If external code replaces or changes texture content without changing the sprite, call <code>MarkCasterContentDirty</code>.</p>
+<p><code>Size</code> controls blur support, <code>Spread</code> controls hardness, and <code>Distance</code> plus <code>Angle</code> control the light offset. Zero Size remains a valid hard shadow. Outer Angle and Distance are layout-only and continue sharing the same texture. Inset offsets affect the generated texture.</p>
+<p>An inset with positive Size and zero Distance shades every interior edge, including the edges of opaque rectangular Images. Its final output stays within the caster bounds. Both the final output and the surrounding blur working area respect the configured texture dimension and pixel limits; a large inset may therefore reduce capture density to fit those limits.</p>
+<p>Applying runtime settings refreshes existing shadows on the next canvas update. Lower dimension and pixel limits also remove incompatible idle textures immediately. Lowering the idle-cache budget evicts the oldest idle textures until the budget fits; textures still used by a shadow remain valid until that shadow updates or releases them. Changes that leave a shadow’s resolved texture unchanged preserve its reuse.</p>
+<p>Use Fast for general UI and large radii. Use Accurate for thin lines, small text, or cases where Fast downsampling loses detail. Layer multiple components for ambient/key elevation or colored glows.</p>
+<p>Accurate preserves the requested blur support at large sizes, including sizes above 256 capture pixels. It approximates a Gaussian with standard deviation equal to one third of Size. Large radii use progressive area-filtered reduction and bilinear reconstruction, so they can differ slightly from a full-resolution convolution. The working border includes these filter footprints; configured resource limits can reduce capture density for the whole shadow.</p>
+<p>Mutable <code>Texture2D</code>, <code>RenderTexture</code>, video, webcam, and procedural GPU producers must call <code>MarkCasterContentDirty</code>, provide an external/key revision, or use <code>UIShadowDynamicCaster</code>. Wrap animated texture properties in <code>BeginTransientUpdates</code>; the interaction helpers do this automatically.</p>
+<p>Use finite transition durations for Interaction Animator and Inset On Press. If a duration or supplied time step is NaN or infinity, the helper applies the target appearance immediately instead of leaving an interaction unfinished. Correct the duration or supply valid steps to resume timed animation. Timing warnings appear with the helper warnings in the UI Shadow inspector.</p>
+<p>The package requires URP with RenderGraph and supports mobile, WebGL, PC, and console. Inspect downscaling, cache use, warnings, and provider identity in <strong>Window &gt; Analysis &gt; UI Shadow Renderer Debugger</strong>.</p>
+<p>The generation frame identifies when the last successfully adopted texture was generated. Reusing a cached texture preserves its original frame; empty or failed output clears current texture dimensions and memory while keeping that history. The global generation-memory peak describes the latest nonempty generation attempt, including failed attempts and temporary color conversion storage. A smaller generation can lower this value; cache reuse and capture-only inspection leave it unchanged.</p>
+</section>
+<section id="architecture" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Architecture</h1>
+<p>One caster context is shared by every <code>UIShadow</code> on a <code>Graphic</code>. It captures normalized source records after uGUI rebuilds, creates deterministic structured keys, and coordinates generated Outer and Inset renderers.</p>
+<p>Static outputs use leases and an idle LRU. Tint, blend mode, caster alpha, CanvasGroup alpha, masks, and Outer offsets remain composite/layout state so compatible components share textures. Transient scopes own reusable component output and return to the shared cache when the outermost scope closes.</p>
+<p>Capture, blur, spread/dither, inset restriction, and compositing are separate phases. Fast uses a bounded multilevel blur; Accurate uses normalized separable weights. Generated textures are premultiplied. UI compositing preserves stencil, RectMask2D clipping, clip softness, and source-over destination alpha.</p>
+<p>Static registries reset at subsystem registration because domain reload may be disabled. Profiling markers exist only when <code>ENABLE_PROFILER</code> is defined. Package console messages exist only when <code>ENABLE_UI_SHADOW_LOGS</code> is defined; operational failures remain visible in renderer diagnostics.</p>
+</section>
+<section id="public-api" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Public API</h1>
+<p>The runtime assembly intentionally exposes only component configuration, diagnostics, presets, and custom-integration contracts. Renderer adapters, snapshots, object identifiers, cache entries, generated renderers, and editor/TMP bootstrapping are implementation details.</p>
+<p><code>UIShadow</code> exposes Algorithm, Mode, Size, Spread, Angle, Distance, Color, BlendMode, caster-color/alpha options, text fingerprint mode, external content version, cache eviction, fit compensation, explicit caster/composite invalidation, diagnostics, setting copy helpers, and transient scopes.</p>
+<p><code>UIShadowGlobalSettings.GlobalAngle</code> is mutable runtime state copied from project settings. It does not mutate a settings asset.</p>
+<p><code>UIShadowDynamicCaster</code> supplies one-shot or every-frame invalidation. <code>UIShadowInsetOnPress</code> crossfades existing mode groups. <code>UIShadowInteractionAnimator</code> maps EventSystem and Selectable state to animated appearances. <code>UIShadowCustomMaterial</code> provides property-only tint or a validated replacement composite material.</p>
+<p>Both interaction helpers expose <code>Duration</code> and <code>Advance(deltaTime)</code>. Non-finite duration values become zero and immediately finish an active transition at its target appearance. A non-finite time step also finishes the target, including releasing the animator’s transient scopes. Finite negative durations clamp to zero; finite negative steps leave progress unchanged. Automatic updates use the same advancement rules. <code>Warning</code> exposes recovered timing problems alongside target-configuration problems.</p>
+<p>Built-in presets are available through <code>UIShadowPresets</code>. User presets use <code>UIShadowPreset</code> and explicit <code>UIShadowPresetField</code> ownership.</p>
+<p><code>UIShadowPresets.GetBuiltIn</code> returns <code>Result&lt;UIShadowPresetValues, UIShadowPresetError&gt;</code>. Built-in and asset preset <code>Apply</code> methods return <code>Optional&lt;UIShadowPresetError&gt;</code>. <code>UIShadow.CopySettingsTo</code> returns <code>Optional&lt;UIShadowCopyError&gt;</code> for either a component or a GameObject target. Check results before reading values and stop dependent work when an optional error is present. An empty optional means the operation succeeded. Presets preserve settings they do not own; copying creates independent settings rather than a live binding.</p>
+<p><code>UIShadowCustomMaterial.ValidateConfiguration()</code> returns <code>Optional&lt;UIShadowMaterialValidationError&gt;</code> without modifying its material. Both interaction helpers’ <code>RefreshTargets()</code> methods return <code>Optional&lt;UIShadowTargetConfigurationError&gt;</code>; correct missing targets or ownership conflicts and refresh before starting dependent interaction work. <code>UIShadow.SetExternalContentVersion(version)</code> returns <code>Optional&lt;UIShadowContentVersionError&gt;</code> and preserves the existing version when negative input is rejected. Compare errors with their canonical values rather than parsing diagnostic text. Failures are reported through the package logger and Renderer Debugger.</p>
+<p>Integration contracts are <code>IUIShadowCasterProvider</code>, <code>IUIShadowCacheKeyProvider</code>, <code>IUIShadowCasterPropertyProvider</code>, <code>IUIShadowCompositeMaterialProvider</code>, and <code>IUIShadowCompositeMeshModifier</code>. Import <code>Zal.Common</code> and reference the <code>Zal.Common</code> assembly in custom integration assemblies. Value-producing operations return <code>Result&lt;TValue, TError&gt;</code>; property-writing operations return <code>Optional&lt;TError&gt;</code>, empty on success. Each operation uses its dedicated UI Shadow error type. Check <code>IsFailure</code> before reading a result value, and <code>HasValue</code> before reading an optional error. Providers return typed failures instead of throwing; UI Shadow also contains exceptions from external provider properties and callbacks.</p>
+<p>Implement <code>GetCaptureRecords</code> to return the combined caster-local <code>Rect</code>, <code>GetFingerprint</code> and <code>GetCapturePropertyFingerprint</code> to return <code>UIShadowFingerprint128</code>, and <code>ModifyMesh</code> to return the final mesh bounds. <code>ApplyCaptureProperties</code> and <code>ApplyCompositeProperties</code> return an empty optional when their values have been written. Composite material providers declare <code>Mode</code> explicitly: <code>PropertiesOnly</code> uses the package material, while <code>Replacement</code> requires a valid <code>CompositeMaterial</code> and masking compatibility declarations.</p>
+<p>Custom providers can build stable keys with <code>UIShadowFingerprintWriter</code> and return them as <code>UIShadowFingerprint128</code>. Full caster providers populate <code>UIShadowCaptureRecord</code> values, explicitly declare optional resources with <code>UIShadowCaptureOverrides</code>, and declare their <code>UIShadowOutputColorSpace</code>. A capture record always requires a mesh and main texture; setting an optional resource without its matching override flag is rejected.</p>
+<p>Composite providers implement <code>Optional&lt;UIShadowCompositePropertiesError&gt; ApplyCompositeProperties(Material material, ref Color tint)</code>. The supplied material belongs to that shadow renderer and is reset before each application. Set supported shader properties directly on it; update <code>tint</code> explicitly to multiply or replace the tint from preceding providers. Providers execute in component order. Do not retain or destroy the supplied material or change its shader. Shadow texture binding, stencil, rectangular clipping and softness remain renderer-owned and are restored after customization. Return a typed failure to hide only the affected shadow; notify a property change after correction to retry.</p>
+<p><code>CompositeMaterial</code> and <code>UIShadowCustomMaterial.ReplacementMaterial</code> use <code>Optional&lt;Material&gt;</code>. Replacement mode requires a present, live material; properties-only mode does not select a replacement. Multiple active replacement providers are rejected. Disabling or removing a custom provider requires refreshing the affected shadows’ integrations; the built-in helper does this automatically. Raise <code>CompositeMaterialChanged</code> when values change. Property-only changes update compositing without regenerating the shadow texture. Shared source materials remain unchanged, and each renderer releases its customization material on replacement or disable.</p>
+<p>Unchanged providers are not evaluated repeatedly. Raise the change event or call <code>UIShadow.MarkCompositeDirty()</code> after externally managed edits. Ordinary shadow tint and transition-alpha changes reuse provider state. The built-in helper also handles animated serialized values. Unmasked built-in helpers keep shared materials. When uGUI derives a masking material, the renderer uses an owned copy so edits to the source still become visible without changing shared stencil state. External providers receive isolated materials even in properties-only mode.</p>
+</section>
+<section id="textmesh-pro-support" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> TextMesh Pro support</h1>
+<p>The optional <code>Zal.UIShadow.TMP</code> assembly registers a TMP adapter at runtime and in the Editor. It captures the primary mesh plus active direct <code>TMP_SubMeshUI</code> children, and tells the hierarchy coordinator which children belong to TMP.</p>
+<p>Distance-field fonts preserve glyph coverage, face color and alpha, face dilation, outline color and width, and outline softness. Standard, mobile, overlay, and screen-space derivative (SSD) distance-field shader families are supported. Vertex gradients, rich text, fallback fonts, multiple materials, sprite submeshes, and max-visible-character geometry participate in capture. Bitmap fonts retain bitmap coverage and text tint.</p>
+<p>Editing these appearance properties on an existing font material updates the shadow on the next canvas update. No manual shadow refresh or material replacement is needed. Unchanged canvas updates reuse the existing shadow without forcing a TMP mesh rebuild. Paint-only material changes update capture without rebuilding the text mesh; changes to padding still refresh geometry.</p>
+<p>Both bitmap shader families retain their material tint. Standard bitmap fonts also preserve face textures and their tiling and offset. Sprite submeshes retain material tint, opacity, and atlas tiling and offset. Canvas vertex-color settings and the standard SSD shader’s <code>FORCE_LINEAR</code> keyword are respected.</p>
+<p><code>UseCasterAlpha</code> controls the uniform TMP component alpha; font-material face and outline opacity still define glyph coverage. <code>IgnoreCasterColor</code> removes captured color while retaining that coverage. Invalid font-material values hide the affected shadow and report a recoverable failure through its diagnostics and the Renderer Debugger. Correcting the material restores the shadow.</p>
+<p>TMP underlay, glow, bevel, and arbitrary custom shader effects require explicit caster integration. Unsupported effects on the primary material or active fallback submeshes produce a diagnostic; custom distance-field shader families require an explicit integration rather than being treated as bitmap fonts.</p>
+<p>The package does not bundle a font. Import TMP Essential Resources before enabling TMP sample content. When those resources are missing, samples show setup guidance instead of leaving missing references.</p>
+</section>
+<section id="custom-integration" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Custom integration</h1>
+<p>Guaranteed Image, RawImage, legacy Text, and supported TMP sources use built-in adapters. Standard-like custom <code>Graphic</code> implementations use best-effort normalized capture. Exact procedural, multi-pass, or custom-shader behavior should implement <code>IUIShadowCasterProvider</code>.</p>
+<p>A caster provider returns one or more <code>UIShadowCaptureRecord</code> values, stable schema/revision fields, bounds, color-space intent, and a fingerprint. Every record requires a mesh and main texture. Set <code>UIShadowCaptureRecord.Overrides</code> when supplying a custom capture material, separate alpha texture, or property block; undeclared resources and declared resources without a value are rejected. Capture materials must produce transparent premultiplied output without depending on destination depth or stencil state.</p>
+<p>Composable cache-key and property providers must include provider type, schema, and every visual input in their fingerprints. A replacement composite provider must support UI stencil, RectMask2D clipping, clip softness, tint, and premultiplied textures. Only one replacement is allowed; property-only providers may compose.</p>
+<p>Call <code>RefreshIntegrations</code> when provider components change. Provider failures and conflicts render nothing and report deterministic diagnostics; they do not throw.</p>
+</section>
+<section id="masking-and-canvases" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Masking and canvases</h1>
+<p>Generated renderers inherit the caster’s effective CanvasGroup state and participate in uGUI stencil and RectMask2D clipping. A caster’s self Mask or RectMask2D does not accidentally clip its Outer shadow. Ancestor masks still apply.</p>
+<p>Outer renderers are coordinated as parent siblings; Inset renderers remain after source-owned children and before user-authored children. A Graphic on the same GameObject as its rendering Canvas cannot place an Outer sibling correctly and is unsupported. Descendant <code>overrideSorting</code> canvases may escape ordering and produce a warning.</p>
+<p>Screen Space Overlay, Screen Space Camera, and World Space canvases use root-canvas coordinates for light direction. Rotation, non-uniform scale, negative scale, and mirroring are included in offset conversion and capture density.</p>
+</section>
+<section id="performance" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Performance</h1>
+<p>Static compatible shadows share generated textures. Component tint, blend mode, alpha, masks, CanvasGroup state, and Outer Angle/Distance do not fragment the texture key. Inspect entries, leases, hits, misses, generations, evictions, and separate idle/active/transient/temporary bytes in Project Settings or Renderer Debugger.</p>
+<p>Fast is the default for broad UI use. Accurate is intended for detail-sensitive edges. Oversized requests respect the configured pixel/dimension budgets and device limits; deterministic downscaling is reported rather than allocating unbounded textures.</p>
+<p>Accurate reduces large captures progressively before its bounded separable convolution. This preserves thin-caster coverage and the complete requested support, at the cost of additional reduction passes and temporary targets during generation. Unchanged cached output performs no blur work. Measure <code>UIShadow.TextureGenerator.AccurateBlur</code> when choosing between algorithms for animated shadows.</p>
+<p>Use <code>BeginTransientUpdates</code> for Size, Spread, or Inset offset animation. Nested scopes are supported. Every-frame dynamic casters enter transient mode automatically. Static warm frames should produce no package generations; clear idle entries with <code>UIShadowGlobalDiagnostics.ClearIdleCache</code>.</p>
+<p>Enable profiler instrumentation with <code>ENABLE_PROFILER</code>. Profiling never creates retained diagnostic snapshots or reports failures.</p>
+</section>
+<section id="troubleshooting" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Troubleshooting</h1>
+<ul>
+<li>No shadow: confirm URP RenderGraph is active, the source Graphic is enabled, and Renderer Debugger has no failed request.</li>
+<li>Stale mutable texture: call <code>MarkCasterContentDirty</code>, increment a stable external/key revision, or add <code>UIShadowDynamicCaster</code>.</li>
+<li>TMP effect differs: underlay, glow, bevel, and custom TMP shaders require explicit integration.</li>
+<li>Outer ordering warning: move a Graphic off its rendering Canvas GameObject and avoid descendant override-sorting canvases.</li>
+<li>Inset ordering warning: keep source-owned children as a prefix and user-authored content after them.</li>
+<li>Custom material warning: include <code>_MainTex</code>, <code>_Color</code>, stencil, <code>_ClipRect</code>, and mask-softness properties and consume premultiplied texture data.</li>
+<li>Downscaled output: reduce Size/capture quality or increase project limits within the device maximum.</li>
+<li>Build blocked: remove duplicate assets resolving to <code>Zal.UIShadow/UIShadowRuntimeSettings</code>.</li>
+<li>First transition hitch: pre-create both Outer and Inset components; interaction helpers prewarm existing groups.</li>
+</ul>
+</section>
+
+<section class="sample-guides" aria-label="Sample guides"><h2>Sample guides</h2><ul><li><a href="/docs/ui-shadow/Samples/01%20Getting%20Started/index.html">Getting Started</a></li><li><a href="/docs/ui-shadow/Samples/02%20Feature%20Matrix/index.html">Feature Matrix</a></li><li><a href="/docs/ui-shadow/Samples/03%20Custom%20Integration/index.html">Custom Integration</a></li><li><a href="/docs/ui-shadow/Samples/04%20Cache%20and%20Performance/index.html">Cache and Performance</a></li><li><a href="/docs/ui-shadow/Samples/05%20Demo%20Gallery/index.html">Demo Gallery</a></li></ul></section></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

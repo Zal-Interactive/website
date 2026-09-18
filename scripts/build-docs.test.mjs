@@ -1,0 +1,51 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
+import { buildDocumentation, discoverPackages, validateOutput } from "./build-docs.mjs";
+
+test("discovery, rendering, sample navigation, cleanup and failure preservation", async () => {
+  const fixture = await mkdtemp(path.join(tmpdir(), "zal-docs-test-"));
+  const source = path.join(fixture, "source");
+  const destination = path.join(fixture, "public/docs");
+  const packageRoot = path.join(source, "com.zalinteractive.example");
+  const sampleRoot = path.join(packageRoot, "Samples/01 First Steps");
+  try {
+    await mkdir(sampleRoot, { recursive: true });
+    await writeFile(path.join(packageRoot, "index.qmd"), '---\ntitle: "Example & tools"\n---\n\n{{< include _manual.qmd >}}\n');
+    await writeFile(path.join(packageRoot, "_manual.qmd"), '# Manual\n\nUpdated source content. [Next](#next)\n\n## Next\n\n![Example](image.svg)\n');
+    await writeFile(path.join(packageRoot, "image.svg"), '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><rect width="10" height="10"/></svg>');
+    await writeFile(path.join(packageRoot, "image.svg.meta"), "not published");
+    await writeFile(path.join(sampleRoot, "index.qmd"), '---\ntitle: "First steps"\n---\n\n# Start\n\nRead this sample.\n');
+    const discovered = await discoverPackages(source);
+    assert.equal(discovered[0].title, "Example & tools");
+    assert.equal(discovered[0].samples[0].url, "/docs/example/Samples/01%20First%20Steps/index.html");
+    const manifest = await buildDocumentation({ source, destination });
+    assert.equal(manifest.packages.length, 1);
+    const html = await readFile(path.join(destination, "example/index.html"), "utf8");
+    assert.match(html, /Updated source content/);
+    assert.match(html, /01%20First%20Steps/);
+    assert.match(await readFile(path.join(destination, "example/Samples/01 First Steps/index.html"), "utf8"), /href="\/docs\/example\/index.html"/);
+    await validateOutput(destination);
+    const originalManifest = await readFile(path.join(destination, "manifest.json"), "utf8");
+    await writeFile(path.join(packageRoot, "_manual.qmd"), '{{< include missing.qmd >}}\n');
+    await assert.rejects(buildDocumentation({ source, destination }), /Quarto failed/);
+    assert.equal(await readFile(path.join(destination, "example/index.html"), "utf8"), html);
+    assert.equal(await readFile(path.join(destination, "manifest.json"), "utf8"), originalManifest);
+    await writeFile(path.join(packageRoot, "_manual.qmd"), '# Manual\n\n[Broken](#missing)\n');
+    await assert.rejects(buildDocumentation({ source, destination }), /Broken anchor/);
+    assert.equal(await readFile(path.join(destination, "example/index.html"), "utf8"), html);
+    await writeFile(path.join(packageRoot, "index.qmd"), '---\ntitle: [invalid]\n---\n');
+    await assert.rejects(buildDocumentation({ source, destination }), /Missing title/);
+    await assert.rejects(buildDocumentation({ source: path.join(fixture, "missing"), destination }), /source not found/);
+    await rm(packageRoot, { recursive: true });
+    const replacement = path.join(source, "com.zalinteractive.replacement");
+    await mkdir(replacement);
+    await writeFile(path.join(replacement, "index.qmd"), '---\ntitle: Replacement\n---\n\n# New package\n');
+    const refreshed = await buildDocumentation({ source, destination });
+    assert.equal(refreshed.packages[0].slug, "replacement");
+    await assert.rejects(readFile(path.join(destination, "example/index.html")), /ENOENT/);
+    await assert.rejects(readFile(path.join(destination, "example/Samples/01 First Steps/index.html")), /ENOENT/);
+  } finally { await rm(fixture, { recursive: true, force: true }); }
+});

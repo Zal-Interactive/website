@@ -1,0 +1,752 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Playmode Persistence</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="/docs/site_libs/clipboard/clipboard.min.js"></script>
+<script src="/docs/site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="/docs/site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="/docs/site_libs/quarto-html/popper.min.js"></script>
+<script src="/docs/site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="/docs/site_libs/quarto-html/anchor.min.js"></script>
+<link href="/docs/site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="/docs/site_libs/quarto-html/quarto-syntax-highlighting-dark-5a1953863e1f72ef3b996ef827f01ca7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="/docs/site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="/docs/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="/docs/site_libs/bootstrap/bootstrap-57aa938a728fd560aa206219eeb09304.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+
+
+<link rel="stylesheet" href="/docs/theme.css">
+<link rel="icon" href="/zal-mark.png"></head>
+
+<body class="fullcontent quarto-light"><header class="site-header"><div class="site-header-inner"><a class="site-brand" href="/" aria-label="Zal Interactive home"><img src="/zal-mark.png" alt="" width="32" height="32">Zal Interactive</a><nav aria-label="Main navigation"><a href="/unity-packages">Unity Packages</a><a href="mailto:hello@zalinteractive.com">Contact</a></nav></div></header>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content"><nav class="package-navigation" aria-label="Breadcrumb"><a href="/unity-packages">Unity Packages</a> / <span>Playmode Persistence</span></nav>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Playmode Persistence</h1>
+<p class="subtitle lead">com.zalinteractive.playmode-persistence</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="quick-start" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Quick start</h1>
+<ol type="1">
+<li>Save the scene containing the component you want to track.</li>
+<li>Open <strong>Tools &gt; Zal &gt; Playmode Persistence</strong> and drag a component from the Inspector or a GameObject from the Hierarchy into the panel. A GameObject adds only its own components, not its children. New components use the last enabled mode (Review by default); already tracked components keep their mode. You can also choose <strong>Review after Play</strong> or <strong>Auto Apply after Play</strong> in the component’s Inspector persistence control.</li>
+<li>Enter Play mode, adjust the component, then stop Play mode.</li>
+<li>Open <strong>Tools &gt; Zal &gt; Playmode Persistence</strong>.</li>
+<li>Expand the scene, GameObject, and component groups. Select values and use <strong>Apply (n)</strong> to apply selected safe changes, or <strong>Discard (n)</strong> to remove selected pending changes. Group checkboxes toggle all descendant values.</li>
+<li>Resolve red conflict rows individually with <strong>Keep Playmode Value</strong> or <strong>Discard Playmode Value</strong>. The current Edit-mode value is shown alongside the baseline and captured values.</li>
+</ol>
+<p>Save your scene after applying changes. Applied values support Unity Undo.</p>
+<p>See the package manual and detailed sections below for tracking and resolving issues.</p>
+</section>
+<section id="zal-playmode-persistence" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Zal Playmode Persistence</h1>
+<p>Zal Playmode Persistence preserves selected serialized component changes made during Play Mode. Each existing scene component can be ignored, queued for review, or applied automatically after Unity returns to Edit Mode.</p>
+<p>The package is entirely Editor-only. It adds no runtime assembly, component, initialization hook, scripting symbol, or Player-build dependency, and it never saves a scene automatically.</p>
+<section id="installation" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="installation"><span class="header-section-number">2.1</span> Installation</h2>
+<p>Install the package from a Git URL or a local folder through Unity Package Manager. The package identifier is <code>com.zal.playmode-persistence</code>, and the recommended minimum Unity version is 2022.3.</p>
+<p>For a local checkout, select <strong>Window &gt; Package Manager &gt; + &gt; Add package from disk</strong>, then select this package’s <code>package.json</code>.</p>
+</section>
+<section id="quick-start-1" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="quick-start-1"><span class="header-section-number">2.2</span> Quick start</h2>
+<ol type="1">
+<li>Save the scene. Unsaved scenes cannot provide durable component identities.</li>
+<li>Select a scene GameObject and find the persistence control below a component’s normal Inspector header.</li>
+<li>Choose <strong>Review after Play</strong> or <strong>Auto Apply after Play</strong>. Enabling a component for the first time defaults to Review.</li>
+<li>Enter Play Mode and let the component reach the state you want to keep.</li>
+<li>Exit Play Mode.</li>
+<li>For Review changes, use <strong>Tools &gt; Zal &gt; Playmode Persistence</strong> to select properties and apply or discard them.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="/docs/playmode-persistence/images/inspector-header.svg" class="img-fluid figure-img"></p>
+<figcaption>Inspector header persistence control</figcaption>
+</figure>
+</div>
+<p>The icon toggles between Off and the last enabled mode. Its menu changes the mode or opens the persistence window. Compatible multi-object selections show mixed values and update every eligible selected component.</p>
+</section>
+<section id="modes" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="modes"><span class="header-section-number">2.3</span> Modes</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mode</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Off</strong></td>
+<td>Ignores the component. This is the default.</td>
+</tr>
+<tr class="even">
+<td><strong>Review after Play</strong></td>
+<td>Captures final serialized Play Mode changes and queues them for selective review.</td>
+</tr>
+<tr class="odd">
+<td><strong>Auto Apply after Play</strong></td>
+<td>Applies safe property changes on return to Edit Mode. Conflicts and failures remain available for review.</td>
+</tr>
+</tbody>
+</table>
+<p>The package captures the component’s <strong>final serialized state at the moment Play Mode exits</strong>. It intentionally does not distinguish Inspector edits from changes made by scripts, custom editors, animation, initialization, or other systems. Only serialized properties whose final values differ are eligible; unrelated properties are not overwritten.</p>
+</section>
+<section id="persistence-window" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="persistence-window"><span class="header-section-number">2.4</span> Persistence window</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="/docs/playmode-persistence/images/persistence-window.svg" class="img-fluid figure-img"></p>
+<figcaption>Persistence window</figcaption>
+</figure>
+</div>
+<p>The window lists tracked components and pending property differences. Changes can be selected, applied, kept at their current Edit Mode values, or discarded per property and per component. Filters are available for scene, restore status, and conflicts.</p>
+<p>Before any delayed apply, the package compares the current Edit Mode value with the stored baseline. A different value is a conflict. Auto Apply never overwrites a conflict; the user can keep the current Edit value, force the captured Play value, or leave the item pending.</p>
+<p><strong>Apply All Safe Changes</strong> creates one Undo group. Applying one component creates one component-level Undo operation. Discarding captured data does not modify objects and creates no Undo entry.</p>
+</section>
+<section id="prefabs-and-references" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="prefabs-and-references"><span class="header-section-number">2.5</span> Prefabs and references</h2>
+<p>Scene prefab instances receive ordinary instance overrides. The package does not open, save, or modify the source prefab asset, and Prefab Stage editing is outside the current scope.</p>
+<p>Asset references are stored by asset GUID and local file ID. References to indexed, pre-existing scene objects are stored by their Edit Mode <code>GlobalObjectId</code>. A reference to a runtime-created object, deleted asset, missing scene, or incompatible type is reported and left unchanged; it is never silently replaced with null.</p>
+</section>
+<section id="compatibility" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="compatibility"><span class="header-section-number">2.6</span> Compatibility</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Configuration</th>
+<th>Initial release</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Serialized fields on custom <code>MonoBehaviour</code> components</td>
+<td>Supported</td>
+</tr>
+<tr class="even">
+<td>Serialized fields on built-in components</td>
+<td>Supported</td>
+</tr>
+<tr class="odd">
+<td>Component enabled state</td>
+<td>Supported when serialized</td>
+</tr>
+<tr class="even">
+<td>Transform local values</td>
+<td>Supported</td>
+</tr>
+<tr class="odd">
+<td>RectTransform local and layout values</td>
+<td>Supported</td>
+</tr>
+<tr class="even">
+<td>Inactive GameObjects and disabled components</td>
+<td>Supported</td>
+</tr>
+<tr class="odd">
+<td>Scene prefab instances</td>
+<td>Supported as instance overrides</td>
+</tr>
+<tr class="even">
+<td>Multiple saved scenes loaded before Play Mode</td>
+<td>Supported</td>
+</tr>
+<tr class="odd">
+<td>Asset references</td>
+<td>Supported</td>
+</tr>
+<tr class="even">
+<td>References to pre-existing objects in indexed scenes</td>
+<td>Supported</td>
+</tr>
+<tr class="odd">
+<td>Domain reload enabled or disabled</td>
+<td>Supported</td>
+</tr>
+<tr class="even">
+<td>Scene reload enabled or disabled</td>
+<td>Supported</td>
+</tr>
+<tr class="odd">
+<td>Enabling persistence during Play Mode</td>
+<td>Supported for mapped, pre-existing components</td>
+</tr>
+<tr class="even">
+<td>Runtime-created components or GameObjects</td>
+<td>Not supported</td>
+</tr>
+<tr class="odd">
+<td>Dynamically loaded scenes without an Edit Mode counterpart</td>
+<td>Not supported</td>
+</tr>
+<tr class="even">
+<td>Components destroyed or unloaded before Play Mode exits</td>
+<td>Final state cannot be captured</td>
+</tr>
+<tr class="odd">
+<td>Adding, removing, or reordering components</td>
+<td>Not supported</td>
+</tr>
+<tr class="even">
+<td>Creating, deleting, reparenting, or reordering GameObjects</td>
+<td>Not supported</td>
+</tr>
+<tr class="odd">
+<td>GameObject name, active state, tag, or layer</td>
+<td>Not included; component-only scope</td>
+</tr>
+<tr class="even">
+<td>Static, nonserialized, and computed values</td>
+<td>Not supported</td>
+</tr>
+<tr class="odd">
+<td>Prefab assets and Prefab Stage objects</td>
+<td>Not supported</td>
+</tr>
+<tr class="even">
+<td>Acyclic <code>[SerializeReference]</code> trees</td>
+<td>Supported</td>
+</tr>
+<tr class="odd">
+<td>Shared or cyclic <code>[SerializeReference]</code> graphs</td>
+<td>Not supported</td>
+</tr>
+<tr class="even">
+<td>Unsaved scenes</td>
+<td>Not supported; save before entering Play Mode</td>
+</tr>
+</tbody>
+</table>
+<p>The package contains only an assembly restricted to the Unity Editor, so its behavior is independent of Player platform. It adds no footprint to mobile, Web, PC, or console builds.</p>
+</section>
+<section id="storage-and-recovery" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="storage-and-recovery"><span class="header-section-number">2.7</span> Storage and recovery</h2>
+<p>Tracked modes and user preferences are stored locally in <code>UserSettings/ZalPlaymodePersistence.asset</code>. Active sessions and pending reviews are stored atomically under <code>Library/ZalPlaymodePersistence/</code> and survive assembly reloads and Editor restarts.</p>
+<p>The package can recover a session only after its final snapshot was written while exiting Play Mode. A hard Editor crash before that transition cannot recover values that were never captured.</p>
+<p>The workflow, serialization, compatibility, and troubleshooting sections below provide the detailed guidance.</p>
+</section>
+</section>
+<section id="workflow" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Workflow</h1>
+<section id="track-a-component" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="track-a-component"><span class="header-section-number">3.1</span> Track a component</h2>
+<p>Save every scene that contains a component you want to track. In the Inspector header control, choose <strong>Review after Play</strong> or <strong>Auto Apply after Play</strong>. The choice is stored per user and does not dirty the scene or prefab.</p>
+<p>The header reports <strong>Mapped</strong> in Play Mode when the component has a verified Edit Mode counterpart. <strong>Runtime Only</strong> means the object or component was created during Play Mode. <strong>Unresolved</strong> means the identity could not be validated safely. Runtime-only and unresolved components are never restored.</p>
+</section>
+<section id="capture" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="capture"><span class="header-section-number">3.2</span> Capture</h2>
+<p>The package indexes identities once while exiting Edit Mode. It does not continuously scan scenes or snapshot properties every frame. Immediately before Play Mode objects are destroyed, it snapshots only enabled tracked components.</p>
+<p>The final serialized state is authoritative regardless of which system changed it. Structural changes such as creating objects, reparenting transforms, or adding components are outside the component-only scope.</p>
+</section>
+<section id="review" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="review"><span class="header-section-number">3.3</span> Review</h2>
+<p>After returning to Edit Mode, Review changes appear in the persistence window. Expand a component to compare baseline and Play values, select individual properties, and choose <strong>Apply Selected</strong>, <strong>Apply Play</strong>, <strong>Keep Edit</strong>, or <strong>Discard</strong>.</p>
+<p>If the current Edit value no longer matches the stored baseline, the property is marked as a conflict and its current value is shown. It remains pending until explicitly resolved or discarded.</p>
+</section>
+<section id="auto-apply-and-undo" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="auto-apply-and-undo"><span class="header-section-number">3.4</span> Auto Apply and Undo</h2>
+<p>Auto Apply immediately applies only resolvable, non-conflicting properties. Anything unsafe remains in Review. Serialized changes participate in Unity Undo and prefab-instance overrides. <strong>Apply All Safe Changes</strong> is collapsed into one Undo group; no operation automatically saves a scene.</p>
+</section>
+</section>
+<section id="serialization-and-references" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Serialization and references</h1>
+<p>Snapshots are typed property trees read through <code>SerializedObject</code> and <code>SerializedProperty</code>. Top-level serialized properties are independent restore units. Nested classes and structs retain child trees, while each array or <code>List&lt;T&gt;</code> is one unit so element paths cannot become invalid after resize or reorder.</p>
+<p>Supported values include integer and floating-point types, booleans, strings, characters, enums, layer masks, vectors, quaternions, colors, rectangles, bounds, animation curves, gradients, <code>Hash128</code>, nested serializable values, arrays, lists, object references, and acyclic <code>[SerializeReference]</code> trees.</p>
+<p>The package skips the complete affected top-level property when it encounters a fixed buffer, an unknown native property type, a missing managed-reference type, a shared or cyclic managed-reference graph, or an unresolved runtime-only reference. Unsupported values are reported and are not replaced with defaults or null.</p>
+<p>Unity identity and ownership fields are excluded, including script identity, owning GameObject, hide flags, prefab linkage, and Transform parent/child relationships. Transform capture is limited to local position, rotation, and scale. RectTransform capture additionally includes anchors, pivot, size delta, and anchored position.</p>
+<p>Asset references use the asset GUID and local file ID. Scene references use the Edit Mode <code>GlobalObjectId</code> of an indexed object. Resolution validates the expected type before writing.</p>
+</section>
+<section id="compatibility-1" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Compatibility</h1>
+<p>The recommended minimum Editor is Unity 2022.3. The package is developed and validated against Unity 6000.0, 6000.3, and 6000.5.</p>
+<p>All code belongs to <code>Zal.PlaymodePersistence.Editor</code>, whose assembly definition includes only the Editor platform. There is no Runtime directory or runtime assembly. Player builds on mobile, Web, PC, and console therefore receive no package assembly or initialization code.</p>
+<p>Domain reload and scene reload can each be enabled or disabled. Important session state is stored under <code>Library</code>, and Editor subscriptions are installed idempotently, so all four combinations are supported.</p>
+<p>Only saved scenes loaded before Play Mode are indexed. Additive saved scenes are supported. Multiple simultaneously loaded instances of the same scene asset are rejected because their durable scene identity is ambiguous. Dynamically loaded scene instances that had no Edit Mode counterpart are not eligible.</p>
+<p>Scene prefab instances are supported as instance overrides. Prefab assets, Prefab Stage objects, source-prefab application, and automatic scene saving are deliberately excluded.</p>
+</section>
+<section id="troubleshooting" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Troubleshooting</h1>
+<section id="the-header-says-runtime-only-or-unresolved" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="the-header-says-runtime-only-or-unresolved"><span class="header-section-number">6.1</span> The header says Runtime Only or Unresolved</h2>
+<p>Runtime Only indicates that the object or component was created after entering Play Mode. Unresolved indicates that the saved scene, hierarchy sibling path, component slot, same-type ordinal, or expected component type could not be validated. The package does not guess a replacement target.</p>
+<p>Save unsaved scenes before entering Play Mode. If scripts were renamed or removed, restore the script or discard the stale pending item.</p>
+</section>
+<section id="a-property-was-not-captured" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="a-property-was-not-captured"><span class="header-section-number">6.2</span> A property was not captured</h2>
+<p>Expand the pending component and review its diagnostics. Runtime-created references, fixed buffers, unsupported native types, corrupted managed-reference types, and shared or cyclic managed-reference graphs cause the complete top-level property to be skipped safely.</p>
+</section>
+<section id="auto-apply-left-a-pending-item" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="auto-apply-left-a-pending-item"><span class="header-section-number">6.3</span> Auto Apply left a pending item</h2>
+<p>The target or reference could not be resolved, the property changed type, the current Edit value conflicted with the baseline, or <code>OnValidate</code> altered the requested value. Review the displayed reason and choose whether to keep Edit or force the Play value.</p>
+</section>
+<section id="pending-data-survived-a-restart" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="pending-data-survived-a-restart"><span class="header-section-number">6.4</span> Pending data survived a restart</h2>
+<p>This is expected. Pending changes live in <code>Library/ZalPlaymodePersistence/PendingChanges.json</code>. Use <strong>Discard All</strong> or <strong>Clear Stale</strong> in the persistence window when the data is no longer needed.</p>
+<p>If a session file is corrupted, the package logs a recoverable error and keeps the Editor operational. It never substitutes corrupted values into a component.</p>
+</section>
+<section id="the-editor-crashed-during-play-mode" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="the-editor-crashed-during-play-mode"><span class="header-section-number">6.5</span> The Editor crashed during Play Mode</h2>
+<p>Final values are written while Play Mode exits. A hard crash before that transition cannot recover values that were never captured.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

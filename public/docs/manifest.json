@@ -1,0 +1,106 @@
+{
+  "packages": [
+    {
+      "id": "com.zalinteractive.nebula",
+      "slug": "nebula",
+      "title": "Nebula",
+      "url": "/docs/nebula/index.html",
+      "samples": [
+        {
+          "title": "Nebula Demo",
+          "url": "/docs/nebula/Samples/Demo/index.html"
+        },
+        {
+          "title": "Exponential Terrain Fog",
+          "url": "/docs/nebula/Samples/Exponential%20Terrain%20Fog/index.html"
+        },
+        {
+          "title": "Lit and Shadow Colors",
+          "url": "/docs/nebula/Samples/Lit%20and%20Shadow%20Colors/index.html"
+        },
+        {
+          "title": "Lit and Shadow Density",
+          "url": "/docs/nebula/Samples/Lit%20and%20Shadow%20Density/index.html"
+        }
+      ]
+    },
+    {
+      "id": "com.zalinteractive.playmode-persistence",
+      "slug": "playmode-persistence",
+      "title": "Playmode Persistence",
+      "url": "/docs/playmode-persistence/index.html",
+      "samples": []
+    },
+    {
+      "id": "com.zalinteractive.recent-assets",
+      "slug": "recent-assets",
+      "title": "Recent Assets",
+      "url": "/docs/recent-assets/index.html",
+      "samples": []
+    },
+    {
+      "id": "com.zalinteractive.translucent-image",
+      "slug": "translucent-image",
+      "title": "Translucent Image",
+      "url": "/docs/translucent-image/index.html",
+      "samples": [
+        {
+          "title": "Advanced Camera Setups — Built-in",
+          "url": "/docs/translucent-image/Samples/Advanced%20Camera%20Setups%20-%20Built-in/index.html"
+        },
+        {
+          "title": "Advanced Camera Setups — URP Universal",
+          "url": "/docs/translucent-image/Samples/Advanced%20Camera%20Setups%20-%20URP%20Universal/index.html"
+        },
+        {
+          "title": "Feature Demo",
+          "url": "/docs/translucent-image/Samples/Feature%20Demo/index.html"
+        },
+        {
+          "title": "Minimal Setup",
+          "url": "/docs/translucent-image/Samples/Minimal%20Setup/index.html"
+        },
+        {
+          "title": "Procedural Foregrounds",
+          "url": "/docs/translucent-image/Samples/Procedural%20Foregrounds/index.html"
+        },
+        {
+          "title": "URP Setup — 2D Renderer",
+          "url": "/docs/translucent-image/Samples/URP%20Setup%20-%202D%20Renderer/index.html"
+        },
+        {
+          "title": "URP Setup — Universal Renderer",
+          "url": "/docs/translucent-image/Samples/URP%20Setup%20-%20Universal%20Renderer/index.html"
+        }
+      ]
+    },
+    {
+      "id": "com.zalinteractive.ui-shadow",
+      "slug": "ui-shadow",
+      "title": "UI Shadow",
+      "url": "/docs/ui-shadow/index.html",
+      "samples": [
+        {
+          "title": "Getting Started",
+          "url": "/docs/ui-shadow/Samples/01%20Getting%20Started/index.html"
+        },
+        {
+          "title": "Feature Matrix",
+          "url": "/docs/ui-shadow/Samples/02%20Feature%20Matrix/index.html"
+        },
+        {
+          "title": "Custom Integration",
+          "url": "/docs/ui-shadow/Samples/03%20Custom%20Integration/index.html"
+        },
+        {
+          "title": "Cache and Performance",
+          "url": "/docs/ui-shadow/Samples/04%20Cache%20and%20Performance/index.html"
+        },
+        {
+          "title": "Demo Gallery",
+          "url": "/docs/ui-shadow/Samples/05%20Demo%20Gallery/index.html"
+        }
+      ]
+    }
+  ]
+}

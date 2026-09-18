@@ -1,0 +1,29 @@
+:root { color-scheme: dark; --bs-body-bg: #080912; --bs-body-color: #f2eee5; --bs-link-color: #b9a6ff; --bs-link-hover-color: #d9a85f; }
+body { background: #080912; color: #f2eee5; font-family: Inter, system-ui, sans-serif; line-height: 1.75; }
+a { color: #b9a6ff; text-underline-offset: .2em; }
+a:hover { color: #d9a85f; }
+a:focus-visible, button:focus-visible { outline: 2px solid #b9a6ff; outline-offset: 5px; }
+.site-header { border-bottom: 1px solid #ffffff12; }
+.site-header-inner { max-width: 1280px; margin: auto; padding: 1.75rem 2.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; }
+.site-brand { display: flex; align-items: center; gap: .75rem; color: #f2eee5; text-decoration: none; font-size: .75rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; }
+.site-brand img { width: 32px; height: 32px; }
+.site-header nav { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+.site-header nav a { color: #9998a6; font-size: .75rem; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid #d9a85f99; }
+.site-header nav a:hover { color: #f2eee5; }
+#quarto-content { display: block; max-width: 960px; margin: auto; padding: 3rem 2rem 5rem; }
+main { min-width: 0; }
+#title-block-header { margin-bottom: 3rem; }
+h1, h2, h3, h4 { color: #f2eee5; letter-spacing: -.025em; overflow-wrap: anywhere; }
+h1.title { font-size: clamp(2.25rem, 6vw, 3.5rem); }
+h1:not(.title) { margin-top: 3.5rem; }
+h2 { margin-top: 2.5rem; border-color: #ffffff18; }
+.subtitle { color: #9998a6; overflow-wrap: anywhere; }
+img, svg, video { max-width: 100%; height: auto; }
+pre { max-width: 100%; overflow-x: auto; border: 1px solid #ffffff18; border-radius: .5rem; }
+code { overflow-wrap: anywhere; }
+pre code { overflow-wrap: normal; }
+div.sourceCode { background: #121320; }
+.package-navigation { margin: 0 0 2rem; color: #9998a6; font-size: .9rem; }
+.sample-guides { margin-top: 4rem; border-top: 1px solid #ffffff18; padding-top: 1rem; }
+.sample-guides ul { padding-left: 1.25rem; }
+@media (max-width: 600px) { .site-header-inner { padding: 1.5rem; } #quarto-content { padding: 2rem 1.5rem 4rem; } }
