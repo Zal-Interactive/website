@@ -41,7 +41,10 @@ export async function discoverPackages(source) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new Error(`Invalid package directory: ${id}`);
     const packageRoot = path.join(source, id);
     const entry = path.join(packageRoot, "index.qmd");
-    if (!(await exists(entry))) throw new Error(`Package entrypoint missing: ${entry}`);
+    // Documentation folders can also contain evidence-only assets. Publish only
+    // packages that expose a Quarto entrypoint; the remaining folders are not
+    // documentation pages and should not make a docs refresh fail.
+    if (!(await exists(entry))) continue;
     const samples = [];
     for (const file of await filesIn(packageRoot)) {
       if (path.basename(file) !== "index.qmd" || file === entry) continue;

@@ -20,7 +20,7 @@ The command reads the current local files in `../UnityPackages/Assets/Documentat
 npm run docs:build -- --source /path/to/Assets/Documentation
 ```
 
-Every `com.zalinteractive.*` directory with an `index.qmd` becomes a package. Nested `index.qmd` files become linked sample guides; underscore-prefixed QMD files are included by their parent documents. Titles come from YAML metadata. Adding a package or sample does not require editing the website.
+Every `com.zalinteractive.*` directory with an `index.qmd` becomes a package. Directories without an `index.qmd` are treated as evidence-only folders and skipped. Nested `index.qmd` files become linked sample guides; underscore-prefixed QMD files are included by their parent documents. Titles come from YAML metadata. Adding a package or sample does not require editing the website.
 
 The script stages copies in a temporary directory, renders HTML, validates local links/assets/anchors, and replaces `public/docs/` only after successful validation. This directory, including `manifest.json`, is generated and owned by the script: do not edit it manually or store unrelated files there. Regeneration removes obsolete pages. The original documentation is never modified.
 
