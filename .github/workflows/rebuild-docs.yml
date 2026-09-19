@@ -17,7 +17,6 @@ concurrency:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   rebuild:
@@ -97,20 +96,19 @@ jobs:
           npm run docs:test
           npm run build
 
-      - name: Create or update documentation PR
-        uses: peter-evans/create-pull-request@v8
-        with:
-          path: website
-          token: ${{ secrets.GITHUB_TOKEN }}
-          add-paths: public/docs
-          branch: automation/unitypackages-docs
-          delete-branch: true
-          commit-message: Update generated Unity package documentation
-          title: Update generated Unity package documentation
-          body: |
-            This PR was generated from `Zal-Interactive/UnityPackages`.
+      - name: Commit generated documentation
+        working-directory: website
+        shell: bash
+        run: |
+          set -euo pipefail
 
-            Source commit: `${{ steps.source.outputs.ref }}`
-            Trigger: `${{ github.event_name }}`
+          git add --all public/docs
+          if git diff --cached --quiet -- public/docs; then
+            echo "No generated documentation changes."
+            exit 0
+          fi
 
-            The workflow ran `npm run docs:build`, `npm run docs:test`, and `npm run build` before creating this PR.
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update generated Unity package documentation"
+          git push origin HEAD:main

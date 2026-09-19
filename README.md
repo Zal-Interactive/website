@@ -40,7 +40,7 @@ The documentation tests require Quarto. They use temporary fixtures to check dis
 
 ## CI/CD documentation updates
 
-The website repository includes `.github/workflows/rebuild-docs.yml`. It accepts a `unitypackages-docs-updated` `repository_dispatch` event, checks out the exact UnityPackages commit supplied in the payload, runs the documentation and website verification steps, and opens or updates a single PR for the generated `public/docs/` changes.
+The website repository includes `.github/workflows/rebuild-docs.yml`. It accepts a `unitypackages-docs-updated` `repository_dispatch` event, checks out the exact UnityPackages commit supplied in the payload, runs the documentation and website verification steps, and commits generated `public/docs/` changes directly to the website repository's `main` branch. Runs with no generated changes do not create a commit.
 
 Add the following workflow to the UnityPackages repository as `.github/workflows/notify-website-docs.yml`:
 
@@ -77,4 +77,4 @@ jobs:
 
 Create `WEBSITE_REPO_DISPATCH_TOKEN` in UnityPackages as a fine-grained token limited to this website repository with `Contents: write` permission. If UnityPackages is private, also create a `UNITYPACKAGES_READ_TOKEN` secret in the website repository with read access to UnityPackages. If it is public, the website workflow can use its default workflow token for checkout.
 
-In the website repository settings, allow GitHub Actions to create pull requests. Merge the generated PR to let the existing Vercel Git integration deploy the updated documentation.
+The workflow uses `contents: write` to push the generated commit directly to `main`, letting the existing Vercel Git integration deploy the updated documentation.
