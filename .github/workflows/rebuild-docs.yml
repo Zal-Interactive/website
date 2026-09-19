@@ -1,0 +1,116 @@
+name: Rebuild Unity package documentation
+
+on:
+  repository_dispatch:
+    types: [unitypackages-docs-updated]
+  workflow_dispatch:
+    inputs:
+      unitypackages_sha:
+        description: UnityPackages branch or commit to render
+        required: false
+        default: master
+        type: string
+
+concurrency:
+  group: unitypackages-docs
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Resolve UnityPackages revision
+        id: source
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_REPOSITORY: ${{ github.event.client_payload.source_repository }}
+          DISPATCH_SHA: ${{ github.event.client_payload.source_sha }}
+          MANUAL_SHA: ${{ inputs.unitypackages_sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "$EVENT_NAME" == "repository_dispatch" ]]; then
+            if [[ "$DISPATCH_REPOSITORY" != "Zal-Interactive/UnityPackages" ]]; then
+              echo "Unexpected dispatch repository: $DISPATCH_REPOSITORY" >&2
+              exit 1
+            fi
+            if [[ ! "$DISPATCH_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+              echo "repository_dispatch must include a full UnityPackages commit SHA" >&2
+              exit 1
+            fi
+            source_ref="$DISPATCH_SHA"
+          else
+            source_ref="${MANUAL_SHA:-master}"
+            if [[ ! "$source_ref" =~ ^[A-Za-z0-9._/-]+$ ]]; then
+              echo "Invalid UnityPackages branch or commit: $source_ref" >&2
+              exit 1
+            fi
+          fi
+
+          printf 'ref=%s\n' "$source_ref" >> "$GITHUB_OUTPUT"
+
+      - name: Check out website
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: website
+
+      - name: Check out UnityPackages
+        uses: actions/checkout@v4
+        with:
+          repository: Zal-Interactive/UnityPackages
+          ref: ${{ steps.source.outputs.ref }}
+          token: ${{ secrets.UNITYPACKAGES_READ_TOKEN || github.token }}
+          path: UnityPackages
+          fetch-depth: 1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.10.18
+
+      - name: Install website dependencies
+        working-directory: website
+        run: npm ci
+
+      - name: Generate documentation
+        working-directory: website
+        run: npm run docs:build -- --source "$GITHUB_WORKSPACE/UnityPackages/Assets/Documentation"
+
+      - name: Verify documentation and website build
+        working-directory: website
+        run: |
+          npm run docs:test
+          npm run build
+
+      - name: Create or update documentation PR
+        uses: peter-evans/create-pull-request@v8
+        with:
+          path: website
+          token: ${{ secrets.GITHUB_TOKEN }}
+          add-paths: public/docs
+          branch: automation/unitypackages-docs
+          delete-branch: true
+          commit-message: Update generated Unity package documentation
+          title: Update generated Unity package documentation
+          body: |
+            This PR was generated from `Zal-Interactive/UnityPackages`.
+
+            Source commit: `${{ steps.source.outputs.ref }}`
+            Trigger: `${{ github.event_name }}`
+
+            The workflow ran `npm run docs:build`, `npm run docs:test`, and `npm run build` before creating this PR.

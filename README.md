@@ -37,3 +37,44 @@ npx tsc --noEmit
 ```
 
 The documentation tests require Quarto. They use temporary fixtures to check discovery, sample links containing spaces, stale-page removal, and preservation of published output after invalid input or rendering failure.
+
+## CI/CD documentation updates
+
+The website repository includes `.github/workflows/rebuild-docs.yml`. It accepts a `unitypackages-docs-updated` `repository_dispatch` event, checks out the exact UnityPackages commit supplied in the payload, runs the documentation and website verification steps, and opens or updates a single PR for the generated `public/docs/` changes.
+
+Add the following workflow to the UnityPackages repository as `.github/workflows/notify-website-docs.yml`:
+
+```yaml
+name: Notify website documentation build
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - Assets/Documentation/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch website documentation rebuild
+        env:
+          GH_TOKEN: ${{ secrets.WEBSITE_REPO_DISPATCH_TOKEN }}
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          payload=$(jq -n \
+            --arg sha "$SOURCE_SHA" \
+            '{event_type: "unitypackages-docs-updated", client_payload: {source_repository: "Zal-Interactive/UnityPackages", source_sha: $sha}}')
+          printf '%s' "$payload" | gh api \
+            --method POST \
+            repos/Zal-Interactive/website/dispatches \
+            --input -
+```
+
+Create `WEBSITE_REPO_DISPATCH_TOKEN` in UnityPackages as a fine-grained token limited to this website repository with `Contents: write` permission. If UnityPackages is private, also create a `UNITYPACKAGES_READ_TOKEN` secret in the website repository with read access to UnityPackages. If it is public, the website workflow can use its default workflow token for checkout.
+
+In the website repository settings, allow GitHub Actions to create pull requests. Merge the generated PR to let the existing Vercel Git integration deploy the updated documentation.
