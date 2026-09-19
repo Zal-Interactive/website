@@ -38,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="/docs/site_libs/quarto-html/quarto-syntax-highlighting-dark-5a1953863e1f72ef3b996ef827f01ca7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="/docs/site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="/docs/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="/docs/site_libs/bootstrap/bootstrap-57aa938a728fd560aa206219eeb09304.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="/docs/site_libs/bootstrap/bootstrap-aff3d1cb39a3bd6839947b74b2f8fae1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 
 
 <link rel="stylesheet" href="/docs/theme.css">
@@ -70,138 +70,109 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="quick-start" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Quick Start</h1>
-<p>Use Recent Assets to find an asset you just worked with and open it again.</p>
-<section id="install-and-open-the-window" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="install-and-open-the-window"><span class="header-section-number">1.1</span> Install and open the window</h2>
-<ol type="1">
-<li>Install <code>com.zalinteractive.recent-assets</code> through Unity Package Manager. The package requires Unity 6.0 (<code>6000.0</code>) or newer.</li>
-<li>Open <strong>Tools &gt; Recent Assets</strong>.</li>
-<li>Keep the window open while you perform the steps below.</li>
-</ol>
-<p><img src="/docs/recent-assets/images/recent-assets-window-sections.png" class="img-fluid" alt="Recent Assets window with the Pinned and Recent sections"></p>
-<p><em>Figure 1</em></p>
-<p>The window can be empty until you change an asset in the Inspector, close a saved scene, or open a prefab. See <a href="#automatic-tracking">Automatic tracking</a> for details.</p>
+<section id="first-asset" class="level1" data-section="Quick Start">
+<h1 data-section="Quick Start">Pin your first asset</h1>
+<p>With Recent Assets installed in Unity 6.0 or newer, open <strong>Tools &gt; Recent Assets</strong>. Keep the window beside the Project window so you can drag between them.</p>
+<p>Drag an existing asset from the Project window into Recent Assets. Release it anywhere inside the window, including the empty space. The example below uses a Volume Profile; you can use a material, prefab, or saved scene instead.</p>
+<div class="doc-figure">
+<p><img src="/docs/recent-assets/images/start-drag.png" class="img-fluid" style="width:511pt" alt="A Project window asset outlined as the drag source, with an arrow to the entire Recent Assets drop area"></p>
+<p>Figure 1</p>
+</div>
+<p>The asset appears in <strong>Pinned</strong>, above the divider. Click its name or the row area to open it with Unity’s standard Open Asset behavior. The green star identifies a pinned entry.</p>
+<div class="doc-figure">
+<p><img src="/docs/recent-assets/images/first-row.png" class="img-fluid" style="width:310pt" alt="Recent Assets after the drop, with the pinned asset name and row area outlined"></p>
+<p>Figure 2</p>
+</div>
+<p>A saved scene or prefab that is already open has a disabled row. Its other row buttons remain available. Recent Assets is an Editor-only tool; it adds no components to your game.</p>
+<div style="page-break-after: always;"></div>
 </section>
-<section id="continue-with-a-saved-scene" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="continue-with-a-saved-scene"><span class="header-section-number">1.2</span> Continue with a saved scene</h2>
-<p>Read <a href="#track-a-saved-scene">Track a saved scene</a> for the exact steps to add a saved scene to Recent. Then use <a href="#use-a-row">Use a row</a> to open it or manage it.</p>
-<p><img src="/docs/recent-assets/images/recent-assets-window-actions.png" class="img-fluid" alt="Recent Assets window with Ping, Pin, Remove, Unpin, and CLEAR buttons"></p>
-<p><em>Figure 2</em></p>
-<p>See <a href="#use-a-row">Use a row</a> to choose what to do with the asset.</p>
+<section id="open-assets" class="level1" data-section="Manual">
+<h1 data-section="Manual">Open or locate an asset</h1>
+<p>Click an asset’s <strong>name or row area</strong> to open it. Scenes open as scenes, prefabs open in Prefab Mode, and other assets use their associated Unity editor.</p>
+<div class="doc-figure">
+<p><img src="/docs/recent-assets/images/open-row.png" class="img-fluid" style="width:340pt" alt="The asset name and row area outlined in the Recent section"></p>
+<p>Figure 3</p>
+</div>
+<p>Click the <strong>Ping</strong> button immediately to the right of the asset name to highlight it in the Project window without opening it. Hover a row button to read its tooltip.</p>
+<div class="doc-figure">
+<p><img src="/docs/recent-assets/images/ping-row.png" class="img-fluid" style="width:340pt" alt="The Ping icon outlined beside the asset name, with the surrounding Recent Assets window visible"></p>
+<p>Figure 4</p>
+</div>
+<p>An open scene or Prefab Stage disables only that asset’s opening area. This avoids reopening it; Ping and the other row buttons still work.</p>
+<div style="page-break-after: always;"></div>
 </section>
-<section id="choose-what-recent-keeps" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="choose-what-recent-keeps"><span class="header-section-number">1.3</span> Choose what Recent keeps</h2>
-<p>When you want to choose how many unpinned assets to keep or which assets automatic tracking should ignore, open <a href="#settings">Settings</a>.</p>
-<p><img src="/docs/recent-assets/images/recent-assets-preferences.png" class="img-fluid" alt="Recent Assets settings in Unity Preferences"></p>
-<p><em>Figure 3</em></p>
+<section id="manage-entries" class="level1" data-section="Manual">
+<h1 data-section="Manual">Keep or remove entries</h1>
+<p>Click the <strong>star</strong> beside a recent asset to pin it. Click a pinned asset’s <strong>green star</strong> to unpin it and return it to Recent. Pinned assets stay above the divider and do not count toward the recent-entry limit.</p>
+<div class="doc-figure">
+<p><img src="/docs/recent-assets/images/pin-unpin.png" class="img-fluid" style="width:340pt" alt="Separate outlines around the green Unpin star in Pinned and the Pin star in Recent"></p>
+<p>Figure 5</p>
+</div>
+<p>Click a row’s <strong>minus button (Remove)</strong> to remove that entry from the window. Click <strong>CLEAR</strong> at the bottom to empty Recent while preserving Pinned. Neither control deletes the project assets.</p>
+<div class="doc-figure">
+<p><img src="/docs/recent-assets/images/remove-clear.png" class="img-fluid" style="width:340pt" alt="The Remove minus button and the full CLEAR button outlined separately"></p>
+<p>Figure 6</p>
+</div>
+<p>The lists are saved locally for this Unity project. Invalid entries are removed when the window refreshes. A removed asset can appear again after another tracked Editor event.</p>
+<div style="page-break-after: always;"></div>
 </section>
+<section id="automatic-tracking" class="level1" data-section="Manual">
+<h1 data-section="Manual">Understand automatic tracking</h1>
+<p>Recent Assets listens for supported Editor events <strong>only while its window is open</strong>. Merely selecting an asset, importing a file, or changing a file outside Unity does not add it to Recent.</p>
+<section id="inspector-edits-recorded-by-undo" class="level2">
+<h2 class="anchored" data-anchor-id="inspector-edits-recorded-by-undo">Inspector edits recorded by Undo</h2>
+<p>An Inspector change can add the affected project asset when Unity records the change through Undo. The asset must have a path under <strong>Assets</strong> or <strong>Packages</strong>. Changes to scene-only objects without a project asset path do not create entries.</p>
 </section>
-<section id="using-recent-assets" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Using Recent Assets</h1>
-<p>Recent Assets is a Unity Editor window for reopening assets you have worked with recently. It stores its lists for the current Unity project and does not add components, modify scenes, or create project assets.</p>
-<section id="window-behavior" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="window-behavior"><span class="header-section-number">2.1</span> Window behavior</h2>
-<p>The window has two sections:</p>
-<ul>
-<li><strong>Pinned:</strong> Assets you choose to keep. They stay until you unpin or remove them.</li>
-<li><strong>Recent:</strong> Assets added when supported Unity Editor events occur, such as an asset change, scene closing, or prefab opening. The newest asset appears first, and the list is limited by <strong>Max Recent Assets</strong>.</li>
-</ul>
-<section id="use-a-row" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="use-a-row"><span class="header-section-number">2.1.1</span> Use a row</h3>
-<p>When an asset appears in either section, use its row controls to choose what you want to do next.</p>
-<section id="open-an-asset-from-its-row" class="level4" data-number="2.1.1.1">
-<h4 data-number="2.1.1.1" class="anchored" data-anchor-id="open-an-asset-from-its-row"><span class="header-section-number">2.1.1.1</span> Open an asset from its row</h4>
-<p><img src="/docs/recent-assets/images/recent-assets-window-row.png" class="img-fluid" alt="Recent Assets row with the asset name and row area highlighted"></p>
-<p><em>Figure 4</em></p>
-<ol type="1">
-<li>Click the asset name or the row area to use Unity’s standard <strong>Open Asset</strong> action. A scene opens as a scene, a prefab opens in Prefab Mode, and other asset types open in their associated Unity editor.</li>
-<li>If the row is disabled, close the scene or Prefab Stage that is already open, then try again.</li>
-</ol>
+<section id="saved-scenes-closing" class="level2">
+<h2 class="anchored" data-anchor-id="saved-scenes-closing">Saved scenes closing</h2>
+<p>Closing a saved scene outside Play Mode adds its asset to Recent. Opening a scene alone is not the event this package tracks. Unsaved scenes have no project asset path, and scenes closed during Play Mode are ignored.</p>
 </section>
-<section id="manage-an-asset-or-clear-the-list" class="level4" data-number="2.1.1.2">
-<h4 data-number="2.1.1.2" class="anchored" data-anchor-id="manage-an-asset-or-clear-the-list"><span class="header-section-number">2.1.1.2</span> Manage an asset or clear the list</h4>
-<p><img src="/docs/recent-assets/images/recent-assets-window-actions.png" class="img-fluid" alt="Recent Assets window with Ping, Pin, Remove, Unpin, and CLEAR buttons"></p>
-<p><em>Figure 5</em></p>
-<ol type="1">
-<li>Click <strong>Ping</strong> to highlight the asset in the Project window without opening it.</li>
-<li>Click <strong>Pin</strong> to move the asset into Pinned. Click <strong>Unpin</strong> to move it back to Recent.</li>
-<li>Click <strong>Remove</strong> to remove the entry from both sections. It does not delete the project asset.</li>
-<li>Click <strong>CLEAR</strong> to remove every unpinned asset from Recent while leaving Pinned unchanged.</li>
-</ol>
+<section id="prefabs-opening" class="level2">
+<h2 class="anchored" data-anchor-id="prefabs-opening">Prefabs opening</h2>
+<p>Opening a prefab in Prefab Mode adds its asset when its Prefab Stage opens. The prefab must have a project asset path; a scene instance alone is not a separate asset entry.</p>
 </section>
-</section>
-<section id="pin-an-asset-from-the-project-window" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="pin-an-asset-from-the-project-window"><span class="header-section-number">2.1.2</span> Pin an asset from the Project window</h3>
-<ol type="1">
-<li>Find the asset in the Project window.</li>
-<li>Drag it into the Recent Assets window. Release it anywhere inside the window, including the empty space.</li>
-</ol>
-<p><img src="/docs/recent-assets/images/recent-assets-project-drag.png" class="img-fluid" alt="Project window asset dragged into the Recent Assets window"></p>
-<p><em>Figure 6</em></p>
-<p>The asset is added to Pinned immediately. Dragging an asset into the window bypasses <strong>Banned Patterns</strong>, so use this method when you want to keep an asset that automatic tracking would exclude.</p>
+<section id="what-appears-in-the-list" class="level2">
+<h2 class="anchored" data-anchor-id="what-appears-in-the-list">What appears in the list</h2>
+<p>Accepted events put the asset first in Recent and move an existing recent entry back to the top. Assets already in Pinned stay there. Recent scrolls when its rows exceed the available space.</p>
+<p><strong>Banned Patterns</strong> excludes matching assets from these automatic events. A deliberate <a href="#first-asset">drag into the window</a> bypasses that filter. <a href="#settings">Retention settings</a> control the unpinned list; they do not limit Pinned.</p>
+<div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="automatic-tracking" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="automatic-tracking"><span class="header-section-number">2.2</span> Automatic tracking</h2>
-<p>Recent Assets listens for these events only while its window is open. Leave the window open before changing an asset, closing a saved scene, or opening a prefab.</p>
-<section id="track-an-inspector-change-recorded-by-undo" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="track-an-inspector-change-recorded-by-undo"><span class="header-section-number">2.2.1</span> Track an Inspector change recorded by Undo</h3>
-<ol type="1">
-<li>Select a project asset under an <code>Assets</code> or <code>Packages</code> path.</li>
-<li>Change one of the asset’s settings in the Inspector. Unity records the change in Undo.</li>
-<li>Check the Recent section. The changed asset appears unless its path matches a <strong>Banned Patterns</strong> query.</li>
-</ol>
+<section id="settings" class="level1" data-section="Settings">
+<h1 data-section="Settings">Choose what Recent retains</h1>
+<p>Open <strong>Unity &gt; Settings…</strong> on macOS or <strong>Edit &gt; Preferences</strong> on Windows and Linux, then select <strong>Recent Assets</strong>.</p>
+<p>Set <strong>Max Recent Assets</strong> to the number of unpinned entries you want to retain. The default is <strong>10</strong>. The limit is applied when an asset is added to Recent; pinned entries are not counted.</p>
+<p>Expand <strong>Banned Patterns</strong>, click <strong>+</strong>, and enter an AssetDatabase.FindAssets query, such as <strong>t:Texture2D</strong>, to exclude matching assets from future automatic tracking. Select an entry and click <strong>−</strong> to remove that exclusion. The default list is empty; the screenshot shows one example query.</p>
+<div class="doc-figure">
+<p><img src="/docs/recent-assets/images/settings.png" class="img-fluid" style="width:511pt" alt="Recent Assets selected in Preferences, with Max Recent Assets, the Banned Patterns foldout, query entry, plus and minus buttons outlined separately"></p>
+<p>Figure 7</p>
+</div>
+<p>A <strong>Max Recent Assets</strong> value of <strong>0</strong> discards unpinned entries when an asset is added; negative values are read as 0. Lowering the setting does not immediately trim the existing list.</p>
+<p>Exclusions do not remove existing entries. The window reads the exclusion list when it opens; close and reopen Recent Assets after changing these queries.</p>
+<p>These settings use Unity’s user-level Editor preferences; the recent and pinned lists are stored separately for each project. Neither is serialized into scenes or included in a Player build.</p>
+<div style="page-break-after: always;"></div>
 </section>
-<section id="track-a-saved-scene" class="level3" data-number="2.2.2">
-<h3 data-number="2.2.2" class="anchored" data-anchor-id="track-a-saved-scene"><span class="header-section-number">2.2.2</span> Track a saved scene</h3>
-<ol type="1">
-<li>Open a saved scene from the Project window.</li>
-<li>Close the scene outside Play Mode.</li>
-<li>Check the Recent section. The scene appears when it has a project asset path.</li>
-</ol>
+<section id="troubleshooting" class="level1" data-section="Troubleshooting">
+<h1 data-section="Troubleshooting">Find out why an entry is missing</h1>
+<section id="the-window-starts-empty" class="level2">
+<h2 class="anchored" data-anchor-id="the-window-starts-empty">The window starts empty</h2>
+<p>The list reflects events observed while the window was open; it is not a record of everything previously opened in the project. <a href="#first-asset">Pinning an existing asset</a> is a direct way to make the first entry. The <a href="#automatic-tracking">automatic tracking page</a> explains which Editor events populate Recent.</p>
 </section>
-<section id="track-a-prefab" class="level3" data-number="2.2.3">
-<h3 data-number="2.2.3" class="anchored" data-anchor-id="track-a-prefab"><span class="header-section-number">2.2.3</span> Track a prefab</h3>
-<ol type="1">
-<li>Open a project prefab in Prefab Mode so its Prefab Stage opens.</li>
-<li>Check the Recent section. The prefab appears unless its path matches a <strong>Banned Patterns</strong> query.</li>
-</ol>
-<p>Recent Assets does not watch arbitrary file changes or imports. Only paths beginning with <code>Assets</code> or <code>Packages</code> are eligible for automatic tracking. Unsaved scenes have no asset path yet, and a scene closed during Play Mode is ignored.</p>
+<section id="an-edited-asset-does-not-appear" class="level2">
+<h2 class="anchored" data-anchor-id="an-edited-asset-does-not-appear">An edited asset does not appear</h2>
+<p>Possible reasons include a change not recorded through Undo, an object without a project asset path, a matching exclusion query, or a recent-entry limit of zero. An asset already pinned stays in the top section instead of appearing twice. The <a href="#settings">settings page</a> explains the two preference fields and their special values.</p>
 </section>
+<section id="a-scene-or-prefab-does-not-appear" class="level2">
+<h2 class="anchored" data-anchor-id="a-scene-or-prefab-does-not-appear">A scene or prefab does not appear</h2>
+<p>Scenes enter Recent when they close outside Play Mode; prefabs enter when their Prefab Stage opens. An unsaved scene cannot be tracked because it has no asset path. Both types are subject to the same exclusions as other automatically tracked assets.</p>
 </section>
-<section id="settings" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="settings"><span class="header-section-number">2.3</span> Settings</h2>
-<ol type="1">
-<li>Open Unity’s settings. On macOS, use <strong>Unity &gt; Settings…</strong>; on Windows and Linux, use <strong>Edit &gt; Preferences</strong>.</li>
-<li>Select <strong>Recent Assets</strong>.</li>
-</ol>
-<p><img src="/docs/recent-assets/images/recent-assets-preferences.png" class="img-fluid" alt="Recent Assets settings in Unity Preferences"></p>
-<p><em>Figure 7</em></p>
-<p><strong>Max Recent Assets:</strong> The maximum number of unpinned assets kept in Recent. The default is <code>10</code>. Set it to <code>0</code> to discard every unpinned asset as soon as it is added; negative values are treated as <code>0</code>. Pinned assets are not counted against this limit.</p>
-<p><strong>Banned Patterns:</strong> Queries used to exclude assets from automatic tracking. Each entry uses the same query syntax as <code>AssetDatabase.FindAssets</code>, for example <code>t:Texture2D</code>. A matching asset is skipped when it is discovered through Undo, scene closing, or Prefab Stage opening. The list is empty by default.</p>
-<p>The recent and pinned lists are stored locally by the Editor for this project. The settings are stored in Unity’s user-level Editor preferences; they are not serialized into scenes or assets and have no effect in a Player build.</p>
+<section id="clear-leaves-entries-visible" class="level2">
+<h2 class="anchored" data-anchor-id="clear-leaves-entries-visible">CLEAR leaves entries visible</h2>
+<p>CLEAR intentionally preserves Pinned. The <a href="#manage-entries">row controls</a> provide separate ways to unpin an entry or remove it without deleting the project asset.</p>
 </section>
-<section id="troubleshooting" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="troubleshooting"><span class="header-section-number">2.4</span> Troubleshooting</h2>
-<section id="the-window-is-empty" class="level3" data-number="2.4.1">
-<h3 data-number="2.4.1" class="anchored" data-anchor-id="the-window-is-empty"><span class="header-section-number">2.4.1</span> The window is empty</h3>
-<p>The window starts empty. Leave it open, then change an asset in the Inspector, close a saved scene, or open a prefab. If nothing appears, verify that the asset path begins with <code>Assets</code> or <code>Packages</code> and that <strong>Max Recent Assets</strong> is greater than <code>0</code> for unpinned assets.</p>
-</section>
-<section id="a-changed-asset-scene-or-prefab-does-not-appear" class="level3" data-number="2.4.2">
-<h3 data-number="2.4.2" class="anchored" data-anchor-id="a-changed-asset-scene-or-prefab-does-not-appear"><span class="header-section-number">2.4.2</span> A changed asset, scene, or prefab does not appear</h3>
-<p>Open <a href="#settings">Settings</a>, expand <strong>Banned Patterns</strong>, and check whether a query matches the asset. Then confirm that you changed an asset in the Inspector, closed a saved scene, or opened a prefab.</p>
-</section>
-<section id="clear-did-not-remove-an-asset" class="level3" data-number="2.4.3">
-<h3 data-number="2.4.3" class="anchored" data-anchor-id="clear-did-not-remove-an-asset"><span class="header-section-number">2.4.3</span> CLEAR did not remove an asset</h3>
-<p><strong>CLEAR</strong> only clears unpinned assets in Recent. Pinned assets remain; use <strong>Remove</strong> or unpin the asset first. See <a href="#use-a-row">Use a row</a>.</p>
-</section>
-<section id="clicking-a-row-does-nothing" class="level3" data-number="2.4.4">
-<h3 data-number="2.4.4" class="anchored" data-anchor-id="clicking-a-row-does-nothing"><span class="header-section-number">2.4.4</span> Clicking a row does nothing</h3>
-<p>The scene or Prefab Stage may already be open, which disables clicking the row. Close it and try again. If the asset was deleted or moved outside the project, refresh Recent Assets to remove the invalid entry.</p>
-<p>This package runs only in the Unity Editor; it does not change your built game.</p>
-</section>
+<section id="an-entry-disappears-later" class="level2">
+<h2 class="anchored" data-anchor-id="an-entry-disappears-later">An entry disappears later</h2>
+<p>A new accepted event can evict the oldest recent entry when the limit is exceeded. Invalid asset references are removed when the window refreshes. Pinned entries are exempt from the recent-entry limit, but still require an existing project asset.</p>
 </section>
 </section>
 
