@@ -1,4 +1,4 @@
-import { cp, mkdir, mkdtemp, readFile, readdir, rename, rm, stat, writeFile } from "node:fs/promises";
+import { cp, mkdir, mkdtemp, open, readFile, readdir, rename, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -20,6 +20,20 @@ async function filesIn(directory) {
     return entry.isDirectory() ? filesIn(file) : [file];
   }));
   return files.flat();
+}
+
+async function assertNoLfsPointers(directory) {
+  for (const file of await filesIn(directory)) {
+    if (!/\.(?:avif|gif|jpe?g|png|svg|webp)$/i.test(file)) continue;
+    const handle = await open(file, "r");
+    try {
+      const prefix = Buffer.alloc(200);
+      const { bytesRead } = await handle.read(prefix, 0, prefix.length, 0);
+      if (prefix.subarray(0, bytesRead).toString("utf8").startsWith("version https://git-lfs.github.com/spec/v1\n")) {
+        throw new Error(`Git LFS image was not downloaded: ${file}`);
+      }
+    } finally { await handle.close(); }
+  }
 }
 
 async function titleOf(file) {
@@ -156,6 +170,7 @@ async function publish(output, destination) {
 
 export async function buildDocumentation({ source = path.resolve(root, "../UnityPackages/Assets/Documentation"), destination = path.join(root, "public/docs") } = {}) {
   const packages = await discoverPackages(source);
+  await assertNoLfsPointers(source);
   runQuarto(["--version"]);
   const staging = await mkdtemp(path.join(tmpdir(), "zal-docs-"));
   try {

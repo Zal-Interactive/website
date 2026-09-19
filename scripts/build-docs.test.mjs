@@ -29,6 +29,10 @@ test("discovery, rendering, sample navigation, cleanup and failure preservation"
     assert.match(await readFile(path.join(destination, "example/Samples/01 First Steps/index.html"), "utf8"), /href="\/docs\/example\/index.html"/);
     await validateOutput(destination);
     const originalManifest = await readFile(path.join(destination, "manifest.json"), "utf8");
+    await writeFile(path.join(packageRoot, "image.svg"), "version https://git-lfs.github.com/spec/v1\noid sha256:abc\nsize 100\n");
+    await assert.rejects(buildDocumentation({ source, destination }), /Git LFS image was not downloaded/);
+    assert.equal(await readFile(path.join(destination, "example/index.html"), "utf8"), html);
+    await writeFile(path.join(packageRoot, "image.svg"), '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><rect width="10" height="10"/></svg>');
     await writeFile(path.join(packageRoot, "_manual.qmd"), '{{< include missing.qmd >}}\n');
     await assert.rejects(buildDocumentation({ source, destination }), /Quarto failed/);
     assert.equal(await readFile(path.join(destination, "example/index.html"), "utf8"), html);
