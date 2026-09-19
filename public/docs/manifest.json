@@ -1,6 +1,13 @@
 {
   "packages": [
     {
+      "id": "com.zalinteractive.debug-menu",
+      "slug": "debug-menu",
+      "title": "Debug Menu",
+      "url": "/docs/debug-menu/index.html",
+      "samples": []
+    },
+    {
       "id": "com.zalinteractive.nebula",
       "slug": "nebula",
       "title": "Nebula",
