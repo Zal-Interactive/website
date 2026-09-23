@@ -8,6 +8,13 @@
       "samples": []
     },
     {
+      "id": "com.zalinteractive.flexbox",
+      "slug": "flexbox",
+      "title": "Flexbox",
+      "url": "/docs/flexbox/index.html",
+      "samples": []
+    },
+    {
       "id": "com.zalinteractive.nebula",
       "slug": "nebula",
       "title": "Nebula",

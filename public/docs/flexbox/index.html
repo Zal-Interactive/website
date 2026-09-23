@@ -1,0 +1,672 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Flexbox</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="/docs/site_libs/clipboard/clipboard.min.js"></script>
+<script src="/docs/site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="/docs/site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="/docs/site_libs/quarto-html/popper.min.js"></script>
+<script src="/docs/site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="/docs/site_libs/quarto-html/anchor.min.js"></script>
+<link href="/docs/site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="/docs/site_libs/quarto-html/quarto-syntax-highlighting-dark-5a1953863e1f72ef3b996ef827f01ca7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="/docs/site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="/docs/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="/docs/site_libs/bootstrap/bootstrap-aff3d1cb39a3bd6839947b74b2f8fae1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+
+
+<link rel="stylesheet" href="/docs/theme.css">
+<link rel="icon" href="/zal-mark.png"></head>
+
+<body class="fullcontent quarto-light"><header class="site-header"><div class="site-header-inner"><a class="site-brand" href="/" aria-label="Zal Interactive home"><img src="/zal-mark.png" alt="" width="32" height="32">Zal Interactive</a><nav aria-label="Main navigation"><a href="/unity-packages">Unity Packages</a><a href="mailto:hello@zalinteractive.com">Contact</a></nav></div></header>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content"><nav class="package-navigation" aria-label="Breadcrumb"><a href="/unity-packages">Unity Packages</a> / <span>Flexbox</span></nav>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Flexbox</h1>
+<p class="subtitle lead">com.zalinteractive.flexbox</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="resize-a-working-settings-screen" class="level1" data-section="Start here">
+<h1 data-section="Start here">Resize a working settings screen</h1>
+<p>Flexbox needs Unity 6000.0.82f1 or newer in the 6000.0 line and uGUI 2.0.0. The runtime package has no dependency on Zal UI, Autofac, or DOTween. Newer Unity releases and device platforms need their own qualification.</p>
+<p>The optional <strong>Settings List</strong> sample uses Zal UI, Autofac, Input System, and TMP Essential Resources. Its prefabs reference the standard LiberationSans SDF font. The imported scene is <code>Assets/Samples/Flexbox/0.1.0/Settings List/SettingsList.unity</code>. Its bootstrap opens the registered settings UIView; it does not require a scene-authored window instance.</p>
+<p>In the running sample, click <strong>Expand details</strong> to wrap the first description. Click <strong>Change width</strong> to resize the list. <strong>Measure 500 boxes</strong> records 60 warmup frames followed by 240 changed-layout samples and writes a report to Unity’s temporary cache directory.</p>
+<div class="doc-figure" data-highlights="32,150,244,52;32,214,244,52;32,278,244,52">
+<p><img src="/docs/flexbox/Raw/settings.png" class="img-fluid" style="width:511pt" alt="Settings list with the three sample actions beside a list of preferences."></p>
+<p>Figure 1</p>
+</div>
+<p>The first row becomes taller when its description wraps. Later rows move down, and the existing ScrollRect keeps ownership of the scroll offset. A clean root does not solve or measure again.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="give-a-panel-two-layout-boxes" class="level1" data-section="Hierarchy">
+<h1 data-section="Hierarchy">Give a panel two layout boxes</h1>
+<p>Use a RectTransform panel under your existing Canvas. Its parent continues to own the panel’s viewport. A FlexLayoutRoot owns registered descendants; a FlexBox describes one box. This setup belongs in your existing UI factory or view initialization:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> UnityEngine<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> UnityEngine<span class="op">.</span><span class="fu">UI</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">Flexbox</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="fu">CreateBoxes</span><span class="op">(</span>RectTransform panel<span class="op">)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    panel<span class="op">.</span><span class="fu">gameObject</span><span class="op">.</span><span class="fu">AddComponent</span><span class="op">&lt;</span>FlexLayoutRoot<span class="op">&gt;();</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> <span class="op">(</span><span class="dt">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> item <span class="op">=</span> <span class="kw">new</span> <span class="fu">GameObject</span><span class="op">(</span><span class="st">"Box "</span> <span class="op">+</span> i<span class="op">,</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            <span class="kw">typeof</span><span class="op">(</span>RectTransform<span class="op">),</span> <span class="kw">typeof</span><span class="op">(</span>Image<span class="op">),</span> <span class="kw">typeof</span><span class="op">(</span>FlexBox<span class="op">));</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        item<span class="op">.</span><span class="fu">transform</span><span class="op">.</span><span class="fu">SetParent</span><span class="op">(</span>panel<span class="op">,</span> <span class="kw">false</span><span class="op">);</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        item<span class="op">.</span><span class="fu">GetComponent</span><span class="op">&lt;</span>Image<span class="op">&gt;().</span><span class="fu">color</span> <span class="op">=</span> i <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>            <span class="op">?</span> Color<span class="op">.</span><span class="fu">cyan</span> <span class="op">:</span> Color<span class="op">.</span><span class="fu">yellow</span><span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> box <span class="op">=</span> item<span class="op">.</span><span class="fu">GetComponent</span><span class="op">&lt;</span>FlexBox<span class="op">&gt;();</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        box<span class="op">.</span><span class="fu">SetWidth</span><span class="op">(</span><span class="dv">200</span>f<span class="op">);</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        box<span class="op">.</span><span class="fu">SetHeight</span><span class="op">(</span><span class="dv">60</span>f<span class="op">);</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The default block formatting stacks the two 200-by-60 boxes vertically. Layout runs at the Canvas update; use <code>FlushLayout</code> only when your code needs geometry sooner. Production code should inspect the typed results returned by setters and barriers.</p>
+<p>Registered parents must also be FlexBoxes, except for the root and the dedicated FlexPresentation wrapper. Decorations may remain unregistered children. A nested FlexLayoutRoot starts a separate ownership boundary.</p>
+<p>Keep LayoutGroup, ContentSizeFitter, AspectRatioFitter, and competing driven transforms outside this controlled subtree. Flexbox rejects conflicting ownership and retains the last published generation as stale.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="choose-sizes-and-content-roles" class="level1" data-section="Box model">
+<h1 data-section="Box model">Choose sizes and content roles</h1>
+<p>The <strong>Size and content</strong> Inspector group contains width, height, minimums, maximums, box sizing, and aspect ratio. Auto uses content or the formatting algorithm. A numeric <code>float</code> in code means root-local pixels: <code>LayoutLength width = 320f;</code>.</p>
+<p>Pixels are local layout units before Canvas scaling. A world-space Canvas can therefore use fractional local values. Percent sizes resolve against the applicable containing width or definite height. An indefinite percentage size follows its automatic sizing rule. Minimum constraints win when a maximum is smaller.</p>
+<p><strong>Content Box</strong> sizes exclude padding and border. A width of 100 with 20 padding and 2 border on each side has a border width of 144. <strong>Border Box</strong> includes those insets. Border thickness affects geometry; your Graphic supplies its visible appearance.</p>
+<p>The <strong>Box edges</strong> group uses left, top, right, bottom pixel values. Padding, border, gaps, sizes, and flex factors reject negative or nonfinite values. Margins and positioning offsets may be negative. Auto-margin toggles absorb available space in Flexbox and Grid. <strong>Length Overrides</strong> replaces individual edge or gap pixel fields with typed values. Percentage margin and padding use the containing width, including top and bottom edges. Percentage column gap uses the container content width; row gap uses its definite content height. Indefinite percentage gaps contribute zero in this profile. Border widths remain pixel values.</p>
+<p><strong>Automatic</strong> content measures a supported specialized adapter such as TMP. <strong>Decoration</strong> contributes no intrinsic size. <strong>Content</strong> also reads a generic ILayoutElement’s preferred size. Unknown graphics receive their authored rectangle; provide an IFlexContentFactory when their natural size needs an explicit adapter.</p>
+<p>TMP stays one external box even when it wraps internally. The adapter observes supported text and typography changes, caches exact measurement constraints, and uses TMP’s shaping and wrapping. Custom content without a dirty callback must call <code>NotifyContentChanged</code>.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="arrange-rows-columns-and-tracks" class="level1" data-section="Flexbox and Grid">
+<h1 data-section="Flexbox and Grid">Arrange rows, columns, and tracks</h1>
+<p>A Flexbox container distributes free space along <strong>Direction</strong>, with optional wrapping, ordering, gaps, auto margins, and alignment. <strong>Basis</strong> supplies the starting main size; Auto uses the item’s size or content. <strong>Grow</strong> shares positive space and <strong>Shrink</strong> removes space in proportion to the base size. Explicit minimums can prevent shrinking.</p>
+<p>For three 50-pixel bases in a 300-pixel row, grow values 1, 2, and 0 produce widths 100, 150, and 50 when minimums do not intervene. Reverse direction changes placement while preserving source order. Unity sibling order continues to control painting and raycast precedence.</p>
+<p>Grid uses fixed lengths, fractions, automatic tracks, and min/max tracks. Explicit starts are one-based; zero requests automatic placement. Spans default to one. Auto Flow supports row, column, and dense placement. Implicit tracks grow storage automatically.</p>
+<div class="doc-figure">
+<p><img src="/docs/flexbox/Raw/grid.png" class="img-fluid" style="width:511pt" alt="A Grid with 100, 180, and 360 pixel tracks and a nested subgrid aligned beneath them."></p>
+<p>Figure 2</p>
+</div>
+<p>A 660-pixel Grid with two 10-pixel gaps and tracks 100, 1fr, 2fr resolves to 100, 180, 360. Subgrid inherits the tracks it spans and contributes nested intrinsic sizes and edge insets to its parent. Subgrid requires a direct Grid parent.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="flow-around-boxes-and-size-tables" class="level1" data-section="Flow and tables">
+<h1 data-section="Flow and tables">Flow around boxes and size tables</h1>
+<p>Block flow supports adjacent and parent/child margin collapse. <strong>Flow Root</strong> contains floats and prevents parent/child margin collapse. Floats exclude rectangular space for sibling boxes; Clear moves a following box beneath the chosen float sides.</p>
+<p>Inline formatting wraps atomic child boxes and aligns their first baselines. TMP can wrap inside its own box, but the layout engine never distributes a label’s characters among neighboring inline boxes. This is a box-based Unity adaptation, not browser inline typography.</p>
+<div class="doc-figure">
+<p><img src="/docs/flexbox/Raw/flow.png" class="img-fluid" style="width:511pt" alt="A left float, content beside it, a cleared box beneath it, and atomic inline content."></p>
+<p>Figure 3</p>
+</div>
+<p>A table hierarchy uses <strong>Table &gt; Table Row &gt; Table Cell</strong>. Cells support column spans and row spans. Automatic tables collect minimum and preferred contributions; fixed tables use explicit tracks and first-row cell widths, including percentages, then share the remainder.</p>
+<p>Place TMP in a child box inside a Table Cell when table baseline or vertical alignment should move its content. The cell rectangle stays the row’s resolved height; the text child supplies its own measured baseline. Pixel gaps separate rows and columns. This profile uses separate box borders and does not implement collapsed browser table borders or anonymous HTML table repair.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="keep-scrolling-and-positioned-content-separate" class="level1" data-section="Position and overflow">
+<h1 data-section="Position and overflow">Keep scrolling and positioned content separate</h1>
+<p>The Positioning group provides relative, absolute, fixed, and sticky modes. Relative offsets retain the normal-flow slot. Absolute boxes leave normal flow and use the nearest positioned ancestor, or the root. Fixed boxes use the root viewport. Sticky boxes clamp against the scrollport and their containing bounds.</p>
+<p>A scroll hierarchy has a ScrollRect outside the layout-owned nodes, a viewport with FlexLayoutRoot and RectMask2D, and a content child with FlexBox and FlexScrollContent. The adapter’s ScrollRect reference points to that outer ScrollRect. Its content reference points back to the content child.</p>
+<p>Flexbox writes content extent; ScrollRect writes its anchored position. AutoHideAndExpandViewport scrollbar negotiation may change wrapping and trigger another solve before publication. Place separate scrolling regions under separate layout roots.</p>
+<div class="doc-figure">
+<p><img src="/docs/flexbox/Raw/position.png" class="img-fluid" style="width:511pt" alt="A sticky header and fixed badge remain visible over scrolled rows beside a vertical scrollbar."></p>
+<p>Figure 4</p>
+</div>
+<p>Masks, graphics, and raycasts remain Unity responsibilities. Keep clipping on the viewport. Flex order does not reorder Unity siblings: the sticky fixture puts its header last in paint order and first in layout order. Presentation transforms may animate appearance without changing computed layout rectangles.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="balance-content-across-columns" class="level1" data-section="Fragments">
+<h1 data-section="Fragments">Balance content across columns</h1>
+<p>Columns divide the available width into equal tracks. A 620-pixel container with three columns and two 10-pixel gaps gives each column 200 pixels. <strong>Balance</strong> finds a shared height; definite-height filling moves later atomic boxes into subsequent columns.</p>
+<p>Break Before, Break After, and Keep With Next control breaks between boxes. A box too tall for a column remains intact and overflows. One TMP component or interactive control is never cloned or split.</p>
+<div class="doc-figure">
+<p><img src="/docs/flexbox/Raw/columns.png" class="img-fluid" style="width:511pt" alt="Six atomic cards flow through three columns, with a longer middle card and fragment backgrounds behind them."></p>
+<p>Figure 5</p>
+</div>
+<p>A content-free container can be <strong>Fragmentable</strong>. Its eligible descendants produce multiple published fragments with a stable renderer owner. <strong>FlexFragmentBackground</strong> draws those fragment rectangles through one non-interactive Graphic. Ordinary Image, TMP, and control components do not gain automatic fragment rendering.</p>
+<p><code>GetPublishedFragmentCount</code> and <code>GetPublishedFragment</code> read the previous committed fragments without solving. Inspect each result’s stale flag. A failed solve retains the previous fragment publication. Masks and ordinary Graphics on a fragmented owner are rejected. Keep masks on an enclosing viewport and use FlexFragmentBackground for the owner decoration.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="replace-sizing-values-without-parsing-strings" class="level1" data-section="Responsive values">
+<h1 data-section="Responsive values">Replace sizing values without parsing strings</h1>
+<p>Structured expressions contain pixel or percentage literals, addition, subtraction, scaling, division, min, max, and clamp. Operands refer to earlier zero-based instructions; the last instruction supplies a sizing value. The final receiving property validates the result. Division by zero and invalid references fail explicitly.</p>
+<p><code>min(400 pixels, 40 percent)</code> resolves to 200 in a 500-pixel containing width and 400 in a 1,400-pixel width. No CSS text is parsed.</p>
+<p>Responsive rules compare viewport or nearest contained-ancestor dimensions. Minimum is inclusive; an optional maximum is exclusive. Matching rules replace a size, column count, Flex direction, or display mode. Later matching rules win. Inline Size containment suppresses descendant intrinsic width contributions; Size also suppresses descendant height contributions.</p>
+<p>The six size inputs accept typed sources through <code>BindValue</code>. A source supplies <code>Revision</code>, a main-thread <code>Changed</code> event, and <code>Read(in ValueSourceContext)</code>. A successful value is reused while source identity, revision, and viewport remain unchanged. Source notifications invalidate the bound box and its dependent ancestors.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> error <span class="op">=</span> root<span class="op">.</span><span class="fu">BindValue</span><span class="op">(</span>box<span class="op">,</span> LayoutProperty<span class="op">.</span><span class="fu">Width</span><span class="op">,</span> source<span class="op">);</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="op">(</span>error<span class="op">.</span><span class="fu">HasValue</span><span class="op">)</span> Debug<span class="op">.</span><span class="fu">LogError</span><span class="op">(</span>error<span class="op">.</span><span class="fu">Value</span><span class="op">);</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">// The source increments Revision, then raises Changed.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Precedence is animation, responsive replacement, attached source, authored value. Releasing an override reveals the current lower-priority value. Cycles and source failures return typed errors. Other catalog properties retain their structured Inspector authoring; they do not accept arbitrary source bindings.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="read-geometry-and-handle-failures" class="level1" data-section="Scripting">
+<h1 data-section="Scripting">Read geometry and handle failures</h1>
+<p><code>GetComputedBox</code> resolves pending layout before returning. It returns an error on failure or re-entry, not an old rectangle as success. <code>GetPublishedBox</code> never solves and returns the last generation with <code>IsStale</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>box<span class="op">.</span><span class="fu">SetWidth</span><span class="op">(</span><span class="dv">320</span>f<span class="op">);</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> current <span class="op">=</span> root<span class="op">.</span><span class="fu">GetComputedBox</span><span class="op">((</span>RectTransform<span class="op">)</span>box<span class="op">.</span><span class="fu">transform</span><span class="op">);</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="op">(</span>current<span class="op">.</span><span class="fu">IsSuccess</span><span class="op">)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> width <span class="op">=</span> current<span class="op">.</span><span class="fu">Value</span><span class="op">.</span><span class="fu">Border</span><span class="op">.</span><span class="fu">Width</span><span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> generation <span class="op">=</span> current<span class="op">.</span><span class="fu">Value</span><span class="op">.</span><span class="fu">Generation</span><span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">else</span> Debug<span class="op">.</span><span class="fu">LogError</span><span class="op">(</span>current<span class="op">.</span><span class="fu">Error</span><span class="op">);</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> previous <span class="op">=</span> root<span class="op">.</span><span class="fu">GetPublishedBox</span><span class="op">((</span>RectTransform<span class="op">)</span>box<span class="op">.</span><span class="fu">transform</span><span class="op">);</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="op">(</span>previous<span class="op">.</span><span class="fu">IsSuccess</span> <span class="op">&amp;&amp;</span> previous<span class="op">.</span><span class="fu">Value</span><span class="op">.</span><span class="fu">IsStale</span><span class="op">)</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    Debug<span class="op">.</span><span class="fu">Log</span><span class="op">(</span><span class="st">"The published rectangle is awaiting a valid solve."</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Computed border, padding, content, and overflow rectangles use root-local coordinates, positive right and down. Overflow is geometry information; a Unity mask decides what is visible.</p>
+<p><code>FlushLayout</code> is an explicit geometry barrier. <code>FlushVisuals</code> additionally requests supported TMP meshes and Unity’s global Canvas barrier; it reports the visual-completion contract separately. A box query alone does not promise current character meshes.</p>
+<p><code>MeasureInactive(in LayoutEnvironment)</code> measures an inactive hierarchy with an explicit viewport without activating it or writing transforms. Its returned snapshot may allocate because it outlives the measurement. Inactive TMP is resampled because Unity suppresses its ordinary dirty callbacks.</p>
+<p>Errors distinguish invalid values, missing nodes, stale handles, ownership conflicts, unsupported capabilities, source cycles, re-entry, and commit failures. Fix the input or writer conflict and notify the root through the supported setter or <code>NotifyContentChanged</code>. The previous publication remains available as stale until a successful commit.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="choose-what-an-animation-changes" class="level1" data-section="Animation">
+<h1 data-section="Animation">Choose what an animation changes</h1>
+<p><strong>FlexReflow</strong> animates one sizing input. Every sampled value can move siblings and change wrapping. Its endpoints must use matching pixel or percent units. Completion retains the destination override; <code>Cancel</code> releases it. Animation tokens survive internal storage growth and are invalidated when the root disables.</p>
+<p><strong>FlexLayoutTransition</strong> animates a dedicated FlexPresentation wrapper. The wrapper stretches across its parent FlexBox, has a centered pivot, and contains the graphics and optional child boxes. It carries no Graphic or FlexBox itself. Capture the current visual rectangle before changing layout; Play solves the destination and animates the wrapper to it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> capture <span class="op">=</span> transition<span class="op">.</span><span class="fu">Capture</span><span class="op">();</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="op">(</span>capture<span class="op">.</span><span class="fu">HasValue</span><span class="op">)</span> <span class="kw">return</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>box<span class="op">.</span><span class="fu">SetWidth</span><span class="op">(</span><span class="dv">440</span>f<span class="op">);</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> playback <span class="op">=</span> transition<span class="op">.</span><span class="fu">Play</span><span class="op">(</span><span class="fl">0.25f</span><span class="op">);</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="op">(</span>playback<span class="op">.</span><span class="fu">HasValue</span><span class="op">)</span> Debug<span class="op">.</span><span class="fu">LogError</span><span class="op">(</span>playback<span class="op">.</span><span class="fu">Value</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>FlexFade</strong> changes a CanvasGroup’s opacity using unscaled time. It does not read layout inputs, measure text, or solve geometry. A fade leaves raycast and interactable settings under your control.</p>
+<div class="doc-figure">
+<p><img src="/docs/flexbox/Raw/animation.png" class="img-fluid" style="width:511pt" alt="Reflow, solved-layout transition, and fade examples with separate activation buttons."></p>
+<p>Figure 6</p>
+</div>
+<p>The optional DOTween Bridge sample drives the same token contract. It requires a consumer-provided DOTween assembly and has not been qualified in this project’s dependency set. Importing it is optional; removing it does not affect Core, Runtime, TMP, or Animation.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="understand-the-measured-configuration" class="level1" data-section="Qualification">
+<h1 data-section="Qualification">Understand the measured configuration</h1>
+<p>The package uses engine-free C# algorithms with Unity adapters and no native plugin, runtime code generation, or reflection into Unity internals. Its portable runtime path targets mobile, Web, PC, and console. Platform support and measured qualification are different claims.</p>
+<p>Qualification performed here uses Unity 6000.0.82f1, uGUI 2.0.0, macOS 27.0, Apple M1 Pro, and a Development Mono Player. Overlay, camera, world-space, and nested-Canvas fixtures were exercised in the Editor. Newer Unity, Android, WebGL, Windows, iOS devices, consoles, and XR remain unverified where modules or devices are unavailable. The macOS IL2CPP module is also unavailable.</p>
+<p>The 500-box settings workload changes one label after 60 warmup frames and records 240 dirty updates. Internal storage grows to its high-water demand automatically. No reserve size, seal step, or capacity limit is exposed to users. Growth allocations are permitted; later stable work reuses the storage.</p>
+<p>A validated thread-scoped GC.Alloc event recorder reported zero allocation events inside warmed layout calls. This does not mean every Canvas frame or arbitrary third-party content adapter allocates nothing. TMP timing and overall layout timing are recorded separately. On this Mac at 3456 × 2168, layout measured <strong>1.363 ms median / 1.784 ms p95</strong>, including TMP measurement. Subtracting the paired TMP measurement sample gave <strong>0.889 ms median / 1.183 ms p95</strong> for framework work. The overall 1 ms target remains unmet. These are Development Mono Player measurements, not Editor timings or promises for other hardware.</p>
+<p>The selected box-layout profile adapts CSS concepts to atomic Unity components. Browser parsing, cascade, selectors, HTML, browser text shaping, writing directions, visual effects, printing, generated text, and automatic TMP/control splitting are excluded. Indefinite percentage gaps, Unity paint order, rectangular float contexts, and separate table borders are explicit adaptations. The profile does not claim complete browser CSS conformance.</p>
+<p>When geometry looks wrong, first check the root’s viewport, conflicting Unity layout writers, content role, definite percentage basis, and supported hierarchy. Preserve the returned LayoutError and the last published generation when reporting a reproducible issue.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
