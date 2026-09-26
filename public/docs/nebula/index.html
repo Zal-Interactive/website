@@ -73,7 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="/docs/site_libs/quarto-html/quarto-syntax-highlighting-dark-5a1953863e1f72ef3b996ef827f01ca7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="/docs/site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="/docs/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="/docs/site_libs/bootstrap/bootstrap-aff3d1cb39a3bd6839947b74b2f8fae1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="/docs/site_libs/bootstrap/bootstrap-e3fb44e77c5d532f3fd9b16b5f774869.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 
 
 <link rel="stylesheet" href="/docs/theme.css">
@@ -426,9 +426,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="cameras-and-rendering-features" class="level3" data-number="2.1.3">
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="cameras-and-rendering-features"><span class="header-section-number">2.1.3</span> Cameras and rendering features</h3>
-<p>Nebula accepts base Game cameras and the Scene view. Important restrictions are:</p>
+<p>Nebula accepts base Game cameras and visible Scene Views. Important restrictions are:</p>
 <ul>
-<li>Temporal reconstruction is enabled only for Game cameras. Scene view renders without temporal history.</li>
+<li>Temporal reconstruction uses the same selected path and quality for Game cameras and Scene Views. Each camera keeps its own history and jitter sequence.</li>
 <li>Camera-stack overlay cameras are skipped. Content rendered only by an overlay camera does not receive a separate Nebula pass.</li>
 <li>Reflection, Preview, and other camera types are skipped.</li>
 <li>XR rendering is rejected by the current implementation.</li>
@@ -436,7 +436,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>A Game camera uses <code>UniversalAdditionalCameraData</code> and URP camera history for temporal reconstruction. When either is unavailable, Nebula continues with non-temporal rendering for that frame.</li>
 </ul>
 <p>Scene view supports perspective, orthographic, and 2D navigation, including framing, orbiting, zooming, and resizing. Enable <strong>Fog</strong> in the Scene view <strong>Effects</strong> controls to preview Nebula. Turning off Fog or the Effects master control also disables fog on transparent materials for that view. Fog appears in Shaded and Shaded Wireframe views; wireframe and diagnostic draw modes omit it. Each Scene view uses its own controls and camera state.</p>
-<p><strong>Scene Lighting</strong> and post-processing controls can intentionally change the preview’s appearance. For comparison with a Game camera, match its position, projection, Volume settings, lighting, and post-processing, and disable temporal reconstruction. Orthographic cameras can have a negative near clip plane; Nebula starts at the configured nonnegative Start Distance or the near plane, whichever is farther forward. If the visible clip range does not intersect the configured fog range, no fog is rendered.</p>
+<p><strong>Scene Lighting</strong> and post-processing controls can intentionally change the preview’s appearance. For comparison with a Game camera, match its position, projection, render resolution, renderer, Volume settings, lighting, and animation state. Reset both histories, then compare after the same warm-up. The cameras remain independent, so their views do not need to produce identical pixels. Orthographic cameras can have a negative near clip plane; Nebula starts at the configured nonnegative Start Distance or the near plane, whichever is farther forward. If the visible clip range does not intersect the configured fog range, no fog is rendered.</p>
 </section>
 <section id="mobile-status" class="level3" data-number="2.1.4">
 <h3 data-number="2.1.4" class="anchored" data-anchor-id="mobile-status"><span class="header-section-number">2.1.4</span> Mobile status</h3>
@@ -474,7 +474,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="temporal-reconstruction" class="level3" data-number="2.2.3">
 <h3 data-number="2.2.3" class="anchored" data-anchor-id="temporal-reconstruction"><span class="header-section-number">2.2.3</span> Temporal reconstruction</h3>
-<p>On Game cameras, temporal reconstruction reprojects the previous per-camera volumetric field into the current froxel grid. History is double-buffered: a frame reads the previous 3D texture and writes a different current 3D texture. The default production path fuses current scattering and temporal reconstruction.</p>
+<p>On base Game cameras and Scene Views, temporal reconstruction reprojects the previous per-camera volumetric field into the current froxel grid. History is double-buffered: a frame reads the previous 3D texture and writes a different current 3D texture. URP owns Game-camera history; Nebula owns separate history for each Scene View. The default production path fuses current scattering and temporal reconstruction for both camera types.</p>
+<p>While temporal reconstruction is enabled, each visible Scene View with Fog and Effects enabled in a supported draw mode refreshes at Unity’s normal Editor update cadence. Nebula does not change the saved <strong>Always Refresh</strong> setting. Each Scene View has independent 3D scattering and extinction history textures, so additional views use additional GPU memory while they accumulate. Nebula releases a view’s history when that view closes, temporal rendering is disabled, or its renderer feature is rebuilt. A rendering gap longer than 0.25 seconds invalidates the history when the view renders again.</p>
 <p>History is invalidated or reallocated when required by events such as:</p>
 <ul>
 <li>A new Play session or camera history.</li>
@@ -483,7 +484,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Resolution, render scale, dynamic-resolution state, viewport, or froxel-layout changes.</li>
 <li>Fog depth-distribution or represented-field changes.</li>
 </ul>
-<p>A missing history manager or item, duplicate producer, invalid or aliased history texture, or failed history preparation disables temporal reconstruction for that frame. Current scattering still renders through the non-temporal path, and Nebula retries temporal history on later frames.</p>
+<p>A missing Game-camera history manager or item, a duplicate producer, an invalid or aliased history texture, or failed history preparation disables temporal reconstruction for that frame. Current scattering still renders through the non-temporal path, and Nebula retries temporal history on a later frame.</p>
 <p>Temporal sampling quality controls jitter period, history-miss supersampling, and the cap used when temporal reconstruction is disabled. Scattering and extinction history weights control the stability-to-responsiveness tradeoff. <code>VolumetricRealtimeLight.TemporalResponsiveness</code> reduces reliance on history around a changing light. Optional lighting and motion rejection further reduce history where current lighting or reprojected motion diverges.</p>
 </section>
 <section id="conservative-depth" class="level3" data-number="2.2.4">
@@ -673,7 +674,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td>Enable Temporal Reprojection</td>
-<td>Allocates double-buffered per-camera 3D history and reuses prior scattering/extinction on Game cameras. It usually provides the best quality-to-cost balance.</td>
+<td>Allocates double-buffered 3D history for each Game or Scene View camera and reuses prior scattering/extinction. Each visible Scene View accumulates at the Unity Editor update cadence while Fog and Effects are enabled in a supported draw mode. Additional visible views use additional GPU memory.</td>
 </tr>
 <tr class="even">
 <td>Scattering History Weight</td>
@@ -1460,7 +1461,7 @@ if (Nebula_SampleTransparentFog(input.positionCS, input.positionWS, fog))
 </section>
 <section id="reset-temporal-history" class="level3" data-number="2.10.6">
 <h3 data-number="2.10.6" class="anchored" data-anchor-id="reset-temporal-history"><span class="header-section-number">2.10.6</span> Reset temporal history</h3>
-<p>Request a reset after an application-defined camera teleport, discontinuous world-origin change, or other change that Nebula cannot infer from normal camera metadata:</p>
+<p>Request a reset after an application-defined camera teleport, discontinuous world-origin change, or other change that Nebula cannot infer from normal camera metadata. The same API accepts a Scene View camera:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> UnityEngine<span class="op">;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">Nebula</span><span class="op">;</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1474,6 +1475,23 @@ if (Nebula_SampleTransparentFog(input.positionCS, input.positionWS, fog))
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The request is consumed by that camera’s next temporal frame. Repeated requests coalesce, stale camera references are pruned, and passing <code>null</code> safely does nothing. URP’s <code>UniversalAdditionalCameraData.resetHistory</code> is also honored.</p>
+<p>An Editor utility can reset the active Scene View’s history like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">#if</span> UNITY_EDITOR</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> UnityEditor<span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">Nebula</span><span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">static</span> <span class="kw">class</span> NebulaSceneViewHistory</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">ResetActiveView</span><span class="op">()</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> view <span class="op">=</span> SceneView<span class="op">.</span><span class="fu">lastActiveSceneView</span><span class="op">;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>view <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>            VolumetricLightingRendererFeature<span class="op">.</span><span class="fu">ResetTemporalHistory</span><span class="op">(</span>view<span class="op">.</span><span class="fu">camera</span><span class="op">);</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="kw">#endif</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="froxel-pixel-helper" class="level3" data-number="2.10.7">
 <h3 data-number="2.10.7" class="anchored" data-anchor-id="froxel-pixel-helper"><span class="header-section-number">2.10.7</span> Froxel pixel helper</h3>
