@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lit and Shadow Colors</title>
+<title>Nebula</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -52,8 +52,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lit and Shadow Colors</h1>
-<p class="subtitle lead">com.zalinteractive.nebula sample</p>
+<h1 class="title">Nebula</h1>
 </div>
 
 
@@ -70,16 +69,28 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="lit-and-shadow-colors" class="level1">
-<h1>Lit and Shadow Colors</h1>
-<p>Open <code>Lit and Shadow Colors.unity</code> and press Play to view the authored full-influence profile.</p>
-<p>The scene uses a warm HDR lit color and a cool HDR shadowed color with full artistic influence. Its three profiles are in <code>Profiles/</code>:</p>
-<ul>
-<li><code>Neutral</code> keeps <code>ColorInfluence</code> at zero for normal incident lighting.</li>
-<li><code>Partial</code> blends normal lighting and the authored colors equally.</li>
-<li><code>Full</code> replaces incident lighting with the lit and shadowed colors.</li>
-</ul>
-<p>The <code>Cyan Emissive Local Fog</code> object demonstrates that emission remains independent of artistic fog coloring. Select the <code>Artistic Fog Volume</code> object to swap profiles or adjust the three color controls. For abrupt scripted profile changes, reset the camera’s temporal history with <code>VolumetricLightingRendererFeature.ResetTemporalHistory</code>.</p>
+<section id="view-an-authored-fog-palette" class="level1" data-section="Sample Guide">
+<h1 data-section="Sample Guide">View an authored fog palette</h1>
+<p>Open <code>Lit and Shadow Colors.unity</code> in the imported sample folder and enter Play mode. Nebula must already be enabled on the camera’s Universal Renderer.</p>
+<p>The scene starts with the <strong>Full</strong> profile: a warm lit color and a cool shadowed color at full artistic influence. Main-light shadow and cookie visibility choose the mixture at each fog sample.</p>
+<div class="doc-figure">
+<p><img src="/docs/nebula/Samples/Lit%20and%20Shadow%20Colors/images/colors-result.png" class="img-fluid" style="width:500pt" alt="The color sample rendered with its Full artistic profile."></p>
+<p>Figure 1</p>
+</div>
+<p>At full influence, the palette replaces incoming fog lighting, including additional-light contributions. It still multiplies the medium’s scattering coefficient, so albedo and density affect the result.</p>
+<p>The <strong>Cyan Emissive Local Fog</strong> object demonstrates a separate contribution: emission is not replaced by the artistic palette. A participating main light is necessary for the lit/shadow coloring itself.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="adjust-the-color-influence" class="level1" data-section="Sample Guide">
+<h1 data-section="Sample Guide">Adjust the color influence</h1>
+<p>Exit Play mode and select <code>Profiles/Full.asset</code>. Set <strong>Lit Fog Color</strong> and <strong>Shadowed Fog Color</strong>, then vary <strong>Artistic Color Influence</strong> between <code>0</code> and <code>1</code>. Keep their override checkboxes enabled.</p>
+<div class="doc-figure">
+<p><img src="/docs/nebula/Samples/Lit%20and%20Shadow%20Colors/images/colors-profile.png" class="img-fluid" style="width:500pt" alt="Full profile with both HDR color controls and Artistic Color Influence outlined."></p>
+<p>Figure 2</p>
+</div>
+<p>At <code>0</code>, fog uses its usual incident lighting. At <code>0.5</code>, it blends that lighting with the authored palette. At <code>1</code>, the palette fully replaces incoming lighting. The HDR color controls ignore alpha.</p>
+<p>The sample also contains <code>Profiles/Neutral.asset</code> at influence <code>0</code> and <code>Profiles/Partial.asset</code> at <code>0.5</code>, ready for comparing those settings in your own scene.</p>
+<p>For an abrupt scripted color or profile cut, call <code>VolumetricLightingRendererFeature.ResetTemporalHistory(camera)</code> before the next render. Smooth profile changes can use the existing temporal accumulation. See the scripting pages in Nebula’s main PDF for profile ownership and the reset API.</p>
 </section>
 
 </main>

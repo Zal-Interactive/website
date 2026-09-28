@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Exponential Terrain Fog</title>
+<title>Nebula</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -52,8 +52,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Exponential Terrain Fog</h1>
-<p class="subtitle lead">com.zalinteractive.nebula sample</p>
+<h1 class="title">Nebula</h1>
 </div>
 
 
@@ -70,12 +69,35 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="exponential-terrain-fog" class="level1">
-<h1>Exponential Terrain Fog</h1>
-<p>Open <code>Exponential Terrain Fog.unity</code> and enter Play mode. The scene demonstrates a global exponential fog layer whose base follows a selected Unity Terrain surface.</p>
-<p>Select <strong>Nebula Terrain Height Field</strong> to inspect the shared 512-sample terrain field. Select <strong>Global Fog Volume</strong> to inspect the Exponential profile, Terrain height reference, and Suppress Fog behavior used by the scene. Raise the camera or the <strong>Height Reference Marker</strong> to see density decrease continuously above the terrain-relative base.</p>
-<p>The sample intentionally uses an explicit Terrain list. Add adjacent tiles to that list when adapting the setup to a tiled world. Use <strong>Use World Height</strong> when fog should continue outside the assigned terrain bounds; keep <strong>Suppress Fog</strong> when uncovered positions and Terrain holes should remain clear.</p>
-<p>Nebula must be enabled on the URP renderer used by the camera.</p>
+<section id="view-a-terrain-relative-fog-layer" class="level1" data-section="Sample Guide">
+<h1 data-section="Sample Guide">View a terrain-relative fog layer</h1>
+<p>Open <code>Exponential Terrain Fog.unity</code> in the imported sample folder and enter Play mode. Nebula must already be enabled on the camera’s Universal Renderer.</p>
+<p>The fog layer follows the selected Terrain. Its full-density base is <code>2.5</code> world units above the terrain surface; density then falls to about 37% over the next <code>6</code> vertical units.</p>
+<div class="doc-figure">
+<p><img src="/docs/nebula/Samples/Exponential%20Terrain%20Fog/images/terrain-result.png" class="img-fluid" style="width:500pt" alt="Exponential fog follows a real Unity Terrain in the sample."></p>
+<p>Figure 1</p>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="inspect-the-terrain-height-field" class="level1" data-section="Sample Guide">
+<h1 data-section="Sample Guide">Inspect the terrain height field</h1>
+<p>Exit Play mode and select <strong>Nebula Terrain Height Field</strong>. The <strong>Terrains</strong> list explicitly contains the scene’s Terrain, and <strong>Resolution</strong> is <strong>Resolution 512</strong>.</p>
+<div class="doc-figure">
+<p><img src="/docs/nebula/Samples/Exponential%20Terrain%20Fog/images/terrain-provider.png" class="img-fluid" style="width:470pt" alt="The terrain provider with the assigned Terrain, resolution, coverage, and refresh controls outlined."></p>
+<p>Figure 2</p>
+</div>
+<p>The coverage readout reports a 512 × 512 field over an 80 × 80 world-unit area, about 2 MiB. The provider’s default for a newly added component is Resolution 1024.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="change-the-layer-above-ground" class="level1" data-section="Sample Guide">
+<h1 data-section="Sample Guide">Change the layer above ground</h1>
+<p>Select <code>Profiles/Exponential Terrain Fog.asset</code>. In the height section, keep <strong>Height Profile &gt; Exponential</strong> and <strong>Height Reference &gt; Terrain</strong>. Change <strong>Fog Base Height</strong> to lift the full-density layer, or increase <strong>Attenuation Distance</strong> for a gentler falloff.</p>
+<div class="doc-figure">
+<p><img src="/docs/nebula/Samples/Exponential%20Terrain%20Fog/images/terrain-profile.png" class="img-fluid" style="width:475pt" alt="Terrain-relative Volume Profile with its six height controls outlined."></p>
+<p>Figure 3</p>
+</div>
+<p><strong>Outside Terrain &gt; Suppress Fog</strong> clears this contribution outside selected terrain and over holes. Choose <strong>Use World Height</strong> if the same profile should continue there using world height.</p>
+<p>Valid terrain excludes all fog below its surface, even with a negative base offset. For adjacent tiles, extend the provider’s Terrains list. Keep only one provider enabled and use axis-aligned, unscaled Terrain tiles.</p>
 </section>
 
 </main>

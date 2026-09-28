@@ -21,19 +21,19 @@
       "url": "/docs/nebula/index.html",
       "samples": [
         {
-          "title": "Nebula Demo",
+          "title": "Nebula",
           "url": "/docs/nebula/Samples/Demo/index.html"
         },
         {
-          "title": "Exponential Terrain Fog",
+          "title": "Nebula",
           "url": "/docs/nebula/Samples/Exponential%20Terrain%20Fog/index.html"
         },
         {
-          "title": "Lit and Shadow Colors",
+          "title": "Nebula",
           "url": "/docs/nebula/Samples/Lit%20and%20Shadow%20Colors/index.html"
         },
         {
-          "title": "Lit and Shadow Density",
+          "title": "Nebula",
           "url": "/docs/nebula/Samples/Lit%20and%20Shadow%20Density/index.html"
         }
       ]

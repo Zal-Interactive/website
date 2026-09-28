@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Nebula Demo</title>
+<title>Nebula</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -52,8 +52,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Nebula Demo</h1>
-<p class="subtitle lead">com.zalinteractive.nebula sample</p>
+<h1 class="title">Nebula</h1>
 </div>
 
 
@@ -70,18 +69,37 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="nebula-demo" class="level1">
-<h1>Nebula Demo</h1>
-<p>Open <code>Nebula Demo.unity</code> and enter Play mode. Use the on-screen Previous and Next buttons, the Left/Right or A/D keys, or the number keys 1-4 to move between the four arrangements. Use the Fog button or the F key to compare each arrangement with and without volumetric fog.</p>
-<p>The scene demonstrates:</p>
-<ol type="1">
-<li>Shadowed god rays through primitive slats.</li>
-<li>Dense, wind-driven horror fog with height attenuation.</li>
-<li>Directional, Point, shadowed Spot, and fog-only Spot lights with labeled Nebula controls.</li>
-<li>Spot-light cookies projected through fog and onto opaque surfaces.</li>
-</ol>
-<p>Each arrangement is built only from Unity primitives and has its own bounded Volume Profile. The non-selected arrangements are disabled during Play mode to keep their lights isolated and to limit the mobile workload. The shared <code>Surface Directional Light — Fog Excluded</code> illuminates opaque surfaces without contributing to Nebula, so disabling fog always leaves a readable baseline scene.</p>
-<p>Nebula must be enabled on the URP renderer used by the camera. The repository’s PC and Mobile renderer assets are already configured. For use in another project, follow the renderer setup in the Nebula Documentation.pdf.</p>
+<section id="compare-fog-with-the-scene" class="level1" data-section="Sample Guide">
+<h1 data-section="Sample Guide">Compare fog with the scene</h1>
+<p>Open <code>Nebula Demo.unity</code> in the imported <strong>Nebula Demo</strong> folder and enter Play mode. First complete the renderer setup in Nebula’s main <code>Documentation.pdf</code>; importing a sample does not add a renderer feature to your project.</p>
+<p>Click <strong>Next</strong> or <strong>Previous</strong> to change arrangements. Click <strong>FOG: ON</strong> to disable fog and compare the same scene; the button becomes <strong>FOG: OFF</strong>. Click it again to restore fog.</p>
+<div class="doc-figure">
+<p><img src="/docs/nebula/Samples/Demo/images/demo-controls.png" class="img-fluid" style="width:500pt" alt="Nebula Demo Game view with Previous, Fog, and Next buttons outlined."></p>
+<p>Figure 1</p>
+</div>
+<p>The keyboard equivalents are Left/Right or A/D, number keys 1-4, and F for fog. Non-selected arrangements are disabled during Play mode, so their lights do not spill into the selected example.</p>
+<p>The first arrangement, <strong>God Rays</strong>, uses a shadowed Spot light through ceiling slats. With fog off you still see the architecture; with fog on, the beam appears between the light and the receiving surfaces.</p>
+<p>The control script is <code>Scripts/NebulaDemoCameraSwitcher.cs</code> beside this sample scene. It changes viewpoints and creates runtime profile instances for the fog comparison.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="compare-dense-fog" class="level1" data-section="Sample Guide">
+<h1 data-section="Sample Guide">Compare dense fog</h1>
+<p>Press <strong>2</strong> for <strong>Dense Horror Fog</strong>. Height attenuation and animated noise shape the haze between the lamps. Press <strong>F</strong> to compare how much distant geometry the fog obscures.</p>
+<div class="doc-figure">
+<p><img src="/docs/nebula/Samples/Demo/images/demo-horror.png" class="img-fluid" style="width:480pt" alt="The Dense Horror Fog arrangement with the fog toggle highlighted."></p>
+<p>Figure 2</p>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="inspect-lights-and-cookies" class="level1" data-section="Sample Guide">
+<h1 data-section="Sample Guide">Inspect lights and cookies</h1>
+<p>Press <strong>3</strong> for <strong>Lights and Shadows</strong>: from left to right, the scene shows directional shadows, a cyan Point light, a responsive shadowed Spot light, and a fog-only Spot light.</p>
+<p>Press <strong>4</strong> for <strong>Light Cookies</strong>. Two Spot-light cookies project a window grid and an organic pattern through fog and onto the receivers.</p>
+<div class="doc-figure">
+<p><img src="/docs/nebula/Samples/Demo/images/demo-cookies.png" class="img-fluid" style="width:480pt" alt="Light Cookies arrangement showing two different projected patterns."></p>
+<p>Figure 3</p>
+</div>
+<p>The shared surface Directional Light is excluded from Nebula. It keeps the geometry readable during comparisons without adding another fog-lighting contribution.</p>
 </section>
 
 </main>

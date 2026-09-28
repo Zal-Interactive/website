@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lit and Shadow Density</title>
+<title>Nebula</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -52,8 +52,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lit and Shadow Density</h1>
-<p class="subtitle lead">Nebula sample guide</p>
+<h1 class="title">Nebula</h1>
 </div>
 
 
@@ -70,14 +69,33 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="lit-and-shadow-density" class="level1">
-<h1>Lit and Shadow Density</h1>
-<p>Open <code>Lit and Shadow Density.unity</code> and enter Play mode to compare independent fog density in the main-light illumination and shadowed regions of the scene.</p>
-<section id="what-to-inspect" class="level2">
-<h2 class="anchored" data-anchor-id="what-to-inspect">What to inspect</h2>
-<p>The scene contains a side-by-side architectural arrangement with a neutral profile, a clear-shadow profile, and a dense-shadow profile under <code>Profiles/</code>. Select the scene’s fog volume to compare how lit and shadowed density respond without changing the scene’s geometry or light layout.</p>
-<p>Nebula must be enabled on the URP renderer used by the camera. For renderer setup and the underlying lit/shadow controls, see the Nebula package <code>Documentation.pdf</code>.</p>
+<section id="compare-lit-and-shadow-density" class="level1" data-section="Sample Guide">
+<h1 data-section="Sample Guide">Compare lit and shadow density</h1>
+<p>Open <code>Lit and Shadow Density.unity</code> in the imported sample folder and enter Play mode. Nebula must already be enabled on the camera’s Universal Renderer.</p>
+<p>The three views share a main light and matching geometry. Their profiles change the density multipliers:</p>
+<ul>
+<li><strong>Neutral:</strong> light <code>1</code>, shadow <code>1</code>.</li>
+<li><strong>Clear Shadows:</strong> light <code>2.5</code>, shadow <code>0.05</code>.</li>
+<li><strong>Dense Shadows:</strong> light <code>0.4</code>, shadow <code>1.5</code>.</li>
+</ul>
+<div class="doc-figure">
+<p><img src="/docs/nebula/Samples/Lit%20and%20Shadow%20Density/images/density-result.png" class="img-fluid" style="width:500pt" alt="Three architectural views compare Neutral, Clear Shadows, and Dense Shadows."></p>
+<p>Figure 1</p>
+</div>
+<p>Compare visibility through the lit shafts and the spaces between them. The controls multiply the composed fog density, including extinction, scattering, and emission. They do not increase or decrease the light itself.</p>
+<p>A participating main light is required. Additional lights can illuminate the resulting medium, but do not decide whether a region uses the light or shadow multiplier.</p>
+<div style="page-break-after: always;"></div>
 </section>
+<section id="edit-a-comparison-profile" class="level1" data-section="Sample Guide">
+<h1 data-section="Sample Guide">Edit a comparison profile</h1>
+<p>Exit Play mode, then select <code>Profiles/Dense Shadows.asset</code> in the imported sample. Change <strong>Density In Light</strong> or <strong>Density In Shadow</strong> in its <strong>Volumetric Lighting</strong> override. Keep the left override checkbox enabled beside both parameters.</p>
+<div class="doc-figure">
+<p><img src="/docs/nebula/Samples/Lit%20and%20Shadow%20Density/images/density-profile.png" class="img-fluid" style="width:500pt" alt="Dense Shadows profile with both density multipliers and their override checkboxes outlined."></p>
+<p>Figure 2</p>
+</div>
+<p>The pictured values are <code>0.4</code> and <code>1.5</code>. Increase the shadow multiplier to obscure more of the scene in main-light shadows, or set it to <code>0</code> to remove fog there.</p>
+<p>The other editable profiles are <code>Profiles/Neutral.asset</code> and <code>Profiles/Clear Shadows.asset</code>. Each comparison view uses its own profile, so editing one leaves the others available as references.</p>
+<p>Keep the scene’s geometry and light unchanged while comparing these controls. Soft shadow edges and cookie coverage interpolate the multipliers. If no difference appears, check that the main light participates in Nebula and that the intended profile is assigned.</p>
 </section>
 
 </main>
