@@ -371,7 +371,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="/docs/nebula/images/reconstruction-controls.png" class="img-fluid" style="width:500pt" alt="Renderer Inspector with three outlines around depth settings, temporal and lighting settings, and debug visualization."></p>
 <p>Figure 22</p>
 </div>
-<p><strong>Depth Distribution:</strong> Logarithmic places more slices near the camera; a larger <strong>Logarithmic Depth Scale</strong> concentrates them further. Linear spaces them evenly.</p>
+<p><strong>Logarithmic Depth Scale:</strong> Nebula places more depth slices near the camera. Increase this value to concentrate them further; the default is 32. Existing Quadratic configurations now use logarithmic distribution and may look different.</p>
 <p><strong>Enable Conservative Depth</strong> constrains fog near opaque surfaces to reduce foreground bleeding. <strong>Surface Depth Bias</strong> leaves a world-space gap before those surfaces; too much can make fog visibly detach.</p>
 <p><strong>Enable Temporal Reprojection</strong> smooths fog using history. <strong>Scattering History Weight</strong> and <strong>Extinction History Weight</strong> default to <code>0.9</code>; higher values stabilize more strongly but respond more slowly. Lighting and motion rejection reduce history when the corresponding comparisons disagree.</p>
 <p><strong>Inverse-Square Light Distance Bias Scale</strong> filters very bright point/spot light contributions near their origin. Larger values spread that near-source filtering over a larger froxel-relative distance. For one moving light, try <a href="#lights">Temporal Responsiveness</a> before changing every camera’s history weights.</p>
