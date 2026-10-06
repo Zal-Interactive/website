@@ -149,15 +149,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="choose-the-exact-target" class="level1" data-section="Picking">
 <h1 data-section="Picking">Choose the exact target</h1>
-<p>Select <strong>Game object</strong> on a Game view capture and click a visible object. Candidates and their ancestors appear as read-only object fields. Click <strong>Select</strong> beside one to annotate that object, or focus its button and press <strong>Return</strong>. The object field pings on click and selects the object in Unity on double-click.</p>
+<p>Select <strong>Game object</strong> on a Scene or Game view capture and click a visible object. Candidates and their ancestors appear as read-only object fields. Click <strong>Select</strong> beside one to annotate that object, or focus its button and press <strong>Return</strong>. The object field pings on click and selects the object in Unity on double-click.</p>
 <div class="doc-figure">
 <p><img src="/docs/unity-annotator/images/pick-candidates.png" class="img-fluid" style="width:450pt"></p>
 <p>Figure 4</p>
 </div>
-<p>Dense overlaps show a warning if a camera reaches the 64-object candidate limit; isolate the intended object and recapture to see deeper candidates. Overlapping collider-free meshes and sprites can be picked; uGUI graphics remain pickable when their raycast target or gameplay interaction is disabled.</p>
+<p>Dense overlaps show a warning if a camera reaches the 64-object candidate limit; isolate the intended object and recapture to see deeper candidates. Scene captures support terrain and overlapping collider-free meshes and sprites. In Game captures, uGUI graphics remain pickable when their raycast target or gameplay interaction is disabled.</p>
 <p>Select <strong>Editor control</strong> on an Editor window capture and click a control, then choose its element or ancestor. UI Toolkit targets retain type, name, classes, hierarchy position, bounds, binding path, and available source assets. Availability reports changes to source assets or the capture’s Play context. Bound Inspector fields also identify the inspected objects.</p>
 <p>IMGUI candidates use the window name followed by <strong>area</strong>. Their bounds and window/Inspector context describe the captured region, rather than an exact retained control.</p>
-<p>Picking uses the captured Game view’s camera and viewport mapping, including zoom and letterboxing. Changing the camera invalidates semantic picking; finish and recapture. uGUI uses rendered triangle geometry and masks; transparent texture pixels and custom shader clipping can still produce broader candidates. Camera stacking and custom rendering may need a point or area plus a descriptive note.</p>
+<p>Scene picking uses the captured Scene view’s camera and viewport; Game picking uses its game cameras, zoom and letterboxing. Moving the Scene camera or changing the captured camera or viewport invalidates picking; finish and recapture. uGUI uses rendered triangle geometry and masks; transparent texture pixels and custom shader clipping can still produce broader candidates. Camera stacking and custom rendering may need a point or area plus a descriptive note.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="send-and-retrieve-a-batch" class="level1" data-section="Agent inbox">
