@@ -115,6 +115,13 @@
           "url": "/docs/ui-shadow/Samples/05%20Demo%20Gallery/index.html"
         }
       ]
+    },
+    {
+      "id": "com.zalinteractive.unity-annotator",
+      "slug": "unity-annotator",
+      "title": "Unity Annotator",
+      "url": "/docs/unity-annotator/index.html",
+      "samples": []
     }
   ]
 }
