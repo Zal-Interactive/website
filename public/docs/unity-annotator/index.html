@@ -109,7 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-section="Getting started">Capture and collect</h1>
 <p>Open <strong>Window &gt; Unity Annotator</strong> in Unity 6.0. The package uses Common, Unity Pipeline, Newtonsoft JSON, and uGUI. Your agent must be able to read files on the computer running Unity.</p>
 <ol type="1">
-<li>Click <strong>Add screenshot…</strong>, then choose the Editor window to capture. Its visible content becomes a frozen image.</li>
+<li>Click <strong>Add screenshot…</strong>, then click <strong>Annotate</strong> in the center of a visible Editor window. Its content becomes a frozen image. The next page explains window selection and entire-editor captures.</li>
 <li>Select <strong>Point</strong> and click, or select <strong>Area</strong> and drag a rectangle. Add a <strong>Note</strong> beside every marker or in the tray.</li>
 <li>Click <strong>Finish screenshot</strong>. Repeat for another window to collect more screenshots in the same batch.</li>
 </ol>
@@ -121,12 +121,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Valid GameObject targets appear as read-only object fields. Click to ping the object; double-click to select it. You cannot replace the captured reference by dragging or using an object selector.</p>
 <div style="page-break-after: always;"></div>
 </section>
+<section id="choose-what-to-capture" class="level1" data-section="Capturing">
+<h1 data-section="Capturing">Choose what to capture</h1>
+<p>Click <strong>Add screenshot…</strong> to show capture choices across the Editor. Use <strong>Cancel</strong> or <strong>Escape</strong> to remove the buttons without taking a screenshot.</p>
+<div class="doc-figure">
+<p><img src="/docs/unity-annotator/images/window-choice.png" class="img-fluid" style="width:490pt" alt="Unity Annotator with Add screenshot, Capture entire editor and Cancel outlined in the window selection panel."></p>
+<p>Figure 2</p>
+</div>
+<p>Click <strong>Annotate</strong> in the center of the pane you want to capture. Only active tabs in shown windows receive a button. Switching tabs, resizing panes, or opening a floating window updates the choices. Other controls remain usable while you choose.</p>
+<div class="doc-figure">
+<p><img src="/docs/unity-annotator/images/window-choice-source.png" class="img-fluid" style="width:450pt" alt="A floating Editor pane with its centered Annotate button outlined and neighboring UI Toolkit and IMGUI controls visible."></p>
+<p>Figure 3</p>
+</div>
+<p><strong>Capture entire editor</strong> captures the main Unity window, including its toolbar and docked panes. The image opens in a separate preview for <strong>Point</strong> and <strong>Area</strong> annotations; capture a pane individually for object or Editor-control picking. Finish and Cancel use the same controls as individual captures.</p>
+<p>This is an on-screen image: overlapping windows can appear within the main window’s bounds. Separately positioned floating windows are not stitched into the image. A disabled capture button explains why screen capture is unavailable.</p>
+<div style="page-break-after: always;"></div>
+</section>
 <section id="adjust-your-annotations" class="level1" data-section="Editing">
 <h1 data-section="Editing">Adjust your annotations</h1>
 <p>While capturing or editing a screenshot, drag a point to move it. Drag inside an area to move it; drag its lower-right corner to resize it. Click a marker number in the tray to select the annotation. Object fields navigate to the Unity object.</p>
 <div class="doc-figure">
 <p><img src="/docs/unity-annotator/images/note-overlay.png" class="img-fluid" style="width:490pt"></p>
-<p>Figure 2</p>
+<p>Figure 4</p>
 </div>
 <p>Edit <strong>Note</strong> beside its marker or in the tray; both fields change the same note. Boxes stay inside the capture. If they cannot all fit, the tray reports overflow: select a marker there to show its note. Saved PNG previews contain numbered markers only.</p>
 <p><strong>Delete</strong> removes a marker. <strong>Undo</strong> or <strong>Ctrl/Cmd+Z</strong> reverses active screenshot edits from either window. Finished-screenshot notes and the batch message keep their own text behavior. Typing within one note is one undo step; the session retains its latest 100 edits. Selection clicks and undersized areas do not consume history. Deleted numbers are never reused.</p>
@@ -141,9 +157,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Click <strong>Edit screenshot</strong> on a draft card (Figure 1). Its original image opens with editable markers and notes, even after a restart or closing its source window. Finish before editing another screenshot.</p>
 <div class="doc-figure">
 <p><img src="/docs/unity-annotator/images/reopen-screenshot.png" class="img-fluid" style="width:490pt" alt="Unity Annotator's Point, Area, Finish, Cancel and Undo controls above a saved screenshot with editable notes and a selected area."></p>
-<p>Figure 3</p>
+<p>Figure 5</p>
 </div>
-<p>Add <strong>Point</strong>/<strong>Area</strong> markers or adjust annotations (Figure 2). Live picking requires a fresh capture; existing targets remain. Resizing preserves marker positions and image proportions. Saved editing leaves playback running.</p>
+<p>Add <strong>Point</strong>/<strong>Area</strong> markers or adjust annotations (Figure 4). Live picking requires a fresh window capture; existing targets remain. Resizing preserves marker positions and image proportions. Saved editing leaves playback running.</p>
 <p>Edits autosave. <strong>Finish screenshot</strong>, <strong>Escape</strong>, closing either window, recompilation and Play transitions retain them. <strong>Cancel</strong> restores opening annotations while keeping other screenshot edits. Reopening resets Undo history; cancelled numbers stay unused. Submitted batches remain read-only.</p>
 <div style="page-break-after: always;"></div>
 </section>
@@ -152,7 +168,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Select <strong>Game object</strong> on a Scene or Game view capture and click a visible object. Candidates and their ancestors appear as read-only object fields. Click <strong>Select</strong> beside one to annotate that object, or focus its button and press <strong>Return</strong>. The object field pings on click and selects the object in Unity on double-click.</p>
 <div class="doc-figure">
 <p><img src="/docs/unity-annotator/images/pick-candidates.png" class="img-fluid" style="width:450pt"></p>
-<p>Figure 4</p>
+<p>Figure 6</p>
 </div>
 <p>Dense overlaps show a warning if a camera reaches the 64-object candidate limit; isolate the intended object and recapture to see deeper candidates. Scene captures support terrain and overlapping collider-free meshes and sprites. In Game captures, uGUI graphics remain pickable when their raycast target or gameplay interaction is disabled.</p>
 <p>Select <strong>Editor control</strong> on an Editor window capture and click a control, then choose its element or ancestor. UI Toolkit targets retain type, name, classes, hierarchy position, bounds, binding path, and available source assets. Availability reports changes to source assets or the capture’s Play context. Bound Inspector fields also identify the inspected objects.</p>
@@ -165,7 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Add a <strong>Message to agent</strong> if several markers need a shared instruction, such as “align #3 with #1.” Finish the active capture and complete every note, then click <strong>Send to agent</strong>. Missing notes or storage failures leave the draft available for correction and retry.</p>
 <div class="doc-figure">
 <p><img src="/docs/unity-annotator/images/send-receipt.png" class="img-fluid" style="width:480pt"></p>
-<p>Figure 5</p>
+<p>Figure 7</p>
 </div>
 <p>Click <strong>Copy request</strong> and paste it into your agent’s chat. You can copy an earlier request from <strong>Sent batches</strong>; hover its dated heading to see the full batch ID. Sending does not wake an idle chat. Through the existing Unity command tool, the agent can request:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
