@@ -105,243 +105,182 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="what-you-can-do" class="level1" data-section="Overview">
-<h1 data-section="Overview">What you can do</h1>
-<p>Annotator turns visual feedback in the Unity Editor into screenshots with numbered markers, notes, and captured target information. Collect several screenshots in one batch, then give an agent a request it can retrieve through local files or Unity’s command tool.</p>
-<ul>
-<li><strong>Capture a window or the entire Editor.</strong> Freeze a Scene view, Game view, or another visible Editor pane. An entire-editor capture includes the main window’s toolbar and docked panes.</li>
-<li><strong>Mark a point or an area.</strong> Place a marker at an exact location or draw a rectangle around a region, then write what you want to change. A dashed border identifies the image that accepts annotations; the rest of the Editor remains usable.</li>
-<li><strong>Identify an object or control.</strong> Fresh window captures attach GameObject references or Editor-control information to your notes. Game objects offer a candidate list; Editor controls show a hover outline and become areas with one click.</li>
-<li><strong>Switch tools beside the image.</strong> The compact toolbox follows the captured window and shares its selected mode with Annotator. Saved images and entire-editor captures support Point and Area.</li>
-<li><strong>Revise and reopen your feedback.</strong> Move markers, resize areas, edit notes, and undo active screenshot edits. Drafts survive Editor restarts, and saved screenshots can be reopened without their original window.</li>
-<li><strong>Hand off a complete batch.</strong> Add a shared message, send the batch, and copy its request into your agent’s chat. The agent can retrieve notes, target descriptors, original images, and numbered previews. A receipt shows when it has read the batch.</li>
-</ul>
-<p>Start by opening <strong>Tools &gt; Annotator</strong>. The following pages take you through capture, annotation, editing, and handoff. Annotator is an Editor tool; your agent needs file access to the computer running Unity.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="capture-and-collect" class="level1" data-section="Getting started">
-<h1 data-section="Getting started">Capture and collect</h1>
-<p>Open <strong>Tools &gt; Annotator</strong> in Unity 6.0. The package requires Common, Newtonsoft JSON, and uGUI. Unity Pipeline is optional; version <code>0.8.0-exp.1</code> or newer enables agent commands automatically.</p>
-<p>Click <strong>Add screenshot…</strong> to choose a visible Editor window. The next page shows the capture choices. Each finished screenshot becomes a card in the tray, where its <strong>Note</strong> fields remain editable.</p>
+<section id="capture-your-first-screenshot" class="level1" data-section="Getting started">
+<h1 data-section="Getting started">Capture your first screenshot</h1>
+<p>Open <strong>Tools &gt; Annotator</strong>, then click <strong>Add screenshot…</strong>. Annotator captures what you can see in an Editor window and lets you attach numbered notes to it.</p>
 <div class="doc-figure">
-<p><img src="/docs/annotator/images/capture-tray.png" class="img-fluid" style="width:490pt" alt="Annotator and a finished screenshot card, with only Add screenshot and its first Note field outlined."></p>
+<p><img src="/docs/annotator/images/Tanks/start.png" class="img-fluid" style="width:370pt" alt="Annotator's empty state with Add screenshot outlined."></p>
 <p>Figure 1</p>
 </div>
-<p>Use the annotation tools to place markers and write a note for each one. Finish the screenshot before adding another; several screenshots can share a batch. Marker numbers are unique across that batch.</p>
-<p>During Play Mode, capture pauses playback. Finishing or cancelling restores the previous pause state.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="choose-what-to-capture" class="level1" data-section="Capturing">
-<h1 data-section="Capturing">Choose what to capture</h1>
-<p>After <strong>Add screenshot…</strong> (Figure 1), click <strong>Annotate</strong> in the center of the pane you want to capture. Cyan corner brackets mark its content bounds. Only active tabs in shown windows receive a button. Switching tabs, resizing panes, or opening a floating window updates the choices. Other controls remain usable while you choose.</p>
+<p>Click <strong>Annotate</strong> in the Scene view. The image freezes inside a cyan dashed border, ready for the point and area tools on the next page. Only visible, active window tabs can be captured.</p>
 <div class="doc-figure">
-<p><img src="/docs/annotator/images/window-choice-source.png" class="img-fluid" style="width:450pt" alt="A visible Editor pane with its centered Annotate button outlined and cyan corner brackets marking its bounds."></p>
+<p><img src="/docs/annotator/images/Tanks/scene-choice.png" class="img-fluid" style="width:305pt" alt="Tanks desert outpost in the Scene view, with its Annotate button outlined."></p>
 <p>Figure 2</p>
 </div>
-<p>Alternatively, click <strong>Capture entire editor</strong> to capture the main Unity window, including its toolbar and docked panes. Use <strong>Cancel</strong> or <strong>Escape</strong> to leave the choices without taking a screenshot.</p>
+<p><strong>Requirements:</strong> Unity 6.0 or newer, Unity’s Newtonsoft JSON package and uGUI. No other Zal package is required. The Tanks content shown here is demonstration content, not included with Annotator.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="add-a-point-or-area" class="level1" data-section="Getting started">
+<h1 data-section="Getting started">Add a point or area</h1>
+<p>Choose <strong>Point</strong> in Annotator and click the object or location you want to discuss. Choose <strong>Area</strong> instead to draw a rectangle around a larger region. Each marker opens a <strong>Note</strong> field beside it; write the change you want there.</p>
 <div class="doc-figure">
-<p><img src="/docs/annotator/images/window-choice.png" class="img-fluid" style="width:430pt" alt="The capture-choice panel with only Capture entire editor and Cancel outlined."></p>
+<p><img src="/docs/annotator/images/Tanks/tools.png" class="img-fluid" style="width:430pt" alt="A Tanks Scene capture card and Annotator's Point, Area, Finish screenshot, Cancel and Undo controls, each outlined separately."></p>
 <p>Figure 3</p>
 </div>
-<p>An entire-editor image opens in a separate preview for <strong>Point</strong> and <strong>Area</strong> annotations. Capture a pane individually for object or Editor-control picking.</p>
-<p>This is an on-screen image: overlapping windows can appear within the main window’s bounds. Separately positioned floating windows are not stitched into the image. A disabled capture button explains why screen capture is unavailable.</p>
+<p>Click <strong>Finish screenshot</strong> to keep the image and its notes. The capture becomes an editable card in the tray. You can add more screenshots to the same batch; their marker numbers remain unique.</p>
+<p><strong>Cancel</strong> discards a fresh screenshot. <strong>Undo</strong>, or <strong>Ctrl/Cmd+Z</strong>, reverses an edit while a screenshot is active. Typing in one note is one undo step; the session keeps its latest 100 edits.</p>
+<p>During a fresh Play Mode capture, Annotator pauses playback. Finishing or cancelling restores the previous pause state. The captured image receives annotation input; other Editor panes remain usable.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="stay-in-annotation-mode" class="level1" data-section="Annotating">
-<h1 data-section="Annotating">Stay in annotation mode</h1>
-<p>After capture, a cyan dashed border marks the frozen image that is ready to annotate. Click inside it to add a point, or drag to mark an area. The image intercepts input to the underlying window; other panes and controls outside the border remain usable.</p>
+<section id="explain-the-change-beside-its-target" class="level1" data-section="Notes">
+<h1 data-section="Notes">Explain the change beside its target</h1>
+<p>Write a specific instruction in each <strong>Note</strong> field. Here, a point identifies the player tank and an area identifies the hangars. These are example requests, not changes made to the Tanks demo.</p>
 <div class="doc-figure">
-<p><img src="/docs/annotator/images/annotation-mode.png" class="img-fluid" style="width:450pt" alt="A fresh Scene capture with its native dashed border and one point note; no extra highlights or callouts have been added."></p>
+<p><img src="/docs/annotator/images/Tanks/notes.png" class="img-fluid" style="width:500pt" alt="The tank point marker, hangar area and both note fields are outlined in a contextual Scene screenshot."></p>
 <p>Figure 4</p>
 </div>
-<p>Keyboard input inside the image is reserved for annotation commands and notes. The border and toolbox stay out of original and exported images.</p>
+<p>Drag a point marker to reposition it. Drag inside an area to move it, or use its lower-right handle to resize it. The note follows the marker and stays inside the image when space allows.</p>
+<p>Notes in the tray and notes over the image edit the same text. The exported preview contains numbered markers; the note text travels separately in the batch, leaving the image easier to inspect.</p>
+<p>If several notes cannot fit, Annotator reports the overflow in the tray. Deleted marker numbers are not reused.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="use-the-toolbox" class="level1" data-section="Annotating">
-<h1 data-section="Annotating">Use the toolbox</h1>
-<p>Click <strong>Point</strong> to place a marker or <strong>Area</strong> to draw a rectangle. These are the first two toolbox icons, from left to right. Hover an icon for instructions.</p>
+<section id="review-the-screenshot-tray" class="level1" data-section="Review">
+<h1 data-section="Review">Review the screenshot tray</h1>
+<p>Click the thumbnail or <strong>View screenshot</strong> to inspect a numbered preview. Edit a <strong>Note</strong> directly in the card. <strong>Delete</strong> beside a note removes that marker; <strong>Remove screenshot</strong> removes the entire draft capture.</p>
 <div class="doc-figure">
-<p><img src="/docs/annotator/images/annotation-toolbox.png" class="img-fluid" style="width:400pt" alt="The toolbox below the Scene pane, with only Point and Area outlined."></p>
+<p><img src="/docs/annotator/images/Tanks/review.png" class="img-fluid" style="width:450pt" alt="Annotator's Scene card with thumbnail, View screenshot, Note, Delete, Remove screenshot, Edit screenshot and Add screenshot outlined."></p>
 <p>Figure 5</p>
 </div>
-<p>The third icon, <strong>Game object</strong>, picks a Unity object; the fourth, <strong>Editor control</strong>, outlines a control on hover and marks its area on click. The Picking pages explain both tools.</p>
+<p>Click <strong>Edit screenshot</strong> to place or adjust markers again. Finish that edit before opening another capture. Use <strong>Add screenshot…</strong> to collect a different view in the same batch.</p>
+<p>Draft edits save automatically. Closing or resizing a freshly captured source window, recompiling, or changing Play Mode ends that live capture and keeps its annotations in the draft.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="reopen-and-revise-a-saved-image" class="level1" data-section="Review">
+<h1 data-section="Review">Reopen and revise a saved image</h1>
+<p><strong>Edit screenshot</strong> in the tray opens the saved original with its editable markers, even after the source window closes. The toolbox above the image offers <strong>Point</strong>, <strong>Area</strong>, <strong>Finish Screenshot</strong> and <strong>Cancel</strong>, from left to right.</p>
 <div class="doc-figure">
-<p><img src="/docs/annotator/images/annotation-toolbox-picking.png" class="img-fluid" style="width:400pt" alt="The same toolbox in context, with only Game object and Editor control outlined."></p>
+<p><img src="/docs/annotator/images/Tanks/reopen.png" class="img-fluid" style="width:440pt" alt="Saved Tanks screenshot with the two annotation tools and Finish Screenshot and Cancel outlined, retaining the image and note context."></p>
 <p>Figure 6</p>
 </div>
-<p>The toolbox follows the target. It moves above the window when there is no room below, or inside its bottom edge when neither position fits. Saved screenshots and entire-editor captures offer <strong>Point</strong> and <strong>Area</strong>; the disabled picking icons explain why.</p>
+<p>Finish to retain your edits. Cancel restores the annotations present when this edit began. Closing the window, pressing <strong>Escape</strong>, recompiling or changing Play Mode retains saved-image edits. Reopening starts a new undo history.</p>
+<p>Saved images preserve existing targets but cannot pick new objects or Editor controls. Capture a fresh window for those tools. Resizing the saved-image window preserves marker proportions; saved-image editing does not pause playback.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="use-the-annotator-controls" class="level1" data-section="Annotating">
-<h1 data-section="Annotating">Use the Annotator controls</h1>
-<p>You can also switch between <strong>Point</strong> and <strong>Area</strong> in Annotator. Both sets of mode buttons share the same selection.</p>
+<section id="pick-the-exact-gameobject" class="level1" data-section="Picking">
+<h1 data-section="Picking">Pick the exact GameObject</h1>
+<p>On a fresh Scene or Game capture, choose <strong>Game object</strong> in Annotator, then click the visible object. <strong>Choose GameObject</strong> appears over the image with matching objects and their parents.</p>
 <div class="doc-figure">
-<p><img src="/docs/annotator/images/annotation-controls-point-area.png" class="img-fluid" style="width:380pt" alt="The Annotator controls, with only Point and Area outlined."></p>
+<p><img src="/docs/annotator/images/Tanks/picking-tools.png" class="img-fluid" style="width:380pt" alt="The captured Scene card and annotation controls, with Game object and Editor control outlined."></p>
 <p>Figure 7</p>
 </div>
-<p><strong>Game object</strong> and <strong>Editor control</strong> use the same picking modes as the toolbox.</p>
+<p>Click the <strong>Heavy Tank</strong> candidate to attach the tank root, rather than just its turret. The captured reference appears beside that marker in the tray. Add a note describing what should change.</p>
 <div class="doc-figure">
-<p><img src="/docs/annotator/images/annotation-controls-picking.png" class="img-fluid" style="width:380pt" alt="The same Annotator controls, with only Game object and Editor control outlined."></p>
+<p><img src="/docs/annotator/images/Tanks/object-choices.png" class="img-fluid" style="width:460pt" alt="Heavy Tank in the desert scene and its Heavy Tank row in the candidate overlay, each outlined."></p>
 <p>Figure 8</p>
 </div>
-<p>Click <strong>Finish screenshot</strong>, or press <strong>Escape</strong> from the image, toolbox, or Annotator, to keep your annotations. <strong>Cancel</strong> discards a fresh screenshot; during saved-image editing it restores the annotations present when you opened it.</p>
+<p>The captured object reference is read-only. It retains the selected object’s identity alongside the screenshot and note.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="point-to-an-inspector-setting" class="level1" data-section="Picking">
+<h1 data-section="Picking">Point to an Inspector setting</h1>
+<p>Capture the Tank’s Inspector using <strong>Add screenshot…</strong> and its <strong>Annotate</strong> button. Choose <strong>Editor control</strong> (Figure 7), then hover <strong>Speed</strong> under <strong>Tank Movement (Script)</strong>. A cyan outline shows the detected field. Click it to create a numbered area without changing the setting, then write your note.</p>
 <div class="doc-figure">
-<p><img src="/docs/annotator/images/annotation-controls.png" class="img-fluid" style="width:380pt" alt="The same Annotator controls, with only Finish screenshot and Cancel outlined."></p>
+<p><img src="/docs/annotator/images/Tanks/inspector.png" class="img-fluid" style="width:410pt" alt="The Tanks Inspector with its object name and Tank Movement component visible, and the captured Speed field and Note field outlined."></p>
 <p>Figure 9</p>
 </div>
+<p>The target records the available control identity, binding path and inspected-object context. Here the selected control is the <strong>Speed</strong> field, bound to <code>m_Speed</code>, and its value remains <code>12</code>.</p>
+<p>UI Toolkit and available IMGUI controls are supported, including disabled visible controls. Custom IMGUI drawing without a known control identity is described as an <strong>IMGUI region</strong>. A capture limitation appears in Annotator when some controls cannot be recorded.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="adjust-your-annotations" class="level1" data-section="Editing">
-<h1 data-section="Editing">Adjust your annotations</h1>
-<p>While capturing or editing a screenshot, drag a point to move it. Drag inside an area to move it; drag its lower-right corner to resize it. Edit <strong>Note</strong> beside its marker or in the tray; both fields change the same note.</p>
+<section id="send-the-complete-set-of-notes" class="level1" data-section="Handoff">
+<h1 data-section="Handoff">Send the complete set of notes</h1>
+<p>Finish each screenshot and fill every note. Add an optional <strong>Message to agent</strong> for instructions that apply to the whole batch, then click <strong>Send to agent</strong>.</p>
 <div class="doc-figure">
-<p><img src="/docs/annotator/images/note-overlay.png" class="img-fluid" style="width:450pt" alt="A Scene image with a point and an area, with only their two note boxes outlined."></p>
+<p><img src="/docs/annotator/images/Tanks/send.png" class="img-fluid" style="width:400pt" alt="A completed Tanks Game screenshot card with Note, Message to agent and Send to agent outlined."></p>
 <p>Figure 10</p>
 </div>
-<p>Boxes stay inside the capture. Saved PNG previews contain numbered markers only.</p>
+<p>Sending stores the batch locally and opens a request to copy. It does not start a conversation or wake an idle agent. Missing notes or storage failures leave the draft available for correction.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="select-and-remove-markers" class="level1" data-section="Editing">
-<h1 data-section="Editing">Select and remove markers</h1>
-<p>Click a marker number in the tray to select it. If note boxes cannot all fit inside the capture, the tray reports overflow; selecting a marker there shows its note. <strong>Delete</strong> removes the marker.</p>
+<section id="give-the-request-to-your-agent" class="level1" data-section="Handoff">
+<h1 data-section="Handoff">Give the request to your agent</h1>
+<p>Click <strong>Copy</strong> and paste the request into your coding agent’s chat. The request identifies the batch and tells the agent how to read every note and screenshot. Your agent needs local file access to the computer running Unity, or the optional Unity Pipeline command integration.</p>
 <div class="doc-figure">
-<p><img src="/docs/annotator/images/tray-marker-delete.png" class="img-fluid" style="width:370pt" alt="A screenshot card in the tray, with only its first marker number and Delete button outlined."></p>
+<p><img src="/docs/annotator/images/Tanks/copy-request.png" class="img-fluid" style="width:365pt" alt="The real request page with Copy and Continue outlined; project-specific request text has been obscured."></p>
 <p>Figure 11</p>
 </div>
-<p>Typing within one note is one undo step; the session retains its latest 100 edits. Selection clicks and undersized areas do not consume history. Deleted numbers are never reused.</p>
+<p>The project-specific request text is hidden in this figure. In your Editor it contains your real project location and batch identifier.</p>
+<p>Click <strong>Continue</strong> to return to Annotator and start another batch. Submitted batches are read-only; prepare a new batch when you need to add more feedback.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="review-a-finished-screenshot" class="level1" data-section="Editing">
-<h1 data-section="Editing">Review a finished screenshot</h1>
-<p>Click a thumbnail or <strong>View screenshot</strong> to review the numbered preview after finishing. Notes and marker deletion remain available in the tray (Figure 11).</p>
+<section id="check-receipt-and-retention" class="level1" data-section="History">
+<h1 data-section="History">Check receipt and retention</h1>
+<p>Open <strong>History</strong> in Annotator to find previously submitted batches.</p>
 <div class="doc-figure">
-<p><img src="/docs/annotator/images/tray-view.png" class="img-fluid" style="width:430pt" alt="The same screenshot card, with only its thumbnail and View screenshot outlined."></p>
+<p><img src="/docs/annotator/images/Tanks/history-entry.png" class="img-fluid" style="width:430pt" alt="Annotator's header with History outlined."></p>
 <p>Figure 12</p>
 </div>
-<p>Use <strong>Edit screenshot</strong> to place or adjust markers again. <strong>Remove screenshot</strong> deletes a draft screenshot.</p>
+<p><strong>Refresh</strong> checks the receipt again. <strong>Copy request</strong> retrieves an earlier request. <strong>Delete</strong> asks for confirmation before permanently removing that batch’s images and notes. <strong>Back</strong> returns to the draft.</p>
 <div class="doc-figure">
-<p><img src="/docs/annotator/images/tray-edit-remove.png" class="img-fluid" style="width:430pt" alt="The same screenshot card, with only Edit screenshot and Remove screenshot outlined."></p>
+<p><img src="/docs/annotator/images/Tanks/history.png" class="img-fluid" style="width:450pt" alt="Annotator History with Refresh, Copy request, Delete and Back outlined, and a Read by agent receipt."></p>
 <p>Figure 13</p>
 </div>
+<p><strong>Read by agent</strong> means the notes and images were retrieved, not that the requested work is complete.</p>
+<p>Annotations are local working data under <code>Library/Annotator</code>. They survive Editor restarts, but expire automatically after <strong>7 days</strong>: from creation for an unsent draft, and from submission for a sent batch. Editing a draft does not restart its retention period. Clearing the project’s Library also removes this data.</p>
+<p>Keep a separate copy of any batch and images you need as a lasting record before they expire.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="reopen-a-saved-screenshot" class="level1" data-section="Editing">
-<h1 data-section="Editing">Reopen a saved screenshot</h1>
-<p>Click <strong>Edit screenshot</strong> on a draft card (Figure 13). Its original image opens with editable markers and notes, even after a restart or closing its source window. Finish before editing another screenshot.</p>
+<section id="capture-scope-and-picking-limits" class="level1" data-section="Reference">
+<h1 data-section="Reference">Capture scope and picking limits</h1>
+<p>After <strong>Add screenshot…</strong>, <strong>Capture entire editor</strong> captures the main Unity window, including its toolbar and docked panes. <strong>Cancel</strong> or <strong>Escape</strong> leaves the chooser without a capture.</p>
 <div class="doc-figure">
-<p><img src="/docs/annotator/images/reopen-screenshot.png" class="img-fluid" style="width:380pt" alt="Annotator above a reopened Scene screenshot with two editable notes; no extra highlights or callouts are added."></p>
+<p><img src="/docs/annotator/images/Tanks/window-choice.png" class="img-fluid" style="width:440pt" alt="Annotator's capture chooser with Capture entire editor and Cancel outlined."></p>
 <p>Figure 14</p>
 </div>
-<p>Add <strong>Point</strong>/<strong>Area</strong> markers or adjust annotations (Figures 7 and 10). Live picking requires a fresh window capture; existing targets remain. Resizing preserves marker positions and image proportions. Saved editing leaves playback running.</p>
-<p>Edits autosave. <strong>Finish screenshot</strong>, <strong>Escape</strong>, closing either window, recompilation and Play transitions retain them. <strong>Cancel</strong> restores opening annotations while keeping other screenshot edits. Reopening resets Undo history; cancelled numbers stay unused. Submitted batches remain read-only.</p>
+<p>Entire-editor and saved-image captures support <strong>Point</strong> and <strong>Area</strong>. Capture an individual window for GameObject or Editor-control picking. Entire-editor capture is an on-screen image: overlapping windows can appear in it, and separately positioned floating windows are not stitched together. Review its contents before sharing.</p>
+<p><strong>Scene and Game objects.</strong> Scene picking supports terrain, meshes and sprites, including overlapping meshes without colliders. Game captures use the captured cameras, zoom and letterboxing. uGUI graphics can be picked even when gameplay interaction or raycast targeting is disabled.</p>
+<p>Picking uses the frozen capture. Moving the Scene camera or changing the captured camera or viewport can invalidate it; finish and capture again. Picking is limited to 64 candidates per camera. If candidates are omitted, a warning reports that more objects overlap. Hide overlapping objects and recapture if the intended target is missing.</p>
+<p>uGUI picking uses rendered triangles and masks. Transparent texture pixels or custom shader clipping can produce broader candidates. Camera stacking and custom rendering may need a point or area with a descriptive note.</p>
+<p><strong>Editor controls.</strong> Captured control metadata describes that repaint, not a permanent live link. Reopened images retain it but cannot pick new controls. Close the IMGUI Debugger before recapturing if it owns IMGUI recording.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="undo-and-retain-your-edits" class="level1" data-section="Editing">
-<h1 data-section="Editing">Undo and retain your edits</h1>
-<p>Press <strong>Ctrl/Cmd+Z</strong>, or click <strong>Undo</strong>, to reverse active screenshot edits from either window. Finished-screenshot notes and the batch message keep their own text behavior.</p>
-<div class="doc-figure">
-<p><img src="/docs/annotator/images/annotation-undo.png" class="img-fluid" style="width:430pt" alt="The Annotator controls with only Undo outlined."></p>
-<p>Figure 15</p>
-</div>
-<p>For a fresh capture, closing or resizing its source window, changing Play Mode, or recompiling ends annotation mode and retains its annotations. Saved-screenshot resizing preserves the annotation geometry instead.</p>
-<p>An unavailable or invalid original prevents reopening; the draft and files are preserved. Storage errors retain edits in memory: restore access and edit a note to retry saving before closing Unity.</p>
-<p>Geometry is expressed as 0–100 percentages from the original image’s top-left. An area uses <code>x</code>, <code>y</code>, <code>width</code>, and <code>height</code>. Each capture retains its original PNG separately from its numbered preview.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="choose-a-gameobject" class="level1" data-section="Picking">
-<h1 data-section="Picking">Choose a GameObject</h1>
-<p>Select <strong>Game object</strong> on a fresh Scene or Game view capture and click a visible object. Candidates and their ancestors appear below the annotation tools.</p>
-<div class="doc-figure">
-<p><img src="/docs/annotator/images/pick-candidates.png" class="img-fluid" style="width:400pt" alt="Annotator's tools and candidate list, with only Game object and Editor control outlined."></p>
-<p>Figure 16</p>
-</div>
-<p>Click <strong>Select</strong> beside a candidate to annotate that target, or focus its button and press <strong>Return</strong>. A GameObject field pings on click and selects the object in Unity on double-click. It is read-only: you cannot replace the captured reference by dragging or using an object selector.</p>
-<div class="doc-figure">
-<p><img src="/docs/annotator/images/pick-candidate-selection.png" class="img-fluid" style="width:400pt" alt="The same candidate list, with only the first GameObject field and its Select button outlined."></p>
-<p>Figure 17</p>
-</div>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="pick-an-editor-control" class="level1" data-section="Picking">
-<h1 data-section="Picking">Pick an Editor control</h1>
-<p>Capture an individual Editor window, then select <strong>Editor control</strong>. Hover a button, field, label, or Hierarchy row. A cyan outline surrounds the detected control, including its label and internal graphics, with 4 UI points of padding where the screenshot has room.</p>
-<div class="doc-figure">
-<p><img src="/docs/annotator/images/editor-control-hover.png" class="img-fluid" style="width:400pt" alt="An IMGUI Submit button with the native padded cyan hover outline and no marker number or resize handle."></p>
-<p>Figure 18</p>
-</div>
-<p>Click once to create a numbered area without activating the control. The tray describes it, for example, <strong>“Submit” button in “IMGUI Fixture”</strong>. Write a <strong>Note</strong>, then use <strong>Finish screenshot</strong> and <strong>Send to agent</strong> as usual.</p>
-<div class="doc-figure">
-<p><img src="/docs/annotator/images/editor-control-selected.png" class="img-fluid" style="width:400pt" alt="The Submit button selected as an area, with its number and required note outside the padded control bounds."></p>
-<p>Figure 19</p>
-</div>
-<p>UI Toolkit and available IMGUI controls are supported, including disabled visible controls. Custom IMGUI drawing with no known control identity is described as an <strong>IMGUI region</strong>. An IMGUI capture limitation appears in Annotator; independently supported controls remain pickable. Close the IMGUI Debugger before recapturing if it owns the recording.</p>
-<p>Switch to <strong>Point</strong> or <strong>Area</strong> to move or resize the selected area. Its captured target bounds remain unchanged. Notes avoid the area and original control; if no note fits, use the separate notes window or the tray. When a control fills the image and its number cannot fit outside it, the tray retains the number and the image omits it.</p>
-<p>Picking uses the frozen screenshot. Hover feedback disappears outside the image, over notes, after switching tools, or when ending the capture. Saved screenshots and entire-Editor captures support <strong>Point</strong> and <strong>Area</strong> only.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="understand-captured-targets" class="level1" data-section="Picking">
-<h1 data-section="Picking">Understand captured targets</h1>
-<p><strong>Scene and Game objects.</strong> Scene captures support terrain and overlapping collider-free meshes and sprites. In Game captures, uGUI graphics remain pickable when their raycast target or gameplay interaction is disabled.</p>
-<p>Dense overlaps show a warning if a camera reaches the 64-object candidate limit; isolate the intended object and recapture to see deeper candidates.</p>
-<p>Scene picking uses the captured Scene view’s camera and viewport; Game picking uses its game cameras, zoom and letterboxing. Moving the Scene camera or changing the captured camera or viewport invalidates picking; finish and recapture.</p>
-<p>uGUI uses rendered triangle geometry and masks; transparent texture pixels and custom shader clipping can still produce broader candidates. Camera stacking and custom rendering may need a point or area plus a descriptive note.</p>
-<p><strong>Editor controls.</strong> UI Toolkit targets retain type, name, classes, hierarchy position, bounds, binding path, and available source assets. Availability reports changes to source assets or the capture’s Play context. Bound Inspector fields also identify the inspected objects.</p>
-<p>IMGUI targets retain available control names and IDs, style names, property paths, source paths, window identity, and inspected-object context. These describe the captured repaint; instruction IDs do not identify persistent UI Toolkit elements. Unknown custom drawing retains visual context as an <strong>IMGUI region</strong>. Hierarchy rows retain the captured GameObject identity.</p>
-<p>Editor-control selections are <strong>area</strong> annotations with a target attached. Original and preview PNGs contain the full window; the preview outlines the selected area and excludes transient hover feedback. Existing version-1 drafts, batches, and older Editor-element annotations remain readable.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="send-a-batch" class="level1" data-section="Agent inbox">
-<h1 data-section="Agent inbox">Send a batch</h1>
-<p>Add a <strong>Message to agent</strong> if several markers need a shared instruction, such as “align #3 with #1.” Finish the active capture and complete every note, then click <strong>Send to agent</strong>. Missing notes or storage failures leave the draft available for correction and retry.</p>
-<div class="doc-figure">
-<p><img src="/docs/annotator/images/send-receipt.png" class="img-fluid" style="width:380pt" alt="Annotator with a completed draft, highlighting only Message to agent and Send to agent."></p>
-<p>Figure 20</p>
-</div>
-<p>Drafts and submitted batches survive Editor restarts beneath <code>UserSettings/Annotator</code>. Submitted batches cannot be edited.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="give-the-request-to-your-agent" class="level1" data-section="Agent inbox">
-<h1 data-section="Agent inbox">Give the request to your agent</h1>
-<p>Click <strong>Copy request</strong> and paste it into your agent’s chat. You can copy the current request at the bottom of the window or an earlier request from <strong>Sent batches</strong>. Sending does not wake an idle chat.</p>
-<div class="doc-figure">
-<p><img src="/docs/annotator/images/copy-request.png" class="img-fluid" style="width:380pt" alt="The receipt view in Annotator, with only its two Copy request buttons outlined."></p>
-<p>Figure 21</p>
-</div>
-<p>With Unity Pipeline installed, the agent can request through the existing Unity command tool:</p>
+<section id="retrieve-batches-through-unity-pipeline" class="level1" data-section="Agent reference">
+<h1 data-section="Agent reference">Retrieve batches through Unity Pipeline</h1>
+<p>Unity Pipeline <code>0.8.0-exp.1</code> or newer enables Annotator’s optional commands. The core package also works through local files without Pipeline. Annotator runs in the Editor and adds no runtime component to your player build.</p>
+<p>Use the submitted ID from the copied request:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"project_path"</span><span class="fu">:</span> <span class="st">"/absolute/path/to/project"</span><span class="fu">,</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"get_annotation_batch"</span><span class="fu">,</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"args"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"batch_id"</span><span class="fu">:</span> <span class="st">"&lt;submitted-batch-id&gt;"</span> <span class="fu">}</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="retrieve-and-manage-sent-batches" class="level1" data-section="Agent inbox">
-<h1 data-section="Agent inbox">Retrieve and manage sent batches</h1>
-<p>With Pipeline, the agent can use <code>list_annotation_batches</code> to get pending summaries in <code>batches</code>. <code>get_annotation_batch</code> returns versioned metadata, all notes and target descriptors, and absolute paths to each original and preview PNG. All three commands carry <code>schemaVersion: 1</code>.</p>
-<p>With Pipeline, the agent calls <code>acknowledge_annotation_batch</code> after reading the batch. Without Pipeline, <strong>Copy request</strong> points to the batch folder: read <code>submission.json</code> and each screenshot’s <code>&lt;id&gt;.original.png</code> and <code>&lt;id&gt;.preview.png</code>. JSON image paths may be empty, and target descriptors describe the capture rather than current availability.</p>
-<p>After local retrieval succeeds, the copied request tells the agent to create <code>received.txt</code> with a UTC ISO 8601 timestamp, preserving any existing receipt. <strong>Waiting for agent</strong> changes to <strong>Read by agent</strong> after retrieval; the receipt does not mean the requested changes are complete.</p>
-<p>Open <strong>Sent batches</strong> to review earlier requests. Hover a dated heading to see the full batch ID. Reads and repeated acknowledgments keep the files; use <strong>Delete</strong> beside a batch to remove it explicitly.</p>
-<div class="doc-figure">
-<p><img src="/docs/annotator/images/sent-batches.png" class="img-fluid" style="width:380pt" alt="Annotator's receipt view, with only Sent batches and Delete beside its batch outlined."></p>
-<p>Figure 22</p>
-</div>
-<p>Runtime targets expire with their original Play session, while their screenshots and captured identity remain available as evidence.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="capture-a-window-from-your-agent" class="level1" data-section="Agent screenshots">
-<h1 data-section="Agent screenshots">Capture a window from your agent</h1>
-<p>With Unity Pipeline installed, your agent can capture a visible Editor window directly. This uses the same window backbuffer capture as Annotator and creates a PNG without adding it to an annotation batch.</p>
+<p><code>list_annotation_batches</code> returns pending summaries. <code>get_annotation_batch</code> returns the compact <code>schemaVersion: 2</code> export, including the shared message, notes, target descriptors and absolute image paths.</p>
+<p>Read every note and open each screenshot’s <code>imagePath</code>. It selects the numbered preview when annotations exist, otherwise the original. Use <code>originalPath</code> and <code>detailsPath</code> when more detail is needed. Geometry is expressed as percentages from the image’s top-left; omitted width and height describe a point.</p>
+<p>Check <code>complete</code> and each screenshot’s <code>imageError</code>. Pipeline can rebuild missing previews from available originals. An unreadable or missing image leaves notes readable but blocks acknowledgment.</p>
+<p>After retrieving all notes and images successfully, call:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"project_path"</span><span class="fu">:</span> <span class="st">"/absolute/path/to/project"</span><span class="fu">,</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"capture_editor_window"</span><span class="fu">,</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"args"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"window"</span><span class="fu">:</span> <span class="st">"Project"</span> <span class="fu">}</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"acknowledge_annotation_batch"</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"args"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"batch_id"</span><span class="fu">:</span> <span class="st">"&lt;submitted-batch-id&gt;"</span> <span class="fu">}</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Set <code>window</code> to an exact window title, short type name, or fully qualified type name. For example, <code>Inspector</code>, <code>InspectorWindow</code>, and <code>UnityEditor.InspectorWindow</code> identify Inspector windows. Matching is case-sensitive.</p>
-<p>The window must already be an active dock tab or a shown floating window with content. Hidden tabs and closed windows return an error; the command does not open windows, switch tabs, or change focus. It reads the currently rendered window content, so another desktop window covering Unity does not prevent capture. Batch mode and an Editor without a graphics device are unsupported.</p>
-<p>If several visible windows match, the <code>ambiguous-window</code> error lists their instance IDs, types, and titles. Repeat the request with <code>window_id</code> to select one. The ID must still match <code>window</code>; omit the ID or use <code>0</code> to select by type or title alone. Instance IDs apply to the current Editor session and can change when a window is reopened.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="st">"args"</span><span class="er">:</span> <span class="fu">{</span> <span class="dt">"window"</span><span class="fu">:</span> <span class="st">"InspectorWindow"</span><span class="fu">,</span> <span class="dt">"window_id"</span><span class="fu">:</span> <span class="dv">12345</span> <span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>A successful Pipeline response contains <code>schemaVersion: 1</code>, an absolute local PNG <code>path</code>, pixel <code>width</code> and <code>height</code>, and <code>windowId</code>, <code>windowType</code>, and <code>windowTitle</code>. Open the returned path on the computer running Unity to inspect the image. Each request writes a separate file under the project’s <code>Temp/Annotator</code> folder; the files remain until temporary files are cleared.</p>
-<p>An empty selector returns <code>invalid-window</code>; unmatched selectors or IDs return <code>window-not-found</code>. A matching hidden window returns <code>window-not-visible</code>: show its tab or floating window, then retry. Capture failures report the unavailable capture capability. A <code>capture-storage</code> error means the PNG could not be saved: check access to the temporary folder and available disk space. Failure responses do not return a screenshot path.</p>
+<p>Without Pipeline, read <code>agent.json</code> in the directory named by the copied request and resolve its image paths relative to that file. Older batches without it use <code>submission.json</code>. After successful retrieval, create <code>received.txt</code> with a UTC ISO 8601 timestamp only if no receipt exists. Preserve the batch and its images.</p>
+<p>Captured object information describes capture time. Pipeline checks current availability; runtime object IDs expire with the Play session that created them.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="capture-a-window-from-an-agent" class="level1" data-section="Agent reference">
+<h1 data-section="Agent reference">Capture a window from an agent</h1>
+<p>With Unity Pipeline installed, <code>capture_editor_window</code> saves a visible Editor pane directly, without creating an annotation batch.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"project_path"</span><span class="fu">:</span> <span class="st">"/absolute/path/to/project"</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"capture_editor_window"</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"args"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"window"</span><span class="fu">:</span> <span class="st">"SceneView"</span> <span class="fu">}</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>window</code> accepts an exact title, short type name or fully qualified type name. Matching is case-sensitive. <code>Inspector</code>, <code>InspectorWindow</code> and <code>UnityEditor.InspectorWindow</code> identify Inspector windows.</p>
+<p>The pane must already be a shown floating window or an active dock tab. The command does not open it, change focus or switch tabs. Backbuffer capture reads its rendered contents even when another desktop window covers Unity. Batch mode and Editors without a graphics device are unsupported.</p>
+<p>When several visible windows match, the error lists instance IDs. Repeat the request with <code>window_id</code> to disambiguate:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="st">"args"</span><span class="er">:</span> <span class="fu">{</span> <span class="dt">"window"</span><span class="fu">:</span> <span class="st">"InspectorWindow"</span><span class="fu">,</span> <span class="dt">"window_id"</span><span class="fu">:</span> <span class="dv">12345</span> <span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The ID must still match the selector and can change after reopening a window. A successful response includes the absolute PNG <code>path</code>, dimensions and window identity. Open that path locally to inspect the image. These captures are stored under <code>Temp/Annotator</code>.</p>
+<p><strong>Window not found or visible:</strong> Check the selector and show the intended tab before retrying. <strong>Capture storage error:</strong> Check access to the temporary folder and free disk space. Failure responses have no screenshot path.</p>
+<p><strong>A saved image will not reopen:</strong> Preserve the draft files and check that its original PNG is present and readable. <strong>Edits cannot save:</strong> Restore access to the project folder, then edit a note to retry before closing Unity. Keep the in-memory draft open until saving succeeds.</p>
 </section>
 
 </main>
