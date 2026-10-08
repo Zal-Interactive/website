@@ -1,6 +1,13 @@
 {
   "packages": [
     {
+      "id": "com.zalinteractive.annotator",
+      "slug": "annotator",
+      "title": "Annotator",
+      "url": "/docs/annotator/index.html",
+      "samples": []
+    },
+    {
       "id": "com.zalinteractive.debug-menu",
       "slug": "debug-menu",
       "title": "Debug Menu",
@@ -115,13 +122,6 @@
           "url": "/docs/ui-shadow/Samples/05%20Demo%20Gallery/index.html"
         }
       ]
-    },
-    {
-      "id": "com.zalinteractive.unity-annotator",
-      "slug": "unity-annotator",
-      "title": "Unity Annotator",
-      "url": "/docs/unity-annotator/index.html",
-      "samples": []
     }
   ]
 }
