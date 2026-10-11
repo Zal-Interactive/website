@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="/docs/flexbox/Raw/position.png" class="img-fluid" style="width:511pt" alt="A sticky header and fixed badge remain visible over scrolled rows beside a vertical scrollbar."></p>
 <p>Figure 4</p>
 </div>
-<p>Masks, graphics, and raycasts remain Unity responsibilities. Keep clipping on the viewport. Flex order does not reorder Unity siblings: the sticky fixture puts its header last in paint order and first in layout order. Presentation transforms may animate appearance without changing computed layout rectangles.</p>
+<p>Masks, graphics, and raycasts remain Unity responsibilities. Keep clipping on the viewport. Flex order does not reorder Unity siblings: the sticky fixture puts its header last in paint order and first in layout order. Flexbox preserves each box’s authored pivot, so scale and rotation use that pivot without changing computed layout rectangles. A centered pivot keeps direct button scaling centered.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="balance-content-across-columns" class="level1" data-section="Fragments">
