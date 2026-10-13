@@ -108,6 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="capture-your-first-screenshot" class="level1" data-section="Getting started">
 <h1 data-section="Getting started">Capture your first screenshot</h1>
 <p>Open <strong>Tools &gt; Annotator</strong>, then click <strong>Add screenshot…</strong>. Annotator captures what you can see in an Editor window and lets you attach numbered notes to it.</p>
+<p>You can also press <strong>Ctrl+Alt+A</strong> on Windows or Linux, or <strong>Cmd+Option+A</strong> on macOS, while the Unity Editor has focus. This opens Annotator and starts window selection, even when Annotator is closed. Choose a window to capture; pressing the shortcut again during window selection does nothing. If a screenshot is already active, finish or cancel it before starting another.</p>
 <div class="doc-figure">
 <p><img src="/docs/annotator/images/Tanks/start.png" class="img-fluid" style="width:370pt" alt="Annotator's empty state with Add screenshot outlined."></p>
 <p>Figure 1</p>
@@ -281,6 +282,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The ID must still match the selector and can change after reopening a window. A successful response includes the absolute PNG <code>path</code>, dimensions and window identity. Open that path locally to inspect the image. These captures are stored under <code>Temp/Annotator</code>.</p>
 <p><strong>Window not found or visible:</strong> Check the selector and show the intended tab before retrying. <strong>Capture storage error:</strong> Check access to the temporary folder and free disk space. Failure responses have no screenshot path.</p>
 <p><strong>A saved image will not reopen:</strong> Preserve the draft files and check that its original PNG is present and readable. <strong>Edits cannot save:</strong> Restore access to the project folder, then edit a note to retry before closing Unity. Keep the in-memory draft open until saving succeeds.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="customize-the-start-shortcut" class="level1" data-section="Customization">
+<h1 data-section="Customization">Customize the start shortcut</h1>
+<p>The start shortcut is registered as <strong>Annotator/Start Annotation</strong> in Unity’s Shortcuts settings. You can change its keys without editing the package.</p>
+<ol type="1">
+<li>Open <strong>Edit &gt; Shortcuts…</strong> and select the <strong>Annotator</strong> category. The <strong>Start Annotation</strong> command appears with its current binding.</li>
+<li>Double-click the command’s <strong>Shortcut</strong> cell, then press your preferred key combination. Unity saves it in the active shortcut profile; editing the <strong>Default</strong> profile creates an editable copy automatically.</li>
+</ol>
+<div class="doc-figure">
+<p><img src="/docs/annotator/images/start-shortcut.png" class="img-fluid" style="width:500pt" alt="Unity Shortcuts settings with the Annotator category and Start Annotation shortcut cell outlined."></p>
+<p>Figure 15</p>
+</div>
+<p>Close Shortcuts and press your new keys in an Editor pane. Annotator opens and shows <strong>Choose a window</strong>. In Play Mode, focus an Editor pane such as the Hierarchy if the Game view is receiving gameplay input.</p>
+<p>If Unity reports a binding conflict, choose another combination or resolve the conflicting command in Shortcuts.</p>
 </section>
 
 </main>
