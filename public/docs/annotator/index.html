@@ -107,8 +107,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="capture-your-first-screenshot" class="level1" data-section="Getting started">
 <h1 data-section="Getting started">Capture your first screenshot</h1>
-<p>Open <strong>Tools &gt; Annotator</strong>, then click <strong>Add screenshot…</strong>. Annotator captures what you can see in an Editor window and lets you attach numbered notes to it.</p>
-<p>You can also press <strong>Ctrl+Alt+A</strong> on Windows or Linux, or <strong>Cmd+Option+A</strong> on macOS, while the Unity Editor has focus. This opens Annotator and starts window selection, even when Annotator is closed. Choose a window to capture; pressing the shortcut again during window selection does nothing. If a screenshot is already active, finish or cancel it before starting another.</p>
+<p>Open <strong>Tools &gt; Annotator</strong>, then click <strong>Add screenshot…</strong> to capture an Editor window.</p>
+<p>Press <strong>Ctrl+Alt+A</strong> on Windows or Linux, or <strong>Cmd+Option+A</strong> on macOS, to select a window without opening or focusing Annotator. Repeated presses do nothing during selection or annotation. <strong>Finish Screenshot</strong> opens or focuses Annotator with your saved capture.</p>
 <div class="doc-figure">
 <p><img src="/docs/annotator/images/Tanks/start.png" class="img-fluid" style="width:370pt" alt="Annotator's empty state with Add screenshot outlined."></p>
 <p>Figure 1</p>
@@ -129,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Figure 3</p>
 </div>
 <p>Click <strong>Finish screenshot</strong> to keep the image and its notes. The capture becomes an editable card in the tray. You can add more screenshots to the same batch; their marker numbers remain unique.</p>
-<p><strong>Cancel</strong> discards a fresh screenshot. <strong>Undo</strong>, or <strong>Ctrl/Cmd+Z</strong>, reverses an edit while a screenshot is active. Typing in one note is one undo step; the session keeps its latest 100 edits.</p>
+<p><strong>Cancel</strong> or <strong>Escape</strong> discards a fresh screenshot without opening or focusing Annotator. <strong>Undo</strong>, or <strong>Ctrl/Cmd+Z</strong>, reverses an edit while a screenshot is active. Typing in one note is one undo step; the session keeps its latest 100 edits.</p>
 <p>During a fresh Play Mode capture, Annotator pauses playback. Finishing or cancelling restores the previous pause state. The captured image receives annotation input; other Editor panes remain usable.</p>
 <div style="page-break-after: always;"></div>
 </section>
@@ -163,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="/docs/annotator/images/Tanks/reopen.png" class="img-fluid" style="width:440pt" alt="Saved Tanks screenshot with the two annotation tools and Finish Screenshot and Cancel outlined, retaining the image and note context."></p>
 <p>Figure 6</p>
 </div>
-<p>Finish to retain your edits. Cancel restores the annotations present when this edit began. Closing the window, pressing <strong>Escape</strong>, recompiling or changing Play Mode retains saved-image edits. Reopening starts a new undo history.</p>
+<p>Finish to retain your edits and focus Annotator. <strong>Cancel</strong> or <strong>Escape</strong> restores the annotations present when this edit began. Closing the image window, recompiling or changing Play Mode retains saved-image edits without focusing Annotator. Reopening starts a new undo history.</p>
 <p>Saved images preserve existing targets but cannot pick new objects or Editor controls. Capture a fresh window for those tools. Resizing the saved-image window preserves marker proportions; saved-image editing does not pause playback.</p>
 <div style="page-break-after: always;"></div>
 </section>
@@ -295,7 +295,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="/docs/annotator/images/start-shortcut.png" class="img-fluid" style="width:500pt" alt="Unity Shortcuts settings with the Annotator category and Start Annotation shortcut cell outlined."></p>
 <p>Figure 15</p>
 </div>
-<p>Close Shortcuts and press your new keys in an Editor pane. Annotator opens and shows <strong>Choose a window</strong>. In Play Mode, focus an Editor pane such as the Hierarchy if the Game view is receiving gameplay input.</p>
+<p>Close Shortcuts and press your new keys in an Editor pane. <strong>Annotate</strong> buttons appear in visible windows without opening or focusing Annotator. In Play Mode, focus an Editor pane such as the Hierarchy if the Game view is receiving gameplay input.</p>
 <p>If Unity reports a binding conflict, choose another combination or resolve the conflicting command in Shortcuts.</p>
 </section>
 
