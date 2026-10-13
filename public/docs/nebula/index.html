@@ -163,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="/docs/nebula/images/samples-list.png" class="img-fluid" style="width:460pt" alt="Nebula Package Manager details with Samples and all four sample names and import/update buttons outlined."></p>
 <p>Figure 6</p>
 </div>
-<p>Open <code>Assets/Samples/Nebula/1.0.1/Nebula Demo/Nebula Demo.unity</code> to start with the four-part demo. Each imported sample includes its own PDF. Importing a sample does not add Nebula to your renderer.</p>
+<p>Open <code>Assets/Samples/Nebula/1.2.0/Nebula Demo/Nebula Demo.unity</code> to start with the four-part demo. Each imported sample includes its own PDF. Importing a sample does not add Nebula to your renderer.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="appearance" class="level1" data-section="Manual">
@@ -292,14 +292,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="lit-shadow" class="level1" data-section="Manual">
 <h1 data-section="Manual">Separate lit and shadowed fog</h1>
-<p>In the Volume Profile, use <strong>Density In Light</strong> and <strong>Density In Shadow</strong> to change thickness according to the main light’s shadow and cookie visibility. Both default to <code>1</code>. Try <code>1</code> and <code>0.2</code> respectively for clearer shadows.</p>
+<p>In the Volume Profile, use <strong>Density In Light</strong> and <strong>Density In Shadow</strong> to change thickness according to light visibility. Both default to <code>1</code>. Try <code>1</code> and <code>0.2</code> respectively for clearer shadows. Enable both checkboxes beside <strong>Additional Light Density</strong> to include point and spot lights; otherwise, only the main light selects the density.</p>
 <div class="doc-figure">
-<p><img src="/docs/nebula/images/lit-shadow.png" class="img-fluid" style="width:500pt" alt="Volume Profile highlighting the two density multipliers, two HDR fog colors, and color influence."></p>
+<p><img src="/docs/nebula/images/lit-shadow.png" class="img-fluid" style="width:500pt" alt="Volume Profile highlighting Additional Light Density, the two density multipliers, two HDR fog colors, and color influence."></p>
 <p>Figure 17</p>
 </div>
 <p><code>0</code> removes density in that region; values above <code>1</code> thicken it. These multipliers affect global and local extinction, scattering, and emission together. They do not classify regions by light brightness.</p>
 <p>For an authored palette, set <strong>Lit Fog Color</strong> and <strong>Shadowed Fog Color</strong>, then raise <strong>Artistic Color Influence</strong>. <code>0</code> keeps incident lighting; <code>1</code> replaces all incident fog lighting, including additional-light contributions and directional phase lighting, with the selected HDR color. Albedo and density still shape the result. Emission is unchanged by these color controls.</p>
-<p>Both features need a participating main light. An absent, excluded, or camera-filtered main light leaves the usual density and lighting unchanged. Additional lights do not select the lit/shadowed region.</p>
+<p><strong>Additional Light Density:</strong> Off by default. Includes point, spot, and additional directional lights. Ranges, spot cones, shadows, and cookies determine coverage independently of brightness. Overlaps use the strongest coverage; outside all lights, <strong>Density In Shadow</strong> applies.</p>
+<p>It reuses fog-lighting samples but adds shadow and cookie sampling for temporal density validation when the two multipliers differ. Both at <code>1</code> preserve density without that extra sampling. Additional lights must also be enabled in the Nebula Renderer Feature.</p>
+<p>With this mode off, density controls still need a participating main light. The artistic color controls always use only the main light; an absent, excluded, or camera-filtered main light leaves those colors inactive.</p>
 <p>Open the <strong>Lit and Shadow Density</strong> or <strong>Lit and Shadow Colors</strong> sample for editable comparisons. Soft shadows, shadow-distance fading, and cookie coverage make gradual transitions.</p>
 <div style="page-break-after: always;"></div>
 </section>
@@ -467,7 +469,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="compatibility" class="level1" data-section="Compatibility">
 <h1 data-section="Compatibility">Choose a supported target</h1>
-<p>Nebula 1.0.1 is a RenderGraph renderer feature for the <strong>Universal Renderer</strong> in URP. Its package metadata declares Unity <strong>6000.0.5f1</strong> and URP <strong>17.0.4</strong>. This guide’s Editor captures and play checks use Unity <strong>6000.0.82f1</strong>, URP <strong>17.0.4</strong>, and Metal. They do not qualify other Editor versions or physical devices.</p>
+<p>Nebula 1.2.0 is a RenderGraph renderer feature for the <strong>Universal Renderer</strong> in URP. Its package metadata declares Unity <strong>6000.0.5f1</strong> and URP <strong>17.0.4</strong>. This guide’s Editor captures and play checks use Unity <strong>6000.0.82f1</strong>, URP <strong>17.0.4</strong>, and Metal. The additional-light density checks use the same Unity and URP versions with Direct3D 11. These checks do not qualify other Editor versions or physical devices.</p>
 <section id="pipeline-and-cameras" class="level2">
 <h2 class="anchored" data-anchor-id="pipeline-and-cameras">Pipeline and cameras</h2>
 <p>URP Compatibility Mode bypasses the required RenderGraph path. Built-in and HDRP are not supported. Base Game cameras and Scene views can render Nebula; overlay, reflection/preview camera types, and XR are skipped. The package’s feature targets the Universal Renderer, not the 2D Renderer.</p>
