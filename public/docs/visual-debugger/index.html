@@ -108,6 +108,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="adjust-sensitivity-and-use-commands" class="level1">
 <h1>Adjust sensitivity and use commands</h1>
+<p>Use <code>get_game_view_resolution</code> to read the main Game view’s selected preset and actual rendering dimensions in Edit Mode or Play Mode. Use <code>set_game_view_resolution</code> with integer <code>width</code> and <code>height</code> arguments, for example <code>width: 1920</code> and <code>height: 1080</code>, to select an exact fixed-resolution preset. The command reuses a matching preset or creates one named <strong>Visual Debugger 1920x1080</strong>. Open a Game view first; Device Simulator and setting Free Aspect are not supported. Stop recording and wait for saving to finish before changing resolution.</p>
 <p>Expand <strong>Advanced measurement settings</strong> to change sensitivity. Every setting is saved with the result; changing it creates a separate analysis identity. Use <strong>Adjust settings</strong> to prepare another analysis without changing the saved result.</p>
 <p><strong>Brightness floor:</strong> Default 0.05 on the 0–1 recorded brightness scale. Relative deviation divides by the larger of this floor and the pixel’s temporal mean brightness.</p>
 <p><strong>Absolute threshold:</strong> Default 1/255. Used for absolute affected-area reporting, significant brightness reversals, and directional edge detection. <strong>Relative threshold:</strong> Default 0.01, equivalent to 1%.</p>
