@@ -1,6 +1,13 @@
 {
   "packages": [
     {
+      "id": "com.zalinteractive.advanced-retarget",
+      "slug": "advanced-retarget",
+      "title": "Advanced Retarget",
+      "url": "/docs/advanced-retarget/index.html",
+      "samples": []
+    },
+    {
       "id": "com.zalinteractive.annotator",
       "slug": "annotator",
       "title": "Annotator",
