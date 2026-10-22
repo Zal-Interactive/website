@@ -73,7 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="/docs/site_libs/quarto-html/quarto-syntax-highlighting-dark-5a1953863e1f72ef3b996ef827f01ca7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="/docs/site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="/docs/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="/docs/site_libs/bootstrap/bootstrap-8f5d577af05bc44e0f38170c35f900c8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="/docs/site_libs/bootstrap/bootstrap-e3fb44e77c5d532f3fd9b16b5f774869.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 
 
 <link rel="stylesheet" href="/docs/theme.css">
@@ -151,7 +151,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Root motion:</strong> travel that moves the whole character, such as walking forward or turning.</li>
 <li><strong>Rest pose:</strong> the pose a character stands in without animation, such as a T-pose or an A-pose.</li>
 </ul>
-<p>To see whether a model is humanoid, select it in the <strong>Project</strong> window. In the Inspector, open the <strong>Rig</strong> tab. <strong>Animation Type</strong> says <strong>Humanoid</strong> or <strong>Generic</strong>.</p>
+<p>To see whether a model is humanoid, select it in the <strong>Project</strong> window. In the Inspector, open the <strong>Rig</strong> tab. <strong>Animation Type</strong> says <strong>Humanoid</strong> or <strong>Generic</strong> (<a href="#figure-inspector-rig">Figure 1</a>).</p>
+<div id="figure-inspector-rig" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/inspector-rig.png" class="img-fluid" style="width:240pt" alt="The Rig tab of a model Inspector with the Rig tab and the Animation Type field marked"></p>
+<p>Figure 1</p>
+</div>
 <section id="sec-skeletons-the-package-knows" class="level2">
 <h2 class="anchored" data-anchor-id="sec-skeletons-the-package-knows">Skeletons the package knows</h2>
 <p>The package recognizes the bone names of Mixamo, Unreal Engine 4 and 5, Synty, Character Creator 4 and 5, Unity’s humanoid naming and common four-legged animals. Any model with a valid humanoid avatar also works, whatever its bone names are. For other skeletons, you add the features yourself. See <a href="#sec-use-a-skeleton-no-preset-knows">Use a skeleton no preset knows</a>.</p>
@@ -166,19 +170,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-section="Quick Start">Create your first profile</h1>
 <p>You need two models in your project: the source, with at least one animation clip, and the target. A model can be an FBX, Blender, Maya, 3ds Max, Cinema 4D or Collada file, or a prefab of one.</p>
 <ol type="1">
-<li>In the <strong>Project</strong> window, click the source model. Hold Ctrl (Cmd on macOS) and click the target model.</li>
-<li>Choose <strong>Tools &gt; Advanced Retarget &gt; Create Profile From Two Models</strong>.</li>
+<li>In the <strong>Project</strong> window, click the source model. Hold Ctrl (Cmd on macOS) and click the target model (<a href="#figure-create-profile">Figure 2</a>).</li>
 </ol>
-<p>A profile asset appears next to the source model. It’s named after both models, such as <code>Hero_to_Robot</code>. The <strong>Retarget</strong> window opens with both characters in the preview (<a href="#fig-window-overview">Figure 1</a>).</p>
-<div id="fig-window-overview" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Retarget window with the profile field, the preview with both characters, the play bar and the tabs">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-window-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="/docs/advanced-retarget/Figures/window-overview.png" class="img-fluid figure-img" style="width:490pt" alt="The Retarget window with the profile field, the preview with both characters, the play bar and the tabs">
+<div id="figure-create-profile" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/create-profile.png" class="img-fluid" style="width:480pt" alt="The Project window with the source model selected first and the target model selected second"></p>
+<p>Figure 2</p>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-window-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Figure 1
-</figcaption>
-</figure>
+<ol start="2" type="1">
+<li>Choose <strong>Tools &gt; Advanced Retarget &gt; Create Profile From Two Models</strong> (<a href="#figure-menu-create-profile">Figure 3</a>).</li>
+</ol>
+<div id="figure-menu-create-profile" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/menu-create-profile.png" class="img-fluid" style="width:480pt" alt="The Tools menu with the Advanced Retarget submenu open and Create Profile From Two Models marked"></p>
+<p>Figure 3</p>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="sec-check-the-new-profile" class="level1" data-section="Quick Start">
+<h1 data-section="Quick Start">Check the new profile</h1>
+<p>A profile asset appears next to the source model. It’s named after both models, such as <code>Hero_to_Robot</code>. The <strong>Retarget</strong> window opens with both characters in the preview (<a href="#figure-window-overview">Figure 4</a>).</p>
+<div id="figure-window-overview" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/window-overview.png" class="img-fluid" style="width:490pt" alt="The Retarget window with the profile field, the preview with both characters, the play bar and the tabs"></p>
+<p>Figure 4</p>
 </div>
 <ol start="3" type="1">
 <li>Check the legend above the preview. It tells you which character is the source and which is the target.</li>
@@ -191,36 +203,36 @@ Figure&nbsp;1: Figure 1
 <h1 data-section="Quick Start">Bake your first clip</h1>
 <ol type="1">
 <li>Click the <strong>Bake</strong> tab.</li>
-<li>Drag an animation clip from the <strong>Project</strong> window onto the <strong>Animations</strong> list. You can also drop a model to add all of its clips, or pick a clip in <strong>Add Clip</strong>.</li>
-<li>Click the clip in the list. Then click <strong>Play</strong> under the preview (<a href="#fig-window-overview">Figure 1</a>). Both characters play the clip.</li>
-<li>Leave the other settings as they are for now. <strong>Rig Type</strong> is already <strong>Humanoid</strong> when the target has a humanoid avatar, and <strong>Generic</strong> when it doesn’t.</li>
-<li>Click <strong>Bake Selected</strong> (<a href="#fig-bake-tab">Figure 2</a>).</li>
+<li>Drag an animation clip from the <strong>Project</strong> window onto the <strong>Animations</strong> list. You can also drop a model to add all of its clips, or pick a clip in <strong>Add Clip</strong> (<a href="#figure-drag-clip">Figure 5</a>).</li>
 </ol>
-<div id="fig-bake-tab" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Bake tab with the clip list, range, output, timing and motion settings and the bake buttons">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-bake-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="/docs/advanced-retarget/Figures/bake-tab.png" class="img-fluid figure-img" style="width:430pt" alt="The Bake tab with the clip list, range, output, timing and motion settings and the bake buttons">
+<div id="figure-drag-clip" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/drag-clip.png" class="img-fluid" style="width:380pt" alt="A clip in the Project window and the empty Animations list of the Bake tab, with an arrow showing the drag"></p>
+<p>Figure 5</p>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bake-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Figure 2
-</figcaption>
-</figure>
+<ol start="3" type="1">
+<li>Click the clip in the list. Then click <strong>Play</strong> under the preview (<a href="#figure-window-overview">Figure 4</a>). Both characters play the clip. <a href="#figure-retarget-run">Figure 6</a> shows four moments of a run. The target moves like the source, although its body is a different shape and size.</li>
+</ol>
+<div id="figure-retarget-run" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/retarget-run.png" class="img-fluid" style="width:340pt" alt="Four moments of a running soldier above the same four moments of a running dummy"></p>
+<p>Figure 6</p>
+</div>
+<ol start="4" type="1">
+<li>Leave the other settings as they are for now. <strong>Rig Type</strong> is already <strong>Humanoid</strong> when the target has a humanoid avatar, and <strong>Generic</strong> when it doesn’t.</li>
+<li>Click <strong>Bake Selected</strong> (<a href="#figure-bake-start">Figure 7</a>).</li>
+</ol>
+<div id="figure-bake-start" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/bake-start.png" class="img-fluid" style="width:330pt" alt="The bottom of the Bake tab with the Bake Selected and Bake All buttons marked"></p>
+<p>Figure 7</p>
 </div>
 <p>A progress bar appears while the clip bakes. Click <strong>Cancel</strong> on it to stop the bake.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="sec-find-and-play-the-baked-clip" class="level1" data-section="Quick Start">
 <h1 data-section="Quick Start">Find and play the baked clip</h1>
-<p>When the bake finishes, the <strong>Bake</strong> tab shows where the clip was saved (<a href="#fig-bake-saved">Figure 3</a>). The <strong>Project</strong> window highlights the new clip.</p>
-<div id="fig-bake-saved" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Bake tab showing the path of the saved clip above the bake buttons">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-bake-saved-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="/docs/advanced-retarget/Figures/bake-saved.png" class="img-fluid figure-img" style="width:380pt" alt="The Bake tab showing the path of the saved clip above the bake buttons">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bake-saved-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Figure 3
-</figcaption>
-</figure>
+<p>When the bake finishes, the <strong>Bake</strong> tab shows where the clip was saved (<a href="#figure-bake-saved">Figure 8</a>). The <strong>Project</strong> window highlights the new clip.</p>
+<div id="figure-bake-saved" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/bake-saved.png" class="img-fluid" style="width:380pt" alt="The Bake tab showing the path of the saved clip above the bake buttons"></p>
+<p>Figure 8</p>
 </div>
 <p>The clip is named after the target and the source clip, such as <code>Robot_Wave</code>. It’s saved in the profile’s <strong>Save Folder Path</strong>, which is <code>Assets/</code> until you change it.</p>
 <p>To see it in your game:</p>
@@ -235,16 +247,10 @@ Figure&nbsp;3: Figure 3
 </section>
 <section id="sec-set-up-the-characters" class="level1" data-section="Manual">
 <h1 data-section="Manual">Set up the characters</h1>
-<p>The <strong>Profile</strong> tab holds the settings of the character pair (<a href="#fig-profile-tab">Figure 4</a>). They’re saved in the profile asset. The preview, every bake and the <strong>Dynamic Retargeter</strong> use the same values.</p>
-<div id="fig-profile-tab" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Profile tab with the character, pose, facing, root motion, save folder and clip item settings and the mapping buttons">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-profile-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="/docs/advanced-retarget/Figures/profile-tab.png" class="img-fluid figure-img" style="width:420pt" alt="The Profile tab with the character, pose, facing, root motion, save folder and clip item settings and the mapping buttons">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-profile-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Figure 4
-</figcaption>
-</figure>
+<p>The <strong>Profile</strong> tab holds the settings of the character pair (<a href="#figure-profile-characters">Figure 9</a>). They’re saved in the profile asset. The preview, every bake and the <strong>Dynamic Retargeter</strong> use the same values.</p>
+<div id="figure-profile-characters" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/profile-characters.png" class="img-fluid" style="width:511pt" alt="The top of the Profile tab with the character, pose and facing alignment fields"></p>
+<p>Figure 9</p>
 </div>
 <ul>
 <li><strong>Source Character:</strong> the model the animation was made for.</li>
@@ -252,11 +258,20 @@ Figure&nbsp;4: Figure 4
 <li><strong>Source Pose</strong> and <strong>Target Pose:</strong> optional starting poses. Leave them empty unless the arms or legs always come out at a wrong angle. See <a href="#sec-characters-that-stand-in-different-rest-poses">Characters that stand in different rest poses</a>.</li>
 <li><strong>T-Pose:</strong> makes a pose clip for that character and puts it in the pose field.</li>
 <li><strong>Facing Alignment:</strong> leave it at <code>0, 0, 0</code>. It’s only for skeletons that face different directions. See <a href="#sec-skeletons-that-face-different-ways">Skeletons that face different ways</a>.</li>
+</ul>
+<section id="sec-motion-and-output" class="level2">
+<h2 class="anchored" data-anchor-id="sec-motion-and-output">Motion and output</h2>
+<div id="figure-profile-motion" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/profile-motion.png" class="img-fluid" style="width:511pt" alt="The Motion and Output section of the Profile tab with the Root Motion Bone and Save Folder Path fields"></p>
+<p>Figure 10</p>
+</div>
+<ul>
 <li><strong>Root Motion Bone:</strong> the target bone that carries the travel, usually the hips or pelvis. See <a href="#sec-how-root-motion-works">How root motion works</a>.</li>
 <li><strong>Save Folder Path:</strong> where baked clips go. Click <strong>…</strong> to pick a folder inside <code>Assets</code>.</li>
 <li><strong>Clip Item:</strong> a prop that’s only shown in the preview. See <a href="#sec-props-and-weapons">Props and weapons</a>.</li>
 </ul>
 <div style="page-break-after: always;"></div>
+</section>
 </section>
 <section id="sec-what-features-do" class="level1" data-section="Manual">
 <h1 data-section="Manual">What features do</h1>
@@ -288,7 +303,11 @@ Figure&nbsp;4: Figure 4
 </section>
 <section id="sec-choose-a-feature" class="level1" data-section="Manual">
 <h1 data-section="Manual">Choose a feature</h1>
-<p>The package has seven features. The profile adds the first three by itself. You add the other four with <strong>Add Feature</strong> when you need them. The <strong>Add Feature</strong> menu uses a shorter name for each feature, shown in brackets.</p>
+<p>The package has seven features. The profile adds the first three by itself. You add the other four with <strong>Add Feature</strong> when you need them. The <strong>Add Feature</strong> menu uses a shorter name for each feature, shown in brackets (<a href="#figure-features-add-menu">Figure 11</a>).</p>
+<div id="figure-features-add-menu" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/features-add-menu.png" class="img-fluid" style="width:270pt" alt="The Add Feature menu listing the short names of the features"></p>
+<p>Figure 11</p>
+</div>
 <section id="sec-added-by-the-profile" class="level2">
 <h2 class="anchored" data-anchor-id="sec-added-by-the-profile">Added by the profile</h2>
 <ul>
@@ -311,31 +330,36 @@ Figure&nbsp;4: Figure 4
 </section>
 <section id="sec-check-the-features" class="level1" data-section="Manual">
 <h1 data-section="Manual">Check the features</h1>
-<p>The <strong>Features</strong> tab shows each feature of the profile as a card (<a href="#fig-features-tab">Figure 5</a>). The cards run from top to bottom, as described in <a href="#sec-what-features-do">What features do</a>.</p>
-<div id="fig-features-tab" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Features tab with an open feature card, its setup message, chain fields and the Add Feature button">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-features-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="/docs/advanced-retarget/Figures/features-tab.png" class="img-fluid figure-img" style="width:450pt" alt="The Features tab with an open feature card, its setup message, chain fields and the Add Feature button">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-features-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Figure 5
-</figcaption>
-</figure>
+<p>The <strong>Features</strong> tab shows each feature of the profile as a card (<a href="#figure-features-card">Figure 12</a>). The cards run from top to bottom, as described in <a href="#sec-what-features-do">What features do</a>.</p>
+<div id="figure-features-card" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/features-card.png" class="img-fluid" style="width:480pt" alt="A feature card with its title, status dot, menu button and setup message"></p>
+<p>Figure 12</p>
 </div>
 <ul>
 <li>Click a card’s title to open or close it.</li>
 <li>Look at the dot in front of the title. Green means the card is ready. Any other color means it needs setup, and the open card says what’s missing.</li>
 <li>Click the three-dot button at the right of the title to move the card up or down, copy or paste its settings, or remove it.</li>
+</ul>
+<p>Inside an open card, the chains are the bones the feature reads and moves (<a href="#figure-features-chains">Figure 13</a>).</p>
+<div id="figure-features-chains" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/features-chains.png" class="img-fluid" style="width:480pt" alt="A chain field with its remove button, the Add bone dropdown and the bones of the chain"></p>
+<p>Figure 13</p>
+</div>
+<ul>
 <li>Pick a chain in <strong>Source Chain</strong> or <strong>Target Chain</strong>. Click <strong>×</strong> next to a chain to empty it.</li>
 <li>Use <strong>Add bone…</strong> to add one bone at the end of a chain. Add bones from the body outward, such as upper arm, then forearm, then hand.</li>
-<li>Click <strong>Add Feature</strong> to add a new card at the bottom of the list.</li>
+<li>Click <strong>Add Feature</strong> at the bottom of the list to add a new card.</li>
 </ul>
 <p>To pick the right feature to add, see <a href="#sec-choose-a-feature">Choose a feature</a>.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="sec-rebuild-remap-or-swap" class="level1" data-section="Manual">
 <h1 data-section="Manual">Rebuild, remap or swap</h1>
-<p>The four buttons at the bottom of the <strong>Profile</strong> tab (<a href="#fig-profile-tab">Figure 4</a>) update the profile after something changes.</p>
+<p>The four buttons at the bottom of the <strong>Profile</strong> tab update the profile after something changes (<a href="#figure-profile-mapping">Figure 14</a>).</p>
+<div id="figure-profile-mapping" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/profile-mapping.png" class="img-fluid" style="width:340pt" alt="The Mapping section of the Profile tab with the Rebuild Rigs, Rebuild Mappings, Remap and Swap buttons marked"></p>
+<p>Figure 14</p>
+</div>
 <ul>
 <li><strong>Rebuild Rigs:</strong> reads the bones of both models again. Click it after you change a model, or after you re-import a model with new bones.</li>
 <li><strong>Rebuild Mappings:</strong> makes the features the profile adds by itself again: <strong>Root/Pelvis Retarget</strong>, <strong>IK Retarget</strong> and <strong>Basic Retarget</strong>. Any changes you made to those features are lost. The features you added yourself stay as they are.</li>
@@ -359,16 +383,10 @@ Figure&nbsp;5: Figure 5
 </section>
 <section id="sec-read-the-messages" class="level1" data-section="Manual">
 <h1 data-section="Manual">Read the messages</h1>
-<p>The <strong>Messages</strong> tab collects what the features report (<a href="#fig-messages-tab">Figure 6</a>). The tab shows a count, such as <strong>Messages (1)</strong>, when there’s something to read.</p>
-<div id="fig-messages-tab" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Messages tab with the Notifications and Help lists and one message">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-messages-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="/docs/advanced-retarget/Figures/messages-tab.png" class="img-fluid figure-img" style="width:420pt" alt="The Messages tab with the Notifications and Help lists and one message">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-messages-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Figure 6
-</figcaption>
-</figure>
+<p>The <strong>Messages</strong> tab collects what the features report (<a href="#figure-messages-tab">Figure 15</a>). The tab shows a count, such as <strong>Messages (1)</strong>, when there’s something to read.</p>
+<div id="figure-messages-tab" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/messages-tab.png" class="img-fluid" style="width:420pt" alt="The Messages tab with the Notifications and Help lists and one message"></p>
+<p>Figure 15</p>
 </div>
 <ul>
 <li><strong>Notifications:</strong> warnings and errors. Fix these first.</li>
@@ -377,16 +395,10 @@ Figure&nbsp;6: Figure 6
 <p>Each message starts with the name of its feature, so you know which card to open. The same message also appears on that card in the <strong>Features</strong> tab.</p>
 <section id="sec-open-a-profile-from-the-inspector" class="level2">
 <h2 class="anchored" data-anchor-id="sec-open-a-profile-from-the-inspector">Open a profile from the Inspector</h2>
-<p>Select a profile in the <strong>Project</strong> window to see its settings in the Inspector (<a href="#fig-profile-inspector">Figure 7</a>). Click <strong>Open in Retarget Window</strong> to edit it there. You can also double-click the profile, or choose <strong>Tools &gt; Advanced Retarget &gt; Retarget Window</strong>.</p>
-<div id="fig-profile-inspector" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The profile Inspector with the Open in Retarget Window button, the profile settings and the Rebuild Rigs and Rebuild Mappings buttons">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-profile-inspector-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="/docs/advanced-retarget/Figures/profile-inspector.png" class="img-fluid figure-img" style="width:480pt" alt="The profile Inspector with the Open in Retarget Window button, the profile settings and the Rebuild Rigs and Rebuild Mappings buttons">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-profile-inspector-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: Figure 7
-</figcaption>
-</figure>
+<p>Select a profile in the <strong>Project</strong> window to see its settings in the Inspector (<a href="#figure-profile-inspector">Figure 16</a>). Click <strong>Open in Retarget Window</strong> to edit it there. You can also double-click the profile, or choose <strong>Tools &gt; Advanced Retarget &gt; Retarget Window</strong>.</p>
+<div id="figure-profile-inspector" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/profile-inspector.png" class="img-fluid" style="width:480pt" alt="The profile Inspector with the Open in Retarget Window button, the profile settings and the Rebuild Rigs and Rebuild Mappings buttons"></p>
+<p>Figure 16</p>
 </div>
 <p>The Inspector has the same settings as the <strong>Profile</strong> tab, and the <strong>Rebuild Rigs</strong> and <strong>Rebuild Mappings</strong> buttons.</p>
 <div style="page-break-after: always;"></div>
@@ -453,7 +465,11 @@ Figure&nbsp;7: Figure 7
 <section id="sec-generic-to-humanoid" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Generic to humanoid</h1>
 <p>Use this to turn generic clips into humanoid clips. A humanoid clip plays on every humanoid character in your project, so you retarget once and share the result.</p>
-<p>The target needs a valid humanoid avatar. Select the target model, open its <strong>Rig</strong> tab, set <strong>Animation Type</strong> to <strong>Humanoid</strong> and click <strong>Apply</strong>.</p>
+<p>The target needs a valid humanoid avatar. Select the target model, open its <strong>Rig</strong> tab, set <strong>Animation Type</strong> to <strong>Humanoid</strong> and click <strong>Apply</strong> (<a href="#figure-inspector-rig-apply">Figure 17</a>).</p>
+<div id="figure-inspector-rig-apply" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/inspector-rig-apply.png" class="img-fluid" style="width:380pt" alt="The Rig tab of a model Inspector with Animation Type and the Apply button marked"></p>
+<p>Figure 17</p>
+</div>
 <ol type="1">
 <li>Create the profile from the generic source and the humanoid target.</li>
 <li>Click the <strong>Bake</strong> tab and set <strong>Rig Type</strong> to <strong>Humanoid</strong>.</li>
@@ -480,18 +496,12 @@ Figure&nbsp;7: Figure 7
 <ol type="1">
 <li>Create the profile from the full-body source and the arms model. If a message says the skeleton couldn’t be mapped, click <strong>OK</strong>.</li>
 <li>In the <strong>Features</strong> tab, click <strong>Add Feature</strong> and choose <strong>Fps</strong>. A card named <strong>FPS Animation Retarget</strong> appears at the bottom of the list. Keep it below any other arm cards, so it has the last word on the arms.</li>
-<li>Open the card. The package has already searched both models by bone name and filled in each arm and weapon (<a href="#fig-fps-chains">Figure 8</a>).</li>
+<li>Open the card. The package has already searched both models by bone name and filled in the arms and the weapon (<a href="#figure-fps-chains">Figure 18</a>). In the figure, both models have a bone for the gun, named <code>ik_hand_gun</code>. If a model has none, the weapon stays empty until you add a bone with <strong>Add bone…</strong>.</li>
 <li>Check every chain under <strong>Source Chains</strong> and <strong>Target Chains</strong>. If one is empty or holds the wrong bones, pick a chain from its drop-down, or empty it with <strong>×</strong> and use <strong>Add bone…</strong> to add the upper arm, the forearm and the hand, in that order.</li>
 </ol>
-<div id="fig-fps-chains" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The FPS Animation Retarget card with the source and target arm and weapon chains">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-fps-chains-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="/docs/advanced-retarget/Figures/fps-chains.png" class="img-fluid figure-img" style="width:360pt" alt="The FPS Animation Retarget card with the source and target arm and weapon chains">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fps-chains-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8: Figure 8
-</figcaption>
-</figure>
+<div id="figure-fps-chains" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/fps-chains.png" class="img-fluid" style="width:360pt" alt="The FPS Animation Retarget card with the source arm chains and weapon bone, and the target arm chains and weapon bone"></p>
+<p>Figure 18</p>
 </div>
 <p>The dot turns green when all six chains are filled. After you rename bones or change a model, click <strong>Remap</strong> in the <strong>Profile</strong> tab to search again. A chain the search can’t fill keeps the bones it has.</p>
 <div style="page-break-after: always;"></div>
@@ -499,18 +509,12 @@ Figure&nbsp;8: Figure 8
 <section id="sec-check-and-adjust-the-arms" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Check and adjust the arms</h1>
 <ol type="1">
-<li>Click the <strong>Bake</strong> tab and click a clip. The target arms follow the source’s weapon (<a href="#fig-fps-preview">Figure 9</a>).</li>
+<li>Click the <strong>Bake</strong> tab and click a clip. The target arms follow the source’s weapon (<a href="#figure-fps-preview">Figure 19</a>).</li>
 <li>Click <strong>Play</strong> and watch both hands through the whole clip.</li>
 </ol>
-<div id="fig-fps-preview" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The preview with the target arms holding the weapon next to the full-body source character">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-fps-preview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="/docs/advanced-retarget/Figures/fps-preview.png" class="img-fluid figure-img" style="width:440pt" alt="The preview with the target arms holding the weapon next to the full-body source character">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fps-preview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9: Figure 9
-</figcaption>
-</figure>
+<div id="figure-fps-preview" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/fps-preview.png" class="img-fluid" style="width:430pt" alt="Three moments of a reload: the mannequin holding a rifle above the first-person arms holding the same rifle"></p>
+<p>Figure 19</p>
 </div>
 <p>Here’s what the feature does. The target weapon copies the movement of the source weapon. The hands hold the target weapon the way the source’s hands hold the source weapon. The arms bend to reach the hands.</p>
 <p>To adjust the result, change these settings on the <strong>FPS Animation Retarget</strong> card:</p>
@@ -520,7 +524,20 @@ Figure&nbsp;9: Figure 9
 <li><strong>Right Pole Offset</strong> and <strong>Left Pole Offset:</strong> move the point an elbow aims at. Use them to tuck an elbow in or push it out.</li>
 </ul>
 <p>Arms models are rarely humanoid, so bake with <strong>Rig Type</strong> set to <strong>Generic</strong>.</p>
+<section id="sec-fix-a-weapon-that-sits-badly-in-the-hands" class="level2">
+<h2 class="anchored" data-anchor-id="sec-fix-a-weapon-that-sits-badly-in-the-hands">Fix a weapon that sits badly in the hands</h2>
+<p>The feature copies where the source’s weapon bone goes, so the target only looks right when the weapon sits right in the source’s hands. A rifle that floats in front of the face or points the wrong way is a problem with the weapon’s placement on its bone, not with the retargeting. Fix it on the source first:</p>
+<ol type="1">
+<li>Put the weapon model under the source’s weapon bone, with its local position and rotation at <code>0</code>. This is the starting point.</li>
+<li>Play the clip in the preview and stop on a frame where both hands hold the weapon, such as the aim.</li>
+<li>Check the weapon’s direction first. It should point away from the character, along the arms. If it points up, down or backward, turn it by a quarter turn around one axis at a time, <code>90</code> or <code>-90</code>, until the barrel points the right way.</li>
+<li>Then move the weapon along the bone’s axes in small steps of about <code>0.05</code>. Move it until the front hand wraps the handguard and the rear hand sits on the grip.</li>
+<li>Look at it from the side and from above, and check a second frame, such as the reload. A weapon that fits one frame but not another has the wrong pivot, not the wrong offset.</li>
+<li>Keep the values you end with. In the figure, the rifle needed a position of <code>(0.1, 0, -0.05)</code> and no turn.</li>
+</ol>
+<p>Once the source looks right, the target follows. If the target’s weapon still sits a little off, use <strong>Weapon Offset</strong> on the card, and <strong>Right Hand Offset</strong> or <strong>Left Hand Offset</strong> to move a single hand. Don’t compensate on the target for a weapon that is wrong on the source.</p>
 <div style="page-break-after: always;"></div>
+</section>
 </section>
 <section id="sec-first-person-arms-to-other-arms" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">First-person arms to other arms</h1>
@@ -567,9 +584,13 @@ Figure&nbsp;9: Figure 9
 <p>Fix it by giving both characters the same starting pose. For humanoid characters:</p>
 <ol type="1">
 <li>Open the <strong>Profile</strong> tab.</li>
-<li>Click <strong>T-Pose</strong> next to <strong>Source Pose</strong>. The package saves a clip named after the model, such as <code>Hero_TPose</code>, next to the model and assigns it.</li>
+<li>Click <strong>T-Pose</strong> next to <strong>Source Pose</strong>. The package saves a clip named after the model, such as <code>Hero_TPose</code>, next to the model and assigns it (<a href="#figure-tpose-buttons">Figure 20</a>).</li>
 <li>Click <strong>T-Pose</strong> next to <strong>Target Pose</strong>.</li>
 </ol>
+<div id="figure-tpose-buttons" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/tpose-buttons.png" class="img-fluid" style="width:470pt" alt="The Profile tab with the two T-Pose buttons marked"></p>
+<p>Figure 20</p>
+</div>
 <p>The preview updates, and the arms line up with the source. You can also make a pose clip without a profile: select one model in the <strong>Project</strong> window and choose <strong>Tools &gt; Advanced Retarget &gt; Generate T-Pose Clip</strong>.</p>
 <section id="sec-make-your-own-pose-clip-advanced" class="level2">
 <h2 class="anchored" data-anchor-id="sec-make-your-own-pose-clip-advanced">Make your own pose clip (Advanced)</h2>
@@ -588,11 +609,15 @@ Figure&nbsp;9: Figure 9
 <p>There are two separate jobs: showing a prop while you preview, and moving a prop bone in the baked clip.</p>
 <section id="sec-show-a-prop-in-the-preview" class="level2">
 <h2 class="anchored" data-anchor-id="sec-show-a-prop-in-the-preview">Show a prop in the preview</h2>
-<p>Open <strong>Clip Item</strong> in the <strong>Profile</strong> tab (<a href="#fig-profile-tab">Figure 4</a>):</p>
+<p>Open <strong>Clip Item</strong> in the <strong>Profile</strong> tab (<a href="#figure-profile-clipitem">Figure 21</a>):</p>
+<div id="figure-profile-clipitem" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/profile-clipitem.png" class="img-fluid" style="width:400pt" alt="The opened Clip Item section with the model, animation, bone and rotation offset fields"></p>
+<p>Figure 21</p>
+</div>
 <ul>
 <li><strong>Clip Item Model:</strong> the prop, such as a rifle model.</li>
 <li><strong>Clip Item Animation:</strong> an optional clip for the prop, such as a magazine dropping out. It plays together with the source clip.</li>
-<li><strong>Clip Item Bone:</strong> the source bone the prop sits on, usually a hand or a weapon bone.</li>
+<li><strong>Clip Item Bone:</strong> the source bone the prop sits on, usually a hand or a weapon bone. In the figure it’s the dummy’s prop bone, <code>B-handProp.R</code>.</li>
 <li><strong>Clip Item Rotation Offset:</strong> turns the prop so it sits right in the hand.</li>
 </ul>
 <p>The prop is only there to help you judge the animation. It’s never part of a baked clip.</p>
@@ -603,8 +628,12 @@ Figure&nbsp;9: Figure 9
 <ol type="1">
 <li>In the <strong>Features</strong> tab, click <strong>Add Feature</strong> and choose <strong>Copy Bone Feature</strong>.</li>
 <li>In <strong>Copy From</strong>, pick the source’s weapon bone.</li>
-<li>In <strong>Copy To</strong>, pick the target’s weapon bone.</li>
+<li>In <strong>Copy To</strong>, pick the target’s weapon bone (<a href="#figure-features-copybone">Figure 22</a>).</li>
 </ol>
+<div id="figure-features-copybone" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/features-copybone.png" class="img-fluid" style="width:330pt" alt="An open Copy Bone card with the Copy From and Copy To fields marked"></p>
+<p>Figure 22</p>
+</div>
 <p>The target bone now copies the source bone’s position and turning, measured from each character’s root. It isn’t scaled to the target’s body size. On a much bigger or smaller target, the hands may not reach it. For first-person arms, use <strong>FPS Animation Retarget</strong> instead.</p>
 <p>Bake with <strong>Rig Type</strong> set to <strong>Generic</strong> to keep weapon bones. Humanoid clips don’t store them.</p>
 <div style="page-break-after: always;"></div>
@@ -617,8 +646,12 @@ Figure&nbsp;9: Figure 9
 <li>In the <strong>Features</strong> tab, click <strong>Add Feature</strong> and choose <strong>Transform</strong>. A card named <strong>Transform Modifier</strong> appears at the bottom of the list.</li>
 <li>In <strong>Target Chain</strong>, pick the bone to fix. You can add several bones; each one gets the same change.</li>
 <li>Set <strong>Rotation Mode</strong> to <strong>Add</strong>.</li>
-<li>Change <strong>Rotation</strong> a little at a time and watch the preview.</li>
+<li>Change <strong>Rotation</strong> a little at a time and watch the preview (<a href="#figure-features-transform">Figure 23</a>).</li>
 </ol>
+<div id="figure-features-transform" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/features-transform.png" class="img-fluid" style="width:380pt" alt="An open Transform Modifier card with the Target Chain, Rotation and Rotation Mode fields marked"></p>
+<p>Figure 23</p>
+</div>
 <p>Use <strong>Position</strong> with <strong>Position Mode</strong> set to <strong>Add</strong> to move a bone, and <strong>Scale</strong> with <strong>Scale Mode</strong> to resize one. Keep the card below the card that moves the same bone. Otherwise, the other card overwrites the fix. Every setting is explained in <a href="#sec-copy-bone-transform-modifier-and-mirror">Copy Bone, Transform Modifier and Mirror</a>.</p>
 <div style="page-break-after: always;"></div>
 </section>
@@ -629,8 +662,12 @@ Figure&nbsp;9: Figure 9
 <ol type="1">
 <li>In the <strong>Features</strong> tab, click <strong>Add Feature</strong> and choose <strong>Mirror</strong>.</li>
 <li>In <strong>Target Bone Chain</strong>, pick the chain to change, such as <code>leftArm</code>. The left arm now copies the right arm, mirrored.</li>
-<li>Leave <strong>Axis</strong> at <code>1, 0, 0</code>. That mirrors left and right on a character that faces forward along Z.</li>
+<li>Leave <strong>Axis</strong> at <code>1, 0, 0</code>. That mirrors left and right on a character that faces forward along Z (<a href="#figure-features-mirror">Figure 24</a>).</li>
 </ol>
+<div id="figure-features-mirror" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/features-mirror.png" class="img-fluid" style="width:380pt" alt="An open Mirror Retarget card with the Target Bone Chain and Axis fields marked"></p>
+<p>Figure 24</p>
+</div>
 <p>To mirror the whole body:</p>
 <ol type="1">
 <li>Add one <strong>Mirror</strong> card at the bottom of the list.</li>
@@ -645,20 +682,20 @@ Figure&nbsp;9: Figure 9
 <h1 data-section="Use Cases">Bake many clips at once</h1>
 <ol type="1">
 <li>In the <strong>Project</strong> window, select the clips. You can also select models; all of their clips are included.</li>
-<li>Choose <strong>Tools &gt; Advanced Retarget &gt; Retarget Selected Clips</strong>. The <strong>Retarget Animations</strong> window opens with your clips (<a href="#fig-retarget-animations">Figure 10</a>).</li>
+<li>Choose <strong>Tools &gt; Advanced Retarget &gt; Retarget Selected Clips</strong> (<a href="#figure-menu-retarget-clips">Figure 25</a>). The <strong>Retarget Animations</strong> window opens with your clips (<a href="#figure-retarget-animations">Figure 26</a>).</li>
+</ol>
+<div id="figure-menu-retarget-clips" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/menu-retarget-clips.png" class="img-fluid" style="width:440pt" alt="The Advanced Retarget submenu with Retarget Selected Clips marked"></p>
+<p>Figure 25</p>
+</div>
+<ol start="3" type="1">
 <li>Pick the <strong>Profile</strong> at the top.</li>
 <li>Check the settings. They work the same as on the <strong>Bake</strong> tab.</li>
 <li>Click <strong>Bake All</strong>.</li>
 </ol>
-<div id="fig-retarget-animations" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Retarget Animations window with the profile field, the selected clips and the bake buttons">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-retarget-animations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="/docs/advanced-retarget/Figures/retarget-animations.png" class="img-fluid figure-img" style="width:400pt" alt="The Retarget Animations window with the profile field, the selected clips and the bake buttons">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-retarget-animations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10: Figure 10
-</figcaption>
-</figure>
+<div id="figure-retarget-animations" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/retarget-animations.png" class="img-fluid" style="width:320pt" alt="The Retarget Animations window with the profile field, the selected clips and the bake buttons"></p>
+<p>Figure 26</p>
 </div>
 <p><strong>Bake All</strong> bakes every clip at its full length. <strong>Bake Selected</strong> bakes only the highlighted clip, using its <strong>Range</strong>. The <strong>Bake</strong> tab of the <strong>Retarget</strong> window has the same two buttons for its own list.</p>
 <p><strong>Tip:</strong> Turn on <strong>Copy Clip Settings</strong> before you bake a batch, so looping clips stay looping.</p>
@@ -667,12 +704,24 @@ Figure&nbsp;10: Figure 10
 <section id="sec-export-an-fbx-file" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Export an FBX file</h1>
 <ol type="1">
-<li>Click the <strong>Bake</strong> tab and set <strong>Format</strong> to <strong>Fbx</strong>.</li>
+<li>Click the <strong>Bake</strong> tab and set <strong>Format</strong> to <strong>Fbx</strong> (<a href="#figure-bake-format-menu">Figure 27</a>).</li>
+</ol>
+<div id="figure-bake-format-menu" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/bake-format-menu.png" class="img-fluid" style="width:430pt" alt="The Format dropdown with Animation Clip and Fbx"></p>
+<p>Figure 27</p>
+</div>
+<ol start="2" type="1">
 <li>Click <strong>Bake Selected</strong> or <strong>Bake All</strong>.</li>
 </ol>
 <p>The FBX file holds the target model and the baked animation. The package sets the file’s import settings to match the target: <strong>Humanoid</strong> with the target’s avatar when <strong>Rig Type</strong> is <strong>Humanoid</strong>, and <strong>Generic</strong> otherwise. You can open the file in Blender, Maya or another 3D program to polish the animation.</p>
 <ul>
-<li>An FBX bake never replaces an earlier file. It adds a number to the name instead, such as <code>Robot_Walk 1.fbx</code>. Delete the old files you don’t need.</li>
+<li>An FBX bake never replaces an earlier file. It adds a number to the name instead, such as <code>Robot_Walk 1.fbx</code> (<a href="#figure-bake-fbx-files">Figure 28</a>). Delete the old files you don’t need.</li>
+</ul>
+<div id="figure-bake-fbx-files" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/bake-fbx-files.png" class="img-fluid" style="width:440pt" alt="The Project window listing a baked FBX file and a second one with a number added to its name"></p>
+<p>Figure 28</p>
+</div>
+<ul>
 <li>In an FBX file, root motion is stored as movement of the model’s top object. When you want Unity’s root motion, the <strong>Animation Clip</strong> format is the simplest choice.</li>
 <li><strong>Copy Clip Settings</strong> sets <strong>Loop Time</strong> in the FBX import settings. Animation events aren’t kept in FBX files.</li>
 <li>A <strong>Humanoid</strong> FBX needs the target’s avatar to be saved in the project, such as the avatar Unity makes when it imports the model.</li>
@@ -687,15 +736,27 @@ Figure&nbsp;10: Figure 10
 <li>Play a clip with clear forward movement, such as a walk.</li>
 <li>Enter a quarter turn around the up axis in <strong>Facing Alignment</strong>: set Y to <code>90</code>.</li>
 <li>Watch the preview. If the target now walks backward or to the other side, try <code>-90</code>, then <code>180</code>.</li>
-<li>Keep the value where the target moves and bends the same way as the source.</li>
+<li>Keep the value where the target moves and bends the same way as the source (<a href="#figure-facing-alignment">Figure 29</a>).</li>
 </ol>
+<div id="figure-facing-alignment" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/facing-alignment.png" class="img-fluid" style="width:470pt" alt="The Profile tab with the Facing Alignment field marked"></p>
+<p>Figure 29</p>
+</div>
 <p><strong>Facing Alignment</strong> turns the source’s movement, turning and root motion to the target’s facing. The preview, bakes and the <strong>Dynamic Retargeter</strong> all use it. It doesn’t turn the target’s rest pose. Each bone still starts from the target’s own rest pose.</p>
 <p><strong>Note:</strong> Where the characters stand or face in a scene doesn’t matter. The package measures everything from each character’s own root. <strong>Facing Alignment</strong> is only for skeletons that face different ways inside their models.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="sec-use-a-skeleton-no-preset-knows" class="level1" data-section="Advanced">
 <h1 data-section="Advanced">Use a skeleton no preset knows</h1>
-<p>When the package doesn’t recognize the bone names, the profile has rigs but no features. Add the features yourself:</p>
+<p>When the package doesn’t recognize the bone names, it shows a message when you create the profile (<a href="#figure-dialog-unmapped">Figure 30</a>). The profile is still made, but it has no features (<a href="#figure-features-empty">Figure 31</a>). Add the features yourself:</p>
+<div id="figure-dialog-unmapped" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/dialog-unmapped.png" class="img-fluid" style="width:200pt" alt="The message that the source and target skeleton could not be mapped, with its OK button marked"></p>
+<p>Figure 30</p>
+</div>
+<div id="figure-features-empty" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/features-empty.png" class="img-fluid" style="width:330pt" alt="The Features tab of a profile with no features, and the Add Feature button"></p>
+<p>Figure 31</p>
+</div>
 <ol type="1">
 <li>Open the <strong>Features</strong> tab and click <strong>Add Feature</strong>.</li>
 <li>Choose <strong>Root Pelvis</strong> for the hips. Use <strong>Add bone…</strong> to put the hips bone in the source chain and in the target chain.</li>
@@ -724,41 +785,33 @@ Figure&nbsp;10: Figure 10
 <section id="sec-bake-a-walk-with-root-motion" class="level1" data-section="Root Motion">
 <h1 data-section="Root Motion">Bake a walk with root motion</h1>
 <ol type="1">
-<li>In the <strong>Profile</strong> tab, set <strong>Root Motion Bone</strong> to the target bone that moves forward when the target walks (<a href="#fig-root-motion-bone">Figure 11</a>). For most characters, that’s the hips or the pelvis. On skeletons with a separate root bone that carries the travel, such as Unreal Engine skeletons, pick that root bone.</li>
+<li>In the <strong>Profile</strong> tab, set <strong>Root Motion Bone</strong> to the target bone that moves forward when the target walks (<a href="#figure-root-motion-bone">Figure 32</a>). For most characters, that’s the hips or the pelvis. On skeletons with a separate root bone that carries the travel, such as Unreal Engine skeletons, pick that root bone.</li>
 </ol>
-<div id="fig-root-motion-bone" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Root Motion Bone field in the Motion and Output section of the Profile tab">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-root-motion-bone-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="/docs/advanced-retarget/Figures/root-motion-bone.png" class="img-fluid figure-img" style="width:420pt" alt="The Root Motion Bone field in the Motion and Output section of the Profile tab">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-root-motion-bone-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;11: Figure 11
-</figcaption>
-</figure>
+<div id="figure-root-motion-bone" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/root-motion-bone.png" class="img-fluid" style="width:420pt" alt="The Root Motion Bone field in the Motion and Output section of the Profile tab"></p>
+<p>Figure 32</p>
 </div>
 <ol start="2" type="1">
 <li>In the <strong>Bake</strong> tab, click the walk clip in the <strong>Animations</strong> list.</li>
-<li>Turn on <strong>Root Motion</strong> (<a href="#fig-root-motion-bake">Figure 12</a>).</li>
+<li>Turn on <strong>Root Motion</strong> (<a href="#figure-root-motion-bake">Figure 33</a>).</li>
 <li>Leave <strong>Extract From Bone</strong> at <strong>Horizontal Position, Yaw</strong> for walks, runs and turns.</li>
 <li>Turn on <strong>Copy Clip Settings</strong>, so the loop setting carries over.</li>
 <li>Click <strong>Bake Selected</strong>.</li>
 </ol>
-<div id="fig-root-motion-bake" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Bake tab with a walk clip selected and Copy Clip Settings, Loop Count, Root Motion and Extract From Bone set">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-root-motion-bake-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="/docs/advanced-retarget/Figures/root-motion-bake.png" class="img-fluid figure-img" style="width:400pt" alt="The Bake tab with a walk clip selected and Copy Clip Settings, Loop Count, Root Motion and Extract From Bone set">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-root-motion-bake-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;12: Figure 12
-</figcaption>
-</figure>
+<div id="figure-root-motion-bake" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/root-motion-bake.png" class="img-fluid" style="width:400pt" alt="The Bake tab with a walk clip selected and Copy Clip Settings, Loop Count, Root Motion and Extract From Bone set"></p>
+<p>Figure 33</p>
 </div>
 <p>To check the result, give the clip to the target in a scene, as in <a href="#sec-find-and-play-the-baked-clip">Find and play the baked clip</a>. Select the target and turn on <strong>Apply Root Motion</strong> on its <strong>Animator</strong>. Enter Play Mode. The target walks forward instead of walking on the spot.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="sec-choose-what-moves-the-character" class="level1" data-section="Root Motion">
 <h1 data-section="Root Motion">Choose what moves the character</h1>
-<p><strong>Extract From Bone</strong> decides which parts of the bone’s movement go onto the root. The other parts stay in the bone, as part of the pose.</p>
+<p><strong>Extract From Bone</strong> decides which parts of the bone’s movement go onto the root. The other parts stay in the bone, as part of the pose (<a href="#figure-bake-extract-menu">Figure 34</a>).</p>
+<div id="figure-bake-extract-menu" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/bake-extract-menu.png" class="img-fluid" style="width:430pt" alt="The Extract From Bone dropdown with its list of options"></p>
+<p>Figure 34</p>
+</div>
 <ul>
 <li><strong>Horizontal Position:</strong> travel along the ground. Use it for walks, runs and side steps.</li>
 <li><strong>Vertical Position:</strong> travel up and down. Use it when the whole character should rise, such as for climbs, jumps onto a ledge or flying. Leave it off for walks. Otherwise, the root bobs up and down with every step.</li>
@@ -779,11 +832,15 @@ Figure&nbsp;12: Figure 12
 <section id="sec-use-root-motion-in-your-game" class="level1" data-section="Root Motion">
 <h1 data-section="Root Motion">Use root motion in your game</h1>
 <ul>
-<li>Turn on <strong>Apply Root Motion</strong> on the character’s <strong>Animator</strong>. Without it, the character animates on the spot.</li>
+<li>Turn on <strong>Apply Root Motion</strong> on the character’s <strong>Animator</strong> (<a href="#figure-animator-root-motion">Figure 35</a>). Without it, the character animates on the spot.</li>
 <li>Root motion moves the GameObject that has the <strong>Animator</strong>. If a script also moves the character, both movements add up. Use one of them, or take over root motion in a script with Unity’s <code>OnAnimatorMove</code> message.</li>
-<li>For Humanoid clips, Unity’s clip settings also decide which travel the <strong>Animator</strong> applies. Select the baked clip and check <strong>Root Transform Rotation</strong>, <strong>Root Transform Position (Y)</strong> and <strong>Root Transform Position (XZ)</strong> in the Inspector. <strong>Bake Into Pose</strong> keeps that part in the pose instead of moving the character.</li>
+<li>For Humanoid clips, Unity’s clip settings also decide which travel the <strong>Animator</strong> applies. Select the baked clip and check <strong>Root Transform Rotation</strong>, <strong>Root Transform Position (Y)</strong> and <strong>Root Transform Position (XZ)</strong> in the Inspector (<a href="#figure-clip-loop">Figure 36</a>). <strong>Bake Into Pose</strong> keeps that part in the pose instead of moving the character.</li>
 <li>Root motion and <strong>Loop Count</strong> work together. Each repeat continues from where the last one stopped. See <a href="#sec-repeat-or-trim-a-clip">Repeat or trim a clip</a>.</li>
 </ul>
+<div id="figure-animator-root-motion" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/animator-root-motion.png" class="img-fluid" style="width:330pt" alt="The Animator component Inspector with the Apply Root Motion checkbox marked"></p>
+<p>Figure 35</p>
+</div>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="sec-keep-looping-clips-looping" class="level1" data-section="Looping">
@@ -794,7 +851,11 @@ Figure&nbsp;12: Figure 12
 <li>Bake the whole clip. Use <strong>Bake All</strong>, or drag both ends of <strong>Range</strong> to the start and end of the clip before you click <strong>Bake Selected</strong>.</li>
 </ol>
 <p><strong>Copy Clip Settings</strong> copies <strong>Loop Time</strong>, <strong>Loop Pose</strong> and the source clip’s other loop and root transform settings. It also copies the animation events.</p>
-<p>Without it, the baked clip doesn’t loop. To fix that later, select the baked clip and turn on <strong>Loop Time</strong> in the Inspector.</p>
+<p>Without it, the baked clip doesn’t loop. To fix that later, select the baked clip and turn on <strong>Loop Time</strong> in the Inspector (<a href="#figure-clip-loop">Figure 36</a>).</p>
+<div id="figure-clip-loop" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/clip-loop.png" class="img-fluid" style="width:330pt" alt="The Inspector of a baked clip with Loop Time and Bake Into Pose for Root Transform Position XZ marked"></p>
+<p>Figure 36</p>
+</div>
 <p>Watch for these cases:</p>
 <ul>
 <li><strong>A trimmed range never loops.</strong> A part of a loop doesn’t end where it starts, so the package turns <strong>Loop Time</strong> off.</li>
@@ -813,7 +874,7 @@ Figure&nbsp;12: Figure 12
 </section>
 <section id="sec-bake-part-of-a-clip" class="level2">
 <h2 class="anchored" data-anchor-id="sec-bake-part-of-a-clip">Bake part of a clip</h2>
-<p>Drag the ends of <strong>Range</strong> in the <strong>Bake</strong> tab (<a href="#fig-bake-tab">Figure 2</a>) to pick part of the selected clip. The numbers on the right show the start and end times. Use it to cut one swing out of a long combo, or one cycle out of a long take.</p>
+<p>Drag the ends of <strong>Range</strong> in the <strong>Bake</strong> tab (<a href="#figure-bake-animations">Figure 38</a>) to pick part of the selected clip. The numbers on the right show the start and end times. Use it to cut one swing out of a long combo, or one cycle out of a long take.</p>
 <ul>
 <li><strong>Bake Selected</strong> bakes only the range. <strong>Bake All</strong> always bakes whole clips.</li>
 <li>The baked clip starts at zero, whatever part you picked.</li>
@@ -846,7 +907,11 @@ Figure&nbsp;12: Figure 12
 </section>
 <section id="sec-ik-retarget" class="level1" data-section="Feature Settings">
 <h1 data-section="Feature Settings">IK Retarget</h1>
-<p><strong>IK Retarget</strong> places the end of a limb, such as a hand or a foot, where the source’s is, scaled to the target’s size. Then it bends the limb to reach that spot. The profile uses it for arms and legs. It has every setting of <strong>Basic Retarget</strong>, plus these:</p>
+<p><strong>IK Retarget</strong> places the end of a limb, such as a hand or a foot, where the source’s is, scaled to the target’s size. Then it bends the limb to reach that spot. The profile uses it for arms and legs. It has every setting of <strong>Basic Retarget</strong>, plus these (<a href="#figure-features-ik">Figure 37</a>):</p>
+<div id="figure-features-ik" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/features-ik.png" class="img-fluid" style="width:380pt" alt="An open IK Retarget card with the Ik Weight, Effector Offset and Joint Offset settings marked"></p>
+<p>Figure 37</p>
+</div>
 <ul>
 <li><strong>Ik Weight:</strong> how strongly the hand or foot is pulled to the source’s position. At <code>0</code>, the card only copies turning, like <strong>Basic Retarget</strong>.</li>
 <li><strong>Use Chain Ik:</strong> bends limbs with more than three bones, such as animal legs. The profile turns it on where it’s needed.</li>
@@ -909,9 +974,14 @@ Figure&nbsp;12: Figure 12
 </section>
 <section id="sec-bake-settings" class="level1" data-section="Settings">
 <h1 data-section="Settings">Bake settings</h1>
-<p>These settings are on the <strong>Bake</strong> tab (<a href="#fig-bake-tab">Figure 2</a>) and in the <strong>Retarget Animations</strong> window. They’re saved on your computer, not in the profile, so each person on a team keeps their own.</p>
+<p>These settings are on the <strong>Bake</strong> tab and in the <strong>Retarget Animations</strong> window. They’re saved on your computer, not in the profile, so each person on a team keeps their own.</p>
 <section id="sec-animations" class="level2">
 <h2 class="anchored" data-anchor-id="sec-animations">Animations</h2>
+<p>The clip list holds everything you want to bake (<a href="#figure-bake-animations">Figure 38</a>).</p>
+<div id="figure-bake-animations" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/bake-animations.png" class="img-fluid" style="width:460pt" alt="The Animations list with the Range slider and the Add Clip field"></p>
+<p>Figure 38</p>
+</div>
 <ul>
 <li><strong>Clip list:</strong> the clips to bake. Click a clip to preview it and to choose it for <strong>Bake Selected</strong>. Click <strong>×</strong> to take it off the list; the clip stays in your project.</li>
 <li><strong>Range:</strong> the part of the selected clip that <strong>Bake Selected</strong> uses.</li>
@@ -920,12 +990,26 @@ Figure&nbsp;12: Figure 12
 </section>
 <section id="sec-output" class="level2">
 <h2 class="anchored" data-anchor-id="sec-output">Output</h2>
+<p>The <strong>Output</strong> settings decide what file comes out (<a href="#figure-bake-output">Figure 39</a>).</p>
+<div id="figure-bake-output" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/bake-output.png" class="img-fluid" style="width:460pt" alt="The Output section with the Format, Rig Type and Copy Clip Settings fields"></p>
+<p>Figure 39</p>
+</div>
 <ul>
 <li><strong>Format:</strong> <strong>Animation Clip</strong> saves an <code>.anim</code> file. <strong>Fbx</strong> saves an FBX file with the target model and the animation.</li>
 <li><strong>Rig Type:</strong> <strong>Humanoid</strong> writes a humanoid clip, which needs a target with a valid humanoid avatar. <strong>Generic</strong> writes the movement of every target bone, including bones a humanoid avatar doesn’t have.</li>
 <li><strong>Copy Clip Settings:</strong> copies the loop settings and animation events of the source clip. Off by default.</li>
 </ul>
+<div style="page-break-after: always;"></div>
 </section>
+</section>
+<section id="sec-bake-settings-timing-and-motion" class="level1" data-section="Settings">
+<h1 data-section="Settings">Bake settings: timing and motion</h1>
+<p>The <strong>Timing</strong> and <strong>Motion</strong> settings sit under <strong>Output</strong> (<a href="#figure-bake-timing-motion">Figure 40</a>).</p>
+<div id="figure-bake-timing-motion" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/bake-timing-motion.png" class="img-fluid" style="width:460pt" alt="The Timing and Motion sections of the Bake tab"></p>
+<p>Figure 40</p>
+</div>
 <section id="sec-timing" class="level2">
 <h2 class="anchored" data-anchor-id="sec-timing">Timing</h2>
 <ul>
@@ -957,18 +1041,12 @@ Figure&nbsp;12: Figure 12
 <ol type="1">
 <li>Put the source and the target in your scene. Give the source an <strong>Animator</strong> that plays its animation.</li>
 <li>Select the target. Click <strong>Add Component</strong> and choose <strong>Advanced Retarget &gt; Dynamic Retargeter</strong>.</li>
-<li>Assign the source to <strong>Animation Source</strong> and the profile to <strong>Profile</strong> (<a href="#fig-dynamic-retargeter">Figure 13</a>).</li>
+<li>Assign the source to <strong>Animation Source</strong> and the profile to <strong>Profile</strong> (<a href="#figure-dynamic-retargeter">Figure 41</a>).</li>
 <li>Enter Play Mode. The target copies the source.</li>
 </ol>
-<div id="fig-dynamic-retargeter" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Dynamic Retargeter component with the Animation Source, Profile and Apply Root Motion fields">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-dynamic-retargeter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="/docs/advanced-retarget/Figures/dynamic-retargeter.png" class="img-fluid figure-img" style="width:511pt" alt="The Dynamic Retargeter component with the Animation Source, Profile and Apply Root Motion fields">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dynamic-retargeter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13: Figure 13
-</figcaption>
-</figure>
+<div id="figure-dynamic-retargeter" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/dynamic-retargeter.png" class="img-fluid" style="width:511pt" alt="The Dynamic Retargeter component with the Animation Source, Profile and Apply Root Motion fields"></p>
+<p>Figure 41</p>
 </div>
 <ul>
 <li><strong>Apply Root Motion:</strong> moves the target along with the source, scaled to the target’s size and turned by <strong>Facing Alignment</strong>. On by default. Turn it off when something else moves the target, such as your character controller.</li>
@@ -1127,7 +1205,11 @@ Figure&nbsp;13: Figure 13
 </section>
 <section id="sec-create-profile-from-two-models-is-greyed-out" class="level2">
 <h2 class="anchored" data-anchor-id="sec-create-profile-from-two-models-is-greyed-out">Create Profile From Two Models is greyed out</h2>
-<p>The menu needs exactly two models selected in the <strong>Project</strong> window. Objects in a scene don’t count. Select two model files or prefabs, such as FBX or Blender files.</p>
+<p>The menu needs exactly two models selected in the <strong>Project</strong> window. Objects in a scene don’t count. Select two model files or prefabs, such as FBX or Blender files (<a href="#figure-menu-create-disabled">Figure 42</a>).</p>
+<div id="figure-menu-create-disabled" class="doc-figure">
+<p><img src="/docs/advanced-retarget/Figures/menu-create-disabled.png" class="img-fluid" style="width:420pt" alt="The Advanced Retarget submenu with Create Profile From Two Models greyed out"></p>
+<p>Figure 42</p>
+</div>
 </section>
 <section id="sec-retarget-selected-clips-is-greyed-out" class="level2">
 <h2 class="anchored" data-anchor-id="sec-retarget-selected-clips-is-greyed-out">Retarget Selected Clips is greyed out</h2>
