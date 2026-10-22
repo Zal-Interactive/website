@@ -73,7 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="/docs/site_libs/quarto-html/quarto-syntax-highlighting-dark-5a1953863e1f72ef3b996ef827f01ca7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="/docs/site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="/docs/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="/docs/site_libs/bootstrap/bootstrap-e3fb44e77c5d532f3fd9b16b5f774869.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="/docs/site_libs/bootstrap/bootstrap-8f5d577af05bc44e0f38170c35f900c8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 
 
 <link rel="stylesheet" href="/docs/theme.css">
@@ -105,12 +105,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="what-advanced-retarget-does" class="level1" data-section="Overview">
+<section id="sec-what-advanced-retarget-does" class="level1" data-section="Overview">
 <h1 data-section="Overview">What Advanced Retarget does</h1>
 <p>Advanced Retarget moves animation from one character to another. The <strong>source</strong> is the character the animation was made for. The <strong>target</strong> is the character that should play it. The package makes a new animation clip that fits the target.</p>
 <p>It works with humanoid and non-humanoid characters, first-person arms and animals. Both characters stand side by side in a preview while you work, so you can check the result before you save anything.</p>
-<section id="what-it-can-do" class="level2">
-<h2 class="anchored" data-anchor-id="what-it-can-do">What it can do</h2>
+<section id="sec-what-it-can-do" class="level2">
+<h2 class="anchored" data-anchor-id="sec-what-it-can-do">What it can do</h2>
 <ul>
 <li>Bake new animation clips (<code>.anim</code> files) or FBX files for the target.</li>
 <li>Retarget between humanoid and generic characters, in any direction.</li>
@@ -122,8 +122,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Retarget live while the game runs, with the <strong>Dynamic Retargeter</strong> component.</li>
 </ul>
 </section>
-<section id="what-it-cant-do" class="level2">
-<h2 class="anchored" data-anchor-id="what-it-cant-do">What it can’t do</h2>
+<section id="sec-what-it-can-t-do" class="level2">
+<h2 class="anchored" data-anchor-id="sec-what-it-can-t-do">What it can’t do</h2>
 <ul>
 <li>It only moves bones. Blend shapes (face shapes), material changes and custom animation curves aren’t baked.</li>
 <li>It doesn’t create a skeleton. Both models need bones inside a skinned mesh, or a humanoid avatar.</li>
@@ -136,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="words-youll-see" class="level1" data-section="Overview">
+<section id="sec-words-you-ll-see" class="level1" data-section="Overview">
 <h1 data-section="Overview">Words you’ll see</h1>
 <p>These words appear in the window and in this guide.</p>
 <ul>
@@ -145,64 +145,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Profile:</strong> an asset that remembers one source and target pair. You make it once and bake from it as often as you like.</li>
 <li><strong>Rig:</strong> the list of bones the profile found in a model. A profile keeps one rig for the source and one for the target.</li>
 <li><strong>Chain:</strong> a row of connected bones, such as upper arm, forearm and hand. Chains have names such as <code>leftArm</code> or <code>spine</code>.</li>
-<li><strong>Feature:</strong> one rule that moves part of the target. For example, an <strong>IK Retarget</strong> feature moves the left arm. A profile runs its features from top to bottom.</li>
+<li><strong>Feature:</strong> a rule that moves one part of the target, such as the left arm. A profile has one feature for each part, and shows each feature as a card in the <strong>Features</strong> tab. See <a href="#sec-what-features-do">What features do</a>.</li>
 <li><strong>Bake:</strong> play the source clip, retarget every frame and save the result as a new clip.</li>
 <li><strong>Humanoid</strong> and <strong>Generic:</strong> Unity’s two kinds of character animation. A humanoid clip plays on any character with a humanoid avatar. A generic clip moves the bones of one particular skeleton.</li>
 <li><strong>Root motion:</strong> travel that moves the whole character, such as walking forward or turning.</li>
 <li><strong>Rest pose:</strong> the pose a character stands in without animation, such as a T-pose or an A-pose.</li>
 </ul>
 <p>To see whether a model is humanoid, select it in the <strong>Project</strong> window. In the Inspector, open the <strong>Rig</strong> tab. <strong>Animation Type</strong> says <strong>Humanoid</strong> or <strong>Generic</strong>.</p>
-<section id="skeletons-the-package-knows" class="level2">
-<h2 class="anchored" data-anchor-id="skeletons-the-package-knows">Skeletons the package knows</h2>
-<p>The package recognizes the bone names of Mixamo, Unreal Engine 4 and 5, Synty, Character Creator 4 and 5, Unity’s humanoid naming and common four-legged animals. Any model with a valid humanoid avatar also works, whatever its bone names are. For other skeletons, you add the features yourself. See “Use a skeleton no preset knows”.</p>
+<section id="sec-skeletons-the-package-knows" class="level2">
+<h2 class="anchored" data-anchor-id="sec-skeletons-the-package-knows">Skeletons the package knows</h2>
+<p>The package recognizes the bone names of Mixamo, Unreal Engine 4 and 5, Synty, Character Creator 4 and 5, Unity’s humanoid naming and common four-legged animals. Any model with a valid humanoid avatar also works, whatever its bone names are. For other skeletons, you add the features yourself. See <a href="#sec-use-a-skeleton-no-preset-knows">Use a skeleton no preset knows</a>.</p>
 </section>
-<section id="advanced-pages" class="level2">
-<h2 class="anchored" data-anchor-id="advanced-pages">Advanced pages</h2>
+<section id="sec-advanced-pages" class="level2">
+<h2 class="anchored" data-anchor-id="sec-advanced-pages">Advanced pages</h2>
 <p>Pages marked <strong>Advanced</strong> in their header cover harder setups. You can skip them until you need them.</p>
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="create-your-first-profile" class="level1" data-section="Quick Start">
+<section id="sec-create-your-first-profile" class="level1" data-section="Quick Start">
 <h1 data-section="Quick Start">Create your first profile</h1>
 <p>You need two models in your project: the source, with at least one animation clip, and the target. A model can be an FBX, Blender, Maya, 3ds Max, Cinema 4D or Collada file, or a prefab of one.</p>
 <ol type="1">
 <li>In the <strong>Project</strong> window, click the source model. Hold Ctrl (Cmd on macOS) and click the target model.</li>
 <li>Choose <strong>Tools &gt; Advanced Retarget &gt; Create Profile From Two Models</strong>.</li>
 </ol>
-<p>A profile asset appears next to the source model. It’s named after both models, such as <code>Hero_to_Robot</code>. The <strong>Retarget</strong> window opens with both characters in the preview (Figure 1).</p>
-<div class="doc-figure">
-<p><img src="/docs/advanced-retarget/Figures/window-overview.png" class="img-fluid" style="width:490pt" alt="The Retarget window with the profile field, the preview with both characters, the play bar and the tabs"></p>
-<p>Figure 1</p>
+<p>A profile asset appears next to the source model. It’s named after both models, such as <code>Hero_to_Robot</code>. The <strong>Retarget</strong> window opens with both characters in the preview (<a href="#fig-window-overview">Figure 1</a>).</p>
+<div id="fig-window-overview" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Retarget window with the profile field, the preview with both characters, the play bar and the tabs">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-window-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="/docs/advanced-retarget/Figures/window-overview.png" class="img-fluid figure-img" style="width:490pt" alt="The Retarget window with the profile field, the preview with both characters, the play bar and the tabs">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-window-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Figure 1
+</figcaption>
+</figure>
 </div>
 <ol start="3" type="1">
 <li>Check the legend above the preview. It tells you which character is the source and which is the target.</li>
-<li>If they’re the wrong way round, click <strong>Swap</strong> in the <strong>Profile</strong> tab. See “Rebuild, remap or swap”.</li>
+<li>If they’re the wrong way round, click <strong>Swap</strong> in the <strong>Profile</strong> tab. See <a href="#sec-rebuild-remap-or-swap">Rebuild, remap or swap</a>.</li>
 </ol>
-<p><strong>Note:</strong> If a message says the skeleton couldn’t be mapped, click <strong>OK</strong>. The profile is still made, but you add its features yourself. See “Use a skeleton no preset knows”.</p>
+<p><strong>Note:</strong> If a message says the skeleton couldn’t be mapped, click <strong>OK</strong>. The profile is still made, but you add its features yourself. See <a href="#sec-use-a-skeleton-no-preset-knows">Use a skeleton no preset knows</a>.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="bake-your-first-clip" class="level1" data-section="Quick Start">
+<section id="sec-bake-your-first-clip" class="level1" data-section="Quick Start">
 <h1 data-section="Quick Start">Bake your first clip</h1>
 <ol type="1">
 <li>Click the <strong>Bake</strong> tab.</li>
 <li>Drag an animation clip from the <strong>Project</strong> window onto the <strong>Animations</strong> list. You can also drop a model to add all of its clips, or pick a clip in <strong>Add Clip</strong>.</li>
-<li>Click the clip in the list. Then click <strong>Play</strong> under the preview (Figure 1). Both characters play the clip.</li>
+<li>Click the clip in the list. Then click <strong>Play</strong> under the preview (<a href="#fig-window-overview">Figure 1</a>). Both characters play the clip.</li>
 <li>Leave the other settings as they are for now. <strong>Rig Type</strong> is already <strong>Humanoid</strong> when the target has a humanoid avatar, and <strong>Generic</strong> when it doesn’t.</li>
-<li>Click <strong>Bake Selected</strong> (Figure 2).</li>
+<li>Click <strong>Bake Selected</strong> (<a href="#fig-bake-tab">Figure 2</a>).</li>
 </ol>
-<div class="doc-figure">
-<p><img src="/docs/advanced-retarget/Figures/bake-tab.png" class="img-fluid" style="width:430pt" alt="The Bake tab with the clip list, range, output, timing and motion settings and the bake buttons"></p>
-<p>Figure 2</p>
+<div id="fig-bake-tab" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Bake tab with the clip list, range, output, timing and motion settings and the bake buttons">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bake-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="/docs/advanced-retarget/Figures/bake-tab.png" class="img-fluid figure-img" style="width:430pt" alt="The Bake tab with the clip list, range, output, timing and motion settings and the bake buttons">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bake-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Figure 2
+</figcaption>
+</figure>
 </div>
 <p>A progress bar appears while the clip bakes. Click <strong>Cancel</strong> on it to stop the bake.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="find-and-play-the-baked-clip" class="level1" data-section="Quick Start">
+<section id="sec-find-and-play-the-baked-clip" class="level1" data-section="Quick Start">
 <h1 data-section="Quick Start">Find and play the baked clip</h1>
-<p>When the bake finishes, the <strong>Bake</strong> tab shows where the clip was saved (Figure 3). The <strong>Project</strong> window highlights the new clip.</p>
-<div class="doc-figure">
-<p><img src="/docs/advanced-retarget/Figures/bake-saved.png" class="img-fluid" style="width:380pt" alt="The Bake tab showing the path of the saved clip above the bake buttons"></p>
-<p>Figure 3</p>
+<p>When the bake finishes, the <strong>Bake</strong> tab shows where the clip was saved (<a href="#fig-bake-saved">Figure 3</a>). The <strong>Project</strong> window highlights the new clip.</p>
+<div id="fig-bake-saved" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Bake tab showing the path of the saved clip above the bake buttons">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bake-saved-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="/docs/advanced-retarget/Figures/bake-saved.png" class="img-fluid figure-img" style="width:380pt" alt="The Bake tab showing the path of the saved clip above the bake buttons">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bake-saved-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Figure 3
+</figcaption>
+</figure>
 </div>
 <p>The clip is named after the target and the source clip, such as <code>Robot_Wave</code>. It’s saved in the profile’s <strong>Save Folder Path</strong>, which is <code>Assets/</code> until you change it.</p>
 <p>To see it in your game:</p>
@@ -215,38 +233,119 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Tip:</strong> You can bake again at any time. A new bake replaces the old clip in place, so Animator Controllers that use it keep working.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="set-up-the-characters" class="level1" data-section="Manual">
+<section id="sec-set-up-the-characters" class="level1" data-section="Manual">
 <h1 data-section="Manual">Set up the characters</h1>
-<p>The <strong>Profile</strong> tab holds the settings of the character pair (Figure 4). They’re saved in the profile asset. The preview, every bake and the <strong>Dynamic Retargeter</strong> use the same values.</p>
-<div class="doc-figure">
-<p><img src="/docs/advanced-retarget/Figures/profile-tab.png" class="img-fluid" style="width:420pt" alt="The Profile tab with the character, pose, facing, root motion, save folder and clip item settings and the mapping buttons"></p>
-<p>Figure 4</p>
+<p>The <strong>Profile</strong> tab holds the settings of the character pair (<a href="#fig-profile-tab">Figure 4</a>). They’re saved in the profile asset. The preview, every bake and the <strong>Dynamic Retargeter</strong> use the same values.</p>
+<div id="fig-profile-tab" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Profile tab with the character, pose, facing, root motion, save folder and clip item settings and the mapping buttons">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-profile-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="/docs/advanced-retarget/Figures/profile-tab.png" class="img-fluid figure-img" style="width:420pt" alt="The Profile tab with the character, pose, facing, root motion, save folder and clip item settings and the mapping buttons">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-profile-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Figure 4
+</figcaption>
+</figure>
 </div>
 <ul>
 <li><strong>Source Character:</strong> the model the animation was made for.</li>
 <li><strong>Target Character:</strong> the model that receives the animation. After you change either model, click <strong>Rebuild Rigs</strong> and then <strong>Rebuild Mappings</strong>.</li>
-<li><strong>Source Pose</strong> and <strong>Target Pose:</strong> optional starting poses. Leave them empty unless the arms or legs always come out at a wrong angle. See “Characters that stand in different rest poses”.</li>
+<li><strong>Source Pose</strong> and <strong>Target Pose:</strong> optional starting poses. Leave them empty unless the arms or legs always come out at a wrong angle. See <a href="#sec-characters-that-stand-in-different-rest-poses">Characters that stand in different rest poses</a>.</li>
 <li><strong>T-Pose:</strong> makes a pose clip for that character and puts it in the pose field.</li>
-<li><strong>Facing Alignment:</strong> leave it at <code>0, 0, 0</code>. It’s only for skeletons that face different directions. See “Skeletons that face different ways”.</li>
-<li><strong>Root Motion Bone:</strong> the target bone that carries the travel, usually the hips or pelvis. See “How root motion works”.</li>
+<li><strong>Facing Alignment:</strong> leave it at <code>0, 0, 0</code>. It’s only for skeletons that face different directions. See <a href="#sec-skeletons-that-face-different-ways">Skeletons that face different ways</a>.</li>
+<li><strong>Root Motion Bone:</strong> the target bone that carries the travel, usually the hips or pelvis. See <a href="#sec-how-root-motion-works">How root motion works</a>.</li>
 <li><strong>Save Folder Path:</strong> where baked clips go. Click <strong>…</strong> to pick a folder inside <code>Assets</code>.</li>
-<li><strong>Clip Item:</strong> a prop that’s only shown in the preview. See “Props and weapons”.</li>
+<li><strong>Clip Item:</strong> a prop that’s only shown in the preview. See <a href="#sec-props-and-weapons">Props and weapons</a>.</li>
 </ul>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="rebuild-remap-or-swap" class="level1" data-section="Manual">
+<section id="sec-what-features-do" class="level1" data-section="Manual">
+<h1 data-section="Manual">What features do</h1>
+<p>A profile doesn’t move the whole target in one go. It splits the body into parts, such as the hips, the spine, each arm and each leg. A <strong>feature</strong> is the rule for one part: it reads that part of the source and moves the same part of the target. The bones a feature reads and moves are its chains.</p>
+<section id="sec-why-the-body-is-split-into-parts" class="level2">
+<h2 class="anchored" data-anchor-id="sec-why-the-body-is-split-into-parts">Why the body is split into parts</h2>
+<p>Two skeletons rarely match bone for bone. One spine has three bones and the other five. One character has longer arms. One rig has a weapon bone and the other doesn’t. With one rule per part, each part moves the way it needs to. The hips copy travel, the legs reach for the floor, and the spine copies how the source turns.</p>
+</section>
+<section id="sec-when-you-need-to-think-about-features" class="level2">
+<h2 class="anchored" data-anchor-id="sec-when-you-need-to-think-about-features">When you need to think about features</h2>
+<p>Most of the time, you don’t. When you create a profile, the package recognizes both skeletons and adds a feature for each body part they share. Open the features when:</p>
+<ul>
+<li><strong>The result needs a fix,</strong> such as sliding feet or an elbow that bends the wrong way. Change the settings of the feature that moves that part.</li>
+<li><strong>A body part doesn’t move.</strong> It has no feature yet. Add one for it.</li>
+<li><strong>You want something the automatic setup doesn’t do,</strong> such as first-person arms, a weapon bone, a mirrored limb or a small correction. Add the feature that does it.</li>
+</ul>
+</section>
+<section id="sec-how-the-list-of-features-works" class="level2">
+<h2 class="anchored" data-anchor-id="sec-how-the-list-of-features-works">How the list of features works</h2>
+<ul>
+<li>Features run from top to bottom, on every frame of the preview, of every bake and of the <strong>Dynamic Retargeter</strong>.</li>
+<li>When two features move the same bone, the lower one wins. Put corrections at the bottom of the list.</li>
+<li><strong>Feature Weight</strong> at <code>0</code> switches a feature off without removing it. Use it to see what one feature adds to the result.</li>
+<li>Features are saved in the profile. A change applies to every clip you bake with that profile.</li>
+<li>In the <strong>Features</strong> tab, each feature is shown as a card.</li>
+</ul>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="sec-choose-a-feature" class="level1" data-section="Manual">
+<h1 data-section="Manual">Choose a feature</h1>
+<p>The package has seven features. The profile adds the first three by itself. You add the other four with <strong>Add Feature</strong> when you need them. The <strong>Add Feature</strong> menu uses a shorter name for each feature, shown in brackets.</p>
+<section id="sec-added-by-the-profile" class="level2">
+<h2 class="anchored" data-anchor-id="sec-added-by-the-profile">Added by the profile</h2>
+<ul>
+<li><strong>Root/Pelvis Retarget</strong> (<strong>Root Pelvis</strong>): moves the root and the hips. It copies how they turn and how they travel, so the body walks, crouches and jumps like the source’s. See <a href="#sec-basic-retarget-and-root-pelvis-retarget">Basic Retarget and Root/Pelvis Retarget</a>.</li>
+<li><strong>IK Retarget</strong> (<strong>Ik</strong>): moves an arm or a leg. It puts the hand or foot where the source’s is, scaled to the target’s size, and bends the limb to reach it. This keeps feet on the floor and hands on what they touch. See <a href="#sec-ik-retarget">IK Retarget</a>.</li>
+<li><strong>Basic Retarget</strong> (<strong>Basic</strong>): copies how bones turn. The profile uses it for the spine, neck, head, toes and fingers. Add it for any other part that only needs to turn like the source, such as a tail. See <a href="#sec-basic-retarget-and-root-pelvis-retarget">Basic Retarget and Root/Pelvis Retarget</a>.</li>
+</ul>
+</section>
+<section id="sec-added-by-you" class="level2">
+<h2 class="anchored" data-anchor-id="sec-added-by-you">Added by you</h2>
+<ul>
+<li><strong>FPS Animation Retarget</strong> (<strong>Fps</strong>): makes first-person arms hold a weapon the way the source holds it. Add it when the target is a pair of arms. It finds the arms and weapon bones by itself. See <a href="#sec-full-body-to-first-person-arms">Full body to first-person arms</a>.</li>
+<li><strong>Copy Bone</strong> (<strong>Copy Bone Feature</strong>): copies a bone exactly, without scaling it to the target’s size. Add it for a weapon bone, or another bone both skeletons have. Its card title shows both bones, such as <strong>Copy from: Weapon, to: ik_hand_gun</strong>. See <a href="#sec-props-and-weapons">Props and weapons</a>.</li>
+<li><strong>Transform Modifier</strong> (<strong>Transform</strong>): adds a fixed change to bones after the features above it have run, such as turning a hand, tilting the head or lowering the hips. Add it when one bone is a little off. See <a href="#sec-fix-a-pose-by-hand">Fix a pose by hand</a>.</li>
+<li><strong>Mirror Retarget</strong> (<strong>Mirror</strong>): gives bones the mirrored pose of their partner on the other side. Add it to make a left-handed version of a clip. See <a href="#sec-mirror-an-animation">Mirror an animation</a>.</li>
+</ul>
+<p>Every setting of every feature is explained in <a href="#sec-settings-every-feature-has">Settings every feature has</a> and the pages after it.</p>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="sec-check-the-features" class="level1" data-section="Manual">
+<h1 data-section="Manual">Check the features</h1>
+<p>The <strong>Features</strong> tab shows each feature of the profile as a card (<a href="#fig-features-tab">Figure 5</a>). The cards run from top to bottom, as described in <a href="#sec-what-features-do">What features do</a>.</p>
+<div id="fig-features-tab" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Features tab with an open feature card, its setup message, chain fields and the Add Feature button">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-features-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="/docs/advanced-retarget/Figures/features-tab.png" class="img-fluid figure-img" style="width:450pt" alt="The Features tab with an open feature card, its setup message, chain fields and the Add Feature button">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-features-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Figure 5
+</figcaption>
+</figure>
+</div>
+<ul>
+<li>Click a card’s title to open or close it.</li>
+<li>Look at the dot in front of the title. Green means the card is ready. Any other color means it needs setup, and the open card says what’s missing.</li>
+<li>Click the three-dot button at the right of the title to move the card up or down, copy or paste its settings, or remove it.</li>
+<li>Pick a chain in <strong>Source Chain</strong> or <strong>Target Chain</strong>. Click <strong>×</strong> next to a chain to empty it.</li>
+<li>Use <strong>Add bone…</strong> to add one bone at the end of a chain. Add bones from the body outward, such as upper arm, then forearm, then hand.</li>
+<li>Click <strong>Add Feature</strong> to add a new card at the bottom of the list.</li>
+</ul>
+<p>To pick the right feature to add, see <a href="#sec-choose-a-feature">Choose a feature</a>.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="sec-rebuild-remap-or-swap" class="level1" data-section="Manual">
 <h1 data-section="Manual">Rebuild, remap or swap</h1>
-<p>The four buttons at the bottom of the <strong>Profile</strong> tab (Figure 4) update the profile after something changes.</p>
+<p>The four buttons at the bottom of the <strong>Profile</strong> tab (<a href="#fig-profile-tab">Figure 4</a>) update the profile after something changes.</p>
 <ul>
 <li><strong>Rebuild Rigs:</strong> reads the bones of both models again. Click it after you change a model, or after you re-import a model with new bones.</li>
-<li><strong>Rebuild Mappings:</strong> makes new <strong>Basic Retarget</strong>, <strong>IK Retarget</strong> and <strong>Root/Pelvis Retarget</strong> features from the rigs. Any changes you made to those features are lost. Other features, such as <strong>FPS Animation Retarget</strong>, <strong>Copy Bone</strong>, <strong>Transform Modifier</strong> and <strong>Mirror Retarget</strong>, stay as they are.</li>
-<li><strong>Remap:</strong> matches the bones by name again, but keeps the settings you changed on each feature. Use it instead of <strong>Rebuild Mappings</strong> after renaming bones.</li>
+<li><strong>Rebuild Mappings:</strong> makes the features the profile adds by itself again: <strong>Root/Pelvis Retarget</strong>, <strong>IK Retarget</strong> and <strong>Basic Retarget</strong>. Any changes you made to those features are lost. The features you added yourself stay as they are.</li>
+<li><strong>Remap:</strong> matches the bones by name again, but keeps the settings you changed on each feature. Use it instead of <strong>Rebuild Mappings</strong> after renaming bones. It also searches again for the arms and weapons of <strong>FPS Animation Retarget</strong> cards, even on skeletons the package doesn’t recognize.</li>
 <li><strong>Swap:</strong> exchanges the source and the target. The <strong>Root Motion Bone</strong> moves to the bone with the same name on the new target, or is cleared.</li>
 </ul>
 <p>A message under the buttons tells you what happened. For example, <code>Recreated 10 feature(s). Source=Mixamo, Target=Unreal Engine 4/5.</code> names the bone naming the package recognized on each side.</p>
 <p><strong>Tip:</strong> You can undo <strong>Rebuild Mappings</strong> and <strong>Swap</strong> with Ctrl+Z (Cmd+Z on macOS).</p>
-<section id="make-a-profile-by-hand" class="level2">
-<h2 class="anchored" data-anchor-id="make-a-profile-by-hand">Make a profile by hand</h2>
+<section id="sec-make-a-profile-by-hand" class="level2">
+<h2 class="anchored" data-anchor-id="sec-make-a-profile-by-hand">Make a profile by hand</h2>
 <p>You can also make an empty profile and fill it in yourself:</p>
 <ol type="1">
 <li>In the <strong>Project</strong> window, choose <strong>Assets &gt; Create &gt; Advanced Retarget &gt; Retarget Profile</strong>.</li>
@@ -258,75 +357,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="check-the-features" class="level1" data-section="Manual">
-<h1 data-section="Manual">Check the features</h1>
-<p>The <strong>Features</strong> tab lists the profile’s features as cards (Figure 5). Each card moves one part of the target. The cards run from top to bottom. When two cards move the same bone, the lower card wins.</p>
-<div class="doc-figure">
-<p><img src="/docs/advanced-retarget/Figures/features-tab.png" class="img-fluid" style="width:450pt" alt="The Features tab with an open feature card, its setup message, chain fields and the Add Feature button"></p>
-<p>Figure 5</p>
-</div>
-<ul>
-<li>Click a card’s title to open or close it.</li>
-<li>Look at the dot in front of the title. Green means the card is ready. Any other color means it needs setup, and the open card says what’s missing.</li>
-<li>Click the three-dot button at the right of the title to move the card up or down, copy or paste its settings, or remove it.</li>
-<li>Pick a chain in <strong>Source Chain</strong> or <strong>Target Chain</strong>. Click <strong>×</strong> next to a chain to empty it.</li>
-<li>Use <strong>Add bone…</strong> to add one bone at the end of a chain. Add bones from the body outward, such as upper arm, then forearm, then hand.</li>
-<li>Click <strong>Add Feature</strong> to add a new card at the bottom of the list.</li>
-</ul>
-<p>Each kind of card is explained in “Settings every feature has” and the pages after it.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="read-the-messages" class="level1" data-section="Manual">
+<section id="sec-read-the-messages" class="level1" data-section="Manual">
 <h1 data-section="Manual">Read the messages</h1>
-<p>The <strong>Messages</strong> tab collects what the features report (Figure 6). The tab shows a count, such as <strong>Messages (1)</strong>, when there’s something to read.</p>
-<div class="doc-figure">
-<p><img src="/docs/advanced-retarget/Figures/messages-tab.png" class="img-fluid" style="width:420pt" alt="The Messages tab with the Notifications and Help lists and one message"></p>
-<p>Figure 6</p>
+<p>The <strong>Messages</strong> tab collects what the features report (<a href="#fig-messages-tab">Figure 6</a>). The tab shows a count, such as <strong>Messages (1)</strong>, when there’s something to read.</p>
+<div id="fig-messages-tab" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Messages tab with the Notifications and Help lists and one message">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-messages-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="/docs/advanced-retarget/Figures/messages-tab.png" class="img-fluid figure-img" style="width:420pt" alt="The Messages tab with the Notifications and Help lists and one message">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-messages-tab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Figure 6
+</figcaption>
+</figure>
 </div>
 <ul>
 <li><strong>Notifications:</strong> warnings and errors. Fix these first.</li>
 <li><strong>Help:</strong> information about your setup that doesn’t need fixing.</li>
 </ul>
 <p>Each message starts with the name of its feature, so you know which card to open. The same message also appears on that card in the <strong>Features</strong> tab.</p>
-<section id="open-a-profile-from-the-inspector" class="level2">
-<h2 class="anchored" data-anchor-id="open-a-profile-from-the-inspector">Open a profile from the Inspector</h2>
-<p>Select a profile in the <strong>Project</strong> window to see its settings in the Inspector (Figure 7). Click <strong>Open in Retarget Window</strong> to edit it there. You can also double-click the profile, or choose <strong>Tools &gt; Advanced Retarget &gt; Retarget Window</strong>.</p>
-<div class="doc-figure">
-<p><img src="/docs/advanced-retarget/Figures/profile-inspector.png" class="img-fluid" style="width:480pt" alt="The profile Inspector with the Open in Retarget Window button, the profile settings and the Rebuild Rigs and Rebuild Mappings buttons"></p>
-<p>Figure 7</p>
+<section id="sec-open-a-profile-from-the-inspector" class="level2">
+<h2 class="anchored" data-anchor-id="sec-open-a-profile-from-the-inspector">Open a profile from the Inspector</h2>
+<p>Select a profile in the <strong>Project</strong> window to see its settings in the Inspector (<a href="#fig-profile-inspector">Figure 7</a>). Click <strong>Open in Retarget Window</strong> to edit it there. You can also double-click the profile, or choose <strong>Tools &gt; Advanced Retarget &gt; Retarget Window</strong>.</p>
+<div id="fig-profile-inspector" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The profile Inspector with the Open in Retarget Window button, the profile settings and the Rebuild Rigs and Rebuild Mappings buttons">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-profile-inspector-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="/docs/advanced-retarget/Figures/profile-inspector.png" class="img-fluid figure-img" style="width:480pt" alt="The profile Inspector with the Open in Retarget Window button, the profile settings and the Rebuild Rigs and Rebuild Mappings buttons">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-profile-inspector-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Figure 7
+</figcaption>
+</figure>
 </div>
 <p>The Inspector has the same settings as the <strong>Profile</strong> tab, and the <strong>Rebuild Rigs</strong> and <strong>Rebuild Mappings</strong> buttons.</p>
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="choose-your-starting-point" class="level1" data-section="Use Cases">
+<section id="sec-choose-your-starting-point" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Choose your starting point</h1>
-<p>Find your pair of characters below. Each page lists only the steps that differ from “Create your first profile” and “Bake your first clip”.</p>
+<p>Find your pair of characters below. Each page lists only the steps that differ from <a href="#sec-create-your-first-profile">Create your first profile</a> and <a href="#sec-bake-your-first-clip">Bake your first clip</a>.</p>
 <ul>
-<li>Both characters are humanoid: “Humanoid to humanoid”.</li>
-<li>Neither character is humanoid: “Generic to generic”.</li>
-<li>Only the target is humanoid: “Generic to humanoid”.</li>
-<li>Only the source is humanoid: “Humanoid to generic”.</li>
-<li>The target is a pair of first-person arms: “Full body to first-person arms”.</li>
-<li>Both characters are first-person arms: “First-person arms to other arms”.</li>
-<li>Both characters are four-legged animals: “Animals”.</li>
+<li>Both characters are humanoid: <a href="#sec-humanoid-to-humanoid">Humanoid to humanoid</a>.</li>
+<li>Neither character is humanoid: <a href="#sec-generic-to-generic">Generic to generic</a>.</li>
+<li>Only the target is humanoid: <a href="#sec-generic-to-humanoid">Generic to humanoid</a>.</li>
+<li>Only the source is humanoid: <a href="#sec-humanoid-to-generic">Humanoid to generic</a>.</li>
+<li>The target is a pair of first-person arms: <a href="#sec-full-body-to-first-person-arms">Full body to first-person arms</a>.</li>
+<li>Both characters are first-person arms: <a href="#sec-first-person-arms-to-other-arms">First-person arms to other arms</a>.</li>
+<li>Both characters are four-legged animals: <a href="#sec-animals">Animals</a>.</li>
 </ul>
 <p>These pages help with any pair:</p>
 <ul>
-<li>One character is much bigger or smaller: “Characters of different sizes”.</li>
-<li>The arms or legs always come out at a wrong angle: “Characters that stand in different rest poses”.</li>
-<li>A weapon or prop should move with the hands: “Props and weapons”.</li>
-<li>One bone is a little off: “Fix a pose by hand”.</li>
-<li>You need a left-handed version of a clip: “Mirror an animation”.</li>
-<li>You have many clips to bake: “Bake many clips at once”.</li>
-<li>You want to edit the result in a 3D program: “Export an FBX file”.</li>
-<li>The target bends or walks sideways: “Skeletons that face different ways”.</li>
-<li>The profile found no features: “Use a skeleton no preset knows”.</li>
+<li>One character is much bigger or smaller: <a href="#sec-characters-of-different-sizes">Characters of different sizes</a>.</li>
+<li>The arms or legs always come out at a wrong angle: <a href="#sec-characters-that-stand-in-different-rest-poses">Characters that stand in different rest poses</a>.</li>
+<li>A weapon or prop should move with the hands: <a href="#sec-props-and-weapons">Props and weapons</a>.</li>
+<li>One bone is a little off: <a href="#sec-fix-a-pose-by-hand">Fix a pose by hand</a>.</li>
+<li>You need a left-handed version of a clip: <a href="#sec-mirror-an-animation">Mirror an animation</a>.</li>
+<li>You have many clips to bake: <a href="#sec-bake-many-clips-at-once">Bake many clips at once</a>.</li>
+<li>You want to edit the result in a 3D program: <a href="#sec-export-an-fbx-file">Export an FBX file</a>.</li>
+<li>The target bends or walks sideways: <a href="#sec-skeletons-that-face-different-ways">Skeletons that face different ways</a>.</li>
+<li>The profile found no features: <a href="#sec-use-a-skeleton-no-preset-knows">Use a skeleton no preset knows</a>.</li>
 </ul>
-<p>For travel and loops, see “How root motion works” and “Keep looping clips looping”.</p>
+<p>For travel and loops, see <a href="#sec-how-root-motion-works">How root motion works</a> and <a href="#sec-keep-looping-clips-looping">Keep looping clips looping</a>.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="humanoid-to-humanoid" class="level1" data-section="Use Cases">
+<section id="sec-humanoid-to-humanoid" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Humanoid to humanoid</h1>
 <p>Unity can already play a humanoid clip on any humanoid character. Use Advanced Retarget when that isn’t enough:</p>
 <ul>
@@ -343,7 +436,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Note:</strong> A humanoid source only plays humanoid clips. A clip imported as Generic leaves the source standing in a neutral pose in the preview. Select the file that holds the clip, open its <strong>Rig</strong> tab and set <strong>Animation Type</strong> to <strong>Humanoid</strong>.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="generic-to-generic" class="level1" data-section="Use Cases">
+<section id="sec-generic-to-generic" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Generic to generic</h1>
 <p>Use this when neither character has a humanoid avatar. Examples are two robots with different skeletons, a Blender character and an Unreal character, or two creatures.</p>
 <ol type="1">
@@ -354,10 +447,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Click <strong>Bake Selected</strong>.</li>
 </ol>
 <p>The baked clip moves the target’s bones directly. It plays on the target, and on any model with the same bone names and hierarchy.</p>
-<p><strong>Tip:</strong> If a mesh object is named like a bone, such as <code>Mesh_hand_r</code>, it can end up in a chain. See “Edge cases”.</p>
+<p><strong>Tip:</strong> If a mesh object is named like a bone, such as <code>Mesh_hand_r</code>, it can end up in a chain. See <a href="#sec-edge-cases">Edge cases</a>.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="generic-to-humanoid" class="level1" data-section="Use Cases">
+<section id="sec-generic-to-humanoid" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Generic to humanoid</h1>
 <p>Use this to turn generic clips into humanoid clips. A humanoid clip plays on every humanoid character in your project, so you retarget once and share the result.</p>
 <p>The target needs a valid humanoid avatar. Select the target model, open its <strong>Rig</strong> tab, set <strong>Animation Type</strong> to <strong>Humanoid</strong> and click <strong>Apply</strong>.</p>
@@ -369,11 +462,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Warning:</strong> A humanoid clip only stores the bones the avatar knows. A weapon bone, a tail or a cape won’t move. Bake with <strong>Rig Type</strong> set to <strong>Generic</strong> when those bones matter.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="humanoid-to-generic" class="level1" data-section="Use Cases">
+<section id="sec-humanoid-to-generic" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Humanoid to generic</h1>
 <p>Use this when the source is humanoid but the target can’t be. Examples are a robot with extra joints, a character with a tail, or a model you want to keep Generic.</p>
 <ol type="1">
-<li>Check that the source clips are humanoid clips. See the note in “Humanoid to humanoid”.</li>
+<li>Check that the source clips are humanoid clips. See the note in <a href="#sec-humanoid-to-humanoid">Humanoid to humanoid</a>.</li>
 <li>Create the profile from the humanoid source and the generic target.</li>
 <li>Click the <strong>Bake</strong> tab and set <strong>Rig Type</strong> to <strong>Generic</strong>.</li>
 <li>Click <strong>Bake Selected</strong>.</li>
@@ -381,31 +474,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The baked clip moves the target’s bones directly, including bones a humanoid avatar doesn’t have. A bone that no card moves keeps the pose you see in the preview. To move it, add a card for it. For example, add a <strong>Basic Retarget</strong> card for a tail, or a <strong>Copy Bone</strong> card for a weapon bone.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="full-body-to-first-person-arms" class="level1" data-section="Use Cases">
+<section id="sec-full-body-to-first-person-arms" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Full body to first-person arms</h1>
 <p>Use this to put third-person animation, such as aiming or reloading, onto a first-person arms model. Both models need a weapon bone: a bone that moves with the gun.</p>
 <ol type="1">
 <li>Create the profile from the full-body source and the arms model. If a message says the skeleton couldn’t be mapped, click <strong>OK</strong>.</li>
 <li>In the <strong>Features</strong> tab, click <strong>Add Feature</strong> and choose <strong>Fps</strong>. A card named <strong>FPS Animation Retarget</strong> appears at the bottom of the list. Keep it below any other arm cards, so it has the last word on the arms.</li>
-<li>Open the card. Under <strong>Source Chains</strong>, pick the source’s right arm, left arm and weapon (Figure 8). When the rig has no matching chain, use <strong>Add bone…</strong> to add the upper arm, the forearm and the hand, in that order.</li>
-<li>Under <strong>Target Chains</strong>, do the same for the arms model.</li>
+<li>Open the card. The package has already searched both models by bone name and filled in each arm and weapon (<a href="#fig-fps-chains">Figure 8</a>).</li>
+<li>Check every chain under <strong>Source Chains</strong> and <strong>Target Chains</strong>. If one is empty or holds the wrong bones, pick a chain from its drop-down, or empty it with <strong>×</strong> and use <strong>Add bone…</strong> to add the upper arm, the forearm and the hand, in that order.</li>
 </ol>
-<div class="doc-figure">
-<p><img src="/docs/advanced-retarget/Figures/fps-chains.png" class="img-fluid" style="width:360pt" alt="The FPS Animation Retarget card with the source and target arm and weapon chains"></p>
-<p>Figure 8</p>
+<div id="fig-fps-chains" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The FPS Animation Retarget card with the source and target arm and weapon chains">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fps-chains-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="/docs/advanced-retarget/Figures/fps-chains.png" class="img-fluid figure-img" style="width:360pt" alt="The FPS Animation Retarget card with the source and target arm and weapon chains">
 </div>
-<p>The dot turns green when all six chains are filled.</p>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fps-chains-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Figure 8
+</figcaption>
+</figure>
+</div>
+<p>The dot turns green when all six chains are filled. After you rename bones or change a model, click <strong>Remap</strong> in the <strong>Profile</strong> tab to search again. A chain the search can’t fill keeps the bones it has.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="check-and-adjust-the-arms" class="level1" data-section="Use Cases">
+<section id="sec-check-and-adjust-the-arms" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Check and adjust the arms</h1>
 <ol type="1">
-<li>Click the <strong>Bake</strong> tab and click a clip. The target arms follow the source’s weapon (Figure 9).</li>
+<li>Click the <strong>Bake</strong> tab and click a clip. The target arms follow the source’s weapon (<a href="#fig-fps-preview">Figure 9</a>).</li>
 <li>Click <strong>Play</strong> and watch both hands through the whole clip.</li>
 </ol>
-<div class="doc-figure">
-<p><img src="/docs/advanced-retarget/Figures/fps-preview.png" class="img-fluid" style="width:440pt" alt="The preview with the target arms holding the weapon next to the full-body source character"></p>
-<p>Figure 9</p>
+<div id="fig-fps-preview" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The preview with the target arms holding the weapon next to the full-body source character">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fps-preview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="/docs/advanced-retarget/Figures/fps-preview.png" class="img-fluid figure-img" style="width:440pt" alt="The preview with the target arms holding the weapon next to the full-body source character">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fps-preview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Figure 9
+</figcaption>
+</figure>
 </div>
 <p>Here’s what the feature does. The target weapon copies the movement of the source weapon. The hands hold the target weapon the way the source’s hands hold the source weapon. The arms bend to reach the hands.</p>
 <p>To adjust the result, change these settings on the <strong>FPS Animation Retarget</strong> card:</p>
@@ -417,9 +522,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Arms models are rarely humanoid, so bake with <strong>Rig Type</strong> set to <strong>Generic</strong>.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="first-person-arms-to-other-arms" class="level1" data-section="Use Cases">
+<section id="sec-first-person-arms-to-other-arms" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">First-person arms to other arms</h1>
-<p>Use this to move animation between two arms models, such as from an arms pack onto your own arms. Set up the profile the same way as in “Full body to first-person arms”.</p>
+<p>Use this to move animation between two arms models, such as from an arms pack onto your own arms. Set up the profile the same way as in <a href="#sec-full-body-to-first-person-arms">Full body to first-person arms</a>.</p>
 <p>Arms models differ in several ways. Here’s how each one is handled:</p>
 <ul>
 <li><strong>A shoulder bone on only one model:</strong> this works. The arms are matched from the hand back, so an extra shoulder bone is skipped.</li>
@@ -432,18 +537,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>FPS Animation Retarget</strong> needs a weapon bone on both models. If one model has none, you have two options. Pick the hand that holds the gun as its weapon bone, then check the preview. Or remove the FPS card and use <strong>Basic Retarget</strong> cards for the arms. They copy how the arms turn, but the hands may not meet the weapon.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="animals" class="level1" data-section="Use Cases">
+<section id="sec-animals" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Animals</h1>
-<p>The package recognizes four-legged skeletons by names such as front leg, hind leg, tail, ear and jaw. Retarget between two animals the same way as in “Generic to generic”.</p>
+<p>The package recognizes four-legged skeletons by names such as front leg, hind leg, tail, ear and jaw. Retarget between two animals the same way as in <a href="#sec-generic-to-generic">Generic to generic</a>.</p>
 <ul>
 <li>Each leg gets an <strong>IK Retarget</strong> card with <strong>Use Chain Ik</strong> turned on. This lets legs with many bones place their paws or hooves where the source’s land.</li>
 <li>The front legs use the <code>rightArm</code> and <code>leftArm</code> chains.</li>
 <li>Tails, ears and jaws get their own cards when both animals have them.</li>
 </ul>
-<p>When a paw slides or floats, see “Characters of different sizes”. When a knee bends the wrong way, see “An elbow or knee bends the wrong way”.</p>
+<p>When a paw slides or floats, see <a href="#sec-characters-of-different-sizes">Characters of different sizes</a>. When a knee bends the wrong way, see <a href="#sec-an-elbow-or-knee-bends-the-wrong-way">An elbow or knee bends the wrong way</a>.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="characters-of-different-sizes" class="level1" data-section="Use Cases">
+<section id="sec-characters-of-different-sizes" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Characters of different sizes</h1>
 <p>Big and small characters need no extra steps. The package measures both skeletons and scales travel to fit. A target twice as tall steps twice as far.</p>
 <p>When feet slide or float:</p>
@@ -456,7 +561,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Scale Weight</strong> on each card decides how much the size difference counts. At <code>1</code>, travel is scaled to the target’s size. At <code>0</code>, the target moves the same distances as the source.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="characters-that-stand-in-different-rest-poses" class="level1" data-section="Use Cases">
+<section id="sec-characters-that-stand-in-different-rest-poses" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Characters that stand in different rest poses</h1>
 <p>A rest pose is the pose a character stands in without animation. The T-pose has the arms straight out. The A-pose has them angled down. The package compares every frame with each character’s rest pose. When the rest poses differ, limbs come out at the wrong angle. A typical sign is that the target’s arms are always too high or too low.</p>
 <p>Fix it by giving both characters the same starting pose. For humanoid characters:</p>
@@ -466,8 +571,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Click <strong>T-Pose</strong> next to <strong>Target Pose</strong>.</li>
 </ol>
 <p>The preview updates, and the arms line up with the source. You can also make a pose clip without a profile: select one model in the <strong>Project</strong> window and choose <strong>Tools &gt; Advanced Retarget &gt; Generate T-Pose Clip</strong>.</p>
-<section id="make-your-own-pose-clip-advanced" class="level2">
-<h2 class="anchored" data-anchor-id="make-your-own-pose-clip-advanced">Make your own pose clip (Advanced)</h2>
+<section id="sec-make-your-own-pose-clip-advanced" class="level2">
+<h2 class="anchored" data-anchor-id="sec-make-your-own-pose-clip-advanced">Make your own pose clip (Advanced)</h2>
 <p>For a generic character, <strong>T-Pose</strong> records the pose the model is built in. It can’t straighten the arms of a generic model. Make the pose yourself instead:</p>
 <ol type="1">
 <li>Drag the generic model into a scene and select it.</li>
@@ -478,12 +583,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="props-and-weapons" class="level1" data-section="Use Cases">
+<section id="sec-props-and-weapons" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Props and weapons</h1>
 <p>There are two separate jobs: showing a prop while you preview, and moving a prop bone in the baked clip.</p>
-<section id="show-a-prop-in-the-preview" class="level2">
-<h2 class="anchored" data-anchor-id="show-a-prop-in-the-preview">Show a prop in the preview</h2>
-<p>Open <strong>Clip Item</strong> in the <strong>Profile</strong> tab (Figure 4):</p>
+<section id="sec-show-a-prop-in-the-preview" class="level2">
+<h2 class="anchored" data-anchor-id="sec-show-a-prop-in-the-preview">Show a prop in the preview</h2>
+<p>Open <strong>Clip Item</strong> in the <strong>Profile</strong> tab (<a href="#fig-profile-tab">Figure 4</a>):</p>
 <ul>
 <li><strong>Clip Item Model:</strong> the prop, such as a rifle model.</li>
 <li><strong>Clip Item Animation:</strong> an optional clip for the prop, such as a magazine dropping out. It plays together with the source clip.</li>
@@ -492,8 +597,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>The prop is only there to help you judge the animation. It’s never part of a baked clip.</p>
 </section>
-<section id="move-a-weapon-bone-in-the-baked-clip" class="level2">
-<h2 class="anchored" data-anchor-id="move-a-weapon-bone-in-the-baked-clip">Move a weapon bone in the baked clip</h2>
+<section id="sec-move-a-weapon-bone-in-the-baked-clip" class="level2">
+<h2 class="anchored" data-anchor-id="sec-move-a-weapon-bone-in-the-baked-clip">Move a weapon bone in the baked clip</h2>
 <p>When both skeletons have a weapon bone, add a <strong>Copy Bone</strong> card:</p>
 <ol type="1">
 <li>In the <strong>Features</strong> tab, click <strong>Add Feature</strong> and choose <strong>Copy Bone Feature</strong>.</li>
@@ -505,7 +610,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="fix-a-pose-by-hand" class="level1" data-section="Use Cases">
+<section id="sec-fix-a-pose-by-hand" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Fix a pose by hand</h1>
 <p>Sometimes one bone is a little off: a hand turned too far, a tilted head or hips that sit too low. A <strong>Transform Modifier</strong> card corrects it.</p>
 <ol type="1">
@@ -514,10 +619,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Set <strong>Rotation Mode</strong> to <strong>Add</strong>.</li>
 <li>Change <strong>Rotation</strong> a little at a time and watch the preview.</li>
 </ol>
-<p>Use <strong>Position</strong> with <strong>Position Mode</strong> set to <strong>Add</strong> to move a bone, and <strong>Scale</strong> with <strong>Scale Mode</strong> to resize one. Keep the card below the card that moves the same bone. Otherwise, the other card overwrites the fix. Every setting is explained in “Copy Bone, Transform Modifier and Mirror”.</p>
+<p>Use <strong>Position</strong> with <strong>Position Mode</strong> set to <strong>Add</strong> to move a bone, and <strong>Scale</strong> with <strong>Scale Mode</strong> to resize one. Keep the card below the card that moves the same bone. Otherwise, the other card overwrites the fix. Every setting is explained in <a href="#sec-copy-bone-transform-modifier-and-mirror">Copy Bone, Transform Modifier and Mirror</a>.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="mirror-an-animation" class="level1" data-section="Advanced">
+<section id="sec-mirror-an-animation" class="level1" data-section="Advanced">
 <h1 data-section="Advanced">Mirror an animation</h1>
 <p>A <strong>Mirror Retarget</strong> card gives each bone in its chain the mirrored pose of its partner on the other side. A bone with “Left” in its name takes the flipped pose of the bone with “Right” in its name. Use it to make a left-handed version of a right-handed clip, or to copy a good arm onto the other side.</p>
 <p>To mirror one limb:</p>
@@ -536,24 +641,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The package finds partners by side words and markers, such as <code>Left</code> and <code>Right</code>, <code>left</code> and <code>right</code>, <code>_L</code> and <code>_R</code>, <code>_l</code> and <code>_r</code>, <code>l_</code> and <code>r_</code>, and <code>.L</code> and <code>.R</code>.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="bake-many-clips-at-once" class="level1" data-section="Use Cases">
+<section id="sec-bake-many-clips-at-once" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Bake many clips at once</h1>
 <ol type="1">
 <li>In the <strong>Project</strong> window, select the clips. You can also select models; all of their clips are included.</li>
-<li>Choose <strong>Tools &gt; Advanced Retarget &gt; Retarget Selected Clips</strong>. The <strong>Retarget Animations</strong> window opens with your clips (Figure 10).</li>
+<li>Choose <strong>Tools &gt; Advanced Retarget &gt; Retarget Selected Clips</strong>. The <strong>Retarget Animations</strong> window opens with your clips (<a href="#fig-retarget-animations">Figure 10</a>).</li>
 <li>Pick the <strong>Profile</strong> at the top.</li>
 <li>Check the settings. They work the same as on the <strong>Bake</strong> tab.</li>
 <li>Click <strong>Bake All</strong>.</li>
 </ol>
-<div class="doc-figure">
-<p><img src="/docs/advanced-retarget/Figures/retarget-animations.png" class="img-fluid" style="width:400pt" alt="The Retarget Animations window with the profile field, the selected clips and the bake buttons"></p>
-<p>Figure 10</p>
+<div id="fig-retarget-animations" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Retarget Animations window with the profile field, the selected clips and the bake buttons">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-retarget-animations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="/docs/advanced-retarget/Figures/retarget-animations.png" class="img-fluid figure-img" style="width:400pt" alt="The Retarget Animations window with the profile field, the selected clips and the bake buttons">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-retarget-animations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Figure 10
+</figcaption>
+</figure>
 </div>
 <p><strong>Bake All</strong> bakes every clip at its full length. <strong>Bake Selected</strong> bakes only the highlighted clip, using its <strong>Range</strong>. The <strong>Bake</strong> tab of the <strong>Retarget</strong> window has the same two buttons for its own list.</p>
 <p><strong>Tip:</strong> Turn on <strong>Copy Clip Settings</strong> before you bake a batch, so looping clips stay looping.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="export-an-fbx-file" class="level1" data-section="Use Cases">
+<section id="sec-export-an-fbx-file" class="level1" data-section="Use Cases">
 <h1 data-section="Use Cases">Export an FBX file</h1>
 <ol type="1">
 <li>Click the <strong>Bake</strong> tab and set <strong>Format</strong> to <strong>Fbx</strong>.</li>
@@ -568,7 +679,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="skeletons-that-face-different-ways" class="level1" data-section="Advanced">
+<section id="sec-skeletons-that-face-different-ways" class="level1" data-section="Advanced">
 <h1 data-section="Advanced">Skeletons that face different ways</h1>
 <p>Most skeletons face the same way, and you can skip this page. Some are built facing another direction inside their model. For example, one skeleton’s front points along its Z axis and the other’s along its X axis. The target then bends sideways when the source bends forward, and root motion walks sideways.</p>
 <p>Fix it with <strong>Facing Alignment</strong> in the <strong>Profile</strong> tab:</p>
@@ -582,7 +693,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Note:</strong> Where the characters stand or face in a scene doesn’t matter. The package measures everything from each character’s own root. <strong>Facing Alignment</strong> is only for skeletons that face different ways inside their models.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="use-a-skeleton-no-preset-knows" class="level1" data-section="Advanced">
+<section id="sec-use-a-skeleton-no-preset-knows" class="level1" data-section="Advanced">
 <h1 data-section="Advanced">Use a skeleton no preset knows</h1>
 <p>When the package doesn’t recognize the bone names, the profile has rigs but no features. Add the features yourself:</p>
 <ol type="1">
@@ -596,7 +707,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Tip:</strong> Add the hips first, then the spine, then the limbs. Cards run from top to bottom, so limbs then follow a body that’s already in place.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="how-root-motion-works" class="level1" data-section="Root Motion">
+<section id="sec-how-root-motion-works" class="level1" data-section="Root Motion">
 <h1 data-section="Root Motion">How root motion works</h1>
 <p>Root motion is the travel of the whole character: walking forward, jumping up or turning around. Unity stores it as movement of the character’s root. When <strong>Apply Root Motion</strong> is on in the character’s <strong>Animator</strong>, that travel moves the character’s GameObject.</p>
 <p>Many source clips keep their travel in the hips instead. The hips walk away while the root stays behind. While it bakes, the package can move that travel from a bone onto the root.</p>
@@ -610,30 +721,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Note:</strong> The bake carries the travel over at the target’s size. A target twice as tall travels twice as far, so its feet don’t slide.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="bake-a-walk-with-root-motion" class="level1" data-section="Root Motion">
+<section id="sec-bake-a-walk-with-root-motion" class="level1" data-section="Root Motion">
 <h1 data-section="Root Motion">Bake a walk with root motion</h1>
 <ol type="1">
-<li>In the <strong>Profile</strong> tab, set <strong>Root Motion Bone</strong> to the target bone that moves forward when the target walks (Figure 11). For most characters, that’s the hips or the pelvis. On skeletons with a separate root bone that carries the travel, such as Unreal Engine skeletons, pick that root bone.</li>
+<li>In the <strong>Profile</strong> tab, set <strong>Root Motion Bone</strong> to the target bone that moves forward when the target walks (<a href="#fig-root-motion-bone">Figure 11</a>). For most characters, that’s the hips or the pelvis. On skeletons with a separate root bone that carries the travel, such as Unreal Engine skeletons, pick that root bone.</li>
 </ol>
-<div class="doc-figure">
-<p><img src="/docs/advanced-retarget/Figures/root-motion-bone.png" class="img-fluid" style="width:420pt" alt="The Root Motion Bone field in the Motion and Output section of the Profile tab"></p>
-<p>Figure 11</p>
+<div id="fig-root-motion-bone" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Root Motion Bone field in the Motion and Output section of the Profile tab">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-root-motion-bone-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="/docs/advanced-retarget/Figures/root-motion-bone.png" class="img-fluid figure-img" style="width:420pt" alt="The Root Motion Bone field in the Motion and Output section of the Profile tab">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-root-motion-bone-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Figure 11
+</figcaption>
+</figure>
 </div>
 <ol start="2" type="1">
 <li>In the <strong>Bake</strong> tab, click the walk clip in the <strong>Animations</strong> list.</li>
-<li>Turn on <strong>Root Motion</strong> (Figure 12).</li>
+<li>Turn on <strong>Root Motion</strong> (<a href="#fig-root-motion-bake">Figure 12</a>).</li>
 <li>Leave <strong>Extract From Bone</strong> at <strong>Horizontal Position, Yaw</strong> for walks, runs and turns.</li>
 <li>Turn on <strong>Copy Clip Settings</strong>, so the loop setting carries over.</li>
 <li>Click <strong>Bake Selected</strong>.</li>
 </ol>
-<div class="doc-figure">
-<p><img src="/docs/advanced-retarget/Figures/root-motion-bake.png" class="img-fluid" style="width:400pt" alt="The Bake tab with a walk clip selected and Copy Clip Settings, Loop Count, Root Motion and Extract From Bone set"></p>
-<p>Figure 12</p>
+<div id="fig-root-motion-bake" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Bake tab with a walk clip selected and Copy Clip Settings, Loop Count, Root Motion and Extract From Bone set">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-root-motion-bake-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="/docs/advanced-retarget/Figures/root-motion-bake.png" class="img-fluid figure-img" style="width:400pt" alt="The Bake tab with a walk clip selected and Copy Clip Settings, Loop Count, Root Motion and Extract From Bone set">
 </div>
-<p>To check the result, give the clip to the target in a scene, as in “Find and play the baked clip”. Select the target and turn on <strong>Apply Root Motion</strong> on its <strong>Animator</strong>. Enter Play Mode. The target walks forward instead of walking on the spot.</p>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-root-motion-bake-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Figure 12
+</figcaption>
+</figure>
+</div>
+<p>To check the result, give the clip to the target in a scene, as in <a href="#sec-find-and-play-the-baked-clip">Find and play the baked clip</a>. Select the target and turn on <strong>Apply Root Motion</strong> on its <strong>Animator</strong>. Enter Play Mode. The target walks forward instead of walking on the spot.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="choose-what-moves-the-character" class="level1" data-section="Root Motion">
+<section id="sec-choose-what-moves-the-character" class="level1" data-section="Root Motion">
 <h1 data-section="Root Motion">Choose what moves the character</h1>
 <p><strong>Extract From Bone</strong> decides which parts of the bone’s movement go onto the root. The other parts stay in the bone, as part of the pose.</p>
 <ul>
@@ -653,17 +776,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Warning:</strong> With <strong>Yaw</strong> selected, the target’s root and the parents of <strong>Root Motion Bone</strong> must have even scale, with the same X, Y and Z values. Otherwise the bake stops with a message. Make the scale even in your 3D program, or deselect <strong>Yaw</strong>.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="use-root-motion-in-your-game" class="level1" data-section="Root Motion">
+<section id="sec-use-root-motion-in-your-game" class="level1" data-section="Root Motion">
 <h1 data-section="Root Motion">Use root motion in your game</h1>
 <ul>
 <li>Turn on <strong>Apply Root Motion</strong> on the character’s <strong>Animator</strong>. Without it, the character animates on the spot.</li>
 <li>Root motion moves the GameObject that has the <strong>Animator</strong>. If a script also moves the character, both movements add up. Use one of them, or take over root motion in a script with Unity’s <code>OnAnimatorMove</code> message.</li>
 <li>For Humanoid clips, Unity’s clip settings also decide which travel the <strong>Animator</strong> applies. Select the baked clip and check <strong>Root Transform Rotation</strong>, <strong>Root Transform Position (Y)</strong> and <strong>Root Transform Position (XZ)</strong> in the Inspector. <strong>Bake Into Pose</strong> keeps that part in the pose instead of moving the character.</li>
-<li>Root motion and <strong>Loop Count</strong> work together. Each repeat continues from where the last one stopped. See “Repeat or trim a clip”.</li>
+<li>Root motion and <strong>Loop Count</strong> work together. Each repeat continues from where the last one stopped. See <a href="#sec-repeat-or-trim-a-clip">Repeat or trim a clip</a>.</li>
 </ul>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="keep-looping-clips-looping" class="level1" data-section="Looping">
+<section id="sec-keep-looping-clips-looping" class="level1" data-section="Looping">
 <h1 data-section="Looping">Keep looping clips looping</h1>
 <p>A looping clip, such as a walk cycle or an idle, ends in the same pose it starts with. To keep it looping after the bake:</p>
 <ol type="1">
@@ -676,21 +799,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>A trimmed range never loops.</strong> A part of a loop doesn’t end where it starts, so the package turns <strong>Loop Time</strong> off.</li>
 <li><strong>A pop at the end of the source loop stays.</strong> If the source’s last frame doesn’t match its first, the baked clip has the same jump. Turn on <strong>Loop Pose</strong> on the baked clip to blend the ends together.</li>
-<li><strong>The character jumps back at the end of each loop.</strong> The source travels in its hips, and the bake left that travel in the pose. Bake with root motion. See “Bake a walk with root motion”.</li>
+<li><strong>The character jumps back at the end of each loop.</strong> The source travels in its hips, and the bake left that travel in the pose. Bake with root motion. See <a href="#sec-bake-a-walk-with-root-motion">Bake a walk with root motion</a>.</li>
 </ul>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="repeat-or-trim-a-clip" class="level1" data-section="Looping">
+<section id="sec-repeat-or-trim-a-clip" class="level1" data-section="Looping">
 <h1 data-section="Looping">Repeat or trim a clip</h1>
-<section id="repeat-a-clip-with-loop-count" class="level2">
-<h2 class="anchored" data-anchor-id="repeat-a-clip-with-loop-count">Repeat a clip with Loop Count</h2>
+<section id="sec-repeat-a-clip-with-loop-count" class="level2">
+<h2 class="anchored" data-anchor-id="sec-repeat-a-clip-with-loop-count">Repeat a clip with Loop Count</h2>
 <p><strong>Loop Count</strong> in the <strong>Bake</strong> tab plays the clip several times in a row and bakes them into one clip. With <code>3</code>, a 1-second walk becomes a 3-second walk.</p>
 <p>Use it for a longer clip in a cutscene or on a Timeline, or for a walk that covers a set distance. With <strong>Root Motion</strong> on, each repeat continues from where the last one stopped. The character keeps walking forward instead of jumping back to the start.</p>
 <p>Only the parts selected in <strong>Extract From Bone</strong> continue from one repeat to the next. The other parts start over with each repeat. With <strong>Copy Clip Settings</strong> on, animation events repeat with every loop.</p>
 </section>
-<section id="bake-part-of-a-clip" class="level2">
-<h2 class="anchored" data-anchor-id="bake-part-of-a-clip">Bake part of a clip</h2>
-<p>Drag the ends of <strong>Range</strong> in the <strong>Bake</strong> tab (Figure 2) to pick part of the selected clip. The numbers on the right show the start and end times. Use it to cut one swing out of a long combo, or one cycle out of a long take.</p>
+<section id="sec-bake-part-of-a-clip" class="level2">
+<h2 class="anchored" data-anchor-id="sec-bake-part-of-a-clip">Bake part of a clip</h2>
+<p>Drag the ends of <strong>Range</strong> in the <strong>Bake</strong> tab (<a href="#fig-bake-tab">Figure 2</a>) to pick part of the selected clip. The numbers on the right show the start and end times. Use it to cut one swing out of a long combo, or one cycle out of a long take.</p>
 <ul>
 <li><strong>Bake Selected</strong> bakes only the range. <strong>Bake All</strong> always bakes whole clips.</li>
 <li>The baked clip starts at zero, whatever part you picked.</li>
@@ -700,16 +823,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="settings-every-feature-has" class="level1" data-section="Feature Settings">
+<section id="sec-settings-every-feature-has" class="level1" data-section="Feature Settings">
 <h1 data-section="Feature Settings">Settings every feature has</h1>
-<p>Every card in the <strong>Features</strong> tab starts with these two settings:</p>
+<p>These pages explain the settings of each feature. To learn what features are and which one to use, see <a href="#sec-what-features-do">What features do</a> and <a href="#sec-choose-a-feature">Choose a feature</a>.</p>
+<p>Every feature starts with these two settings:</p>
 <ul>
-<li><strong>Feature Weight:</strong> how strongly the card moves the target, from <code>0</code> to <code>1</code>. Set it to <code>0</code> to switch the card off without removing it.</li>
-<li><strong>Show Gizmos:</strong> draws the card’s bones in the preview while <strong>Bones</strong> is on above the preview. It also draws them in the Scene view when you select a character with a <strong>Dynamic Retargeter</strong>.</li>
+<li><strong>Feature Weight:</strong> how strongly the feature moves the target, from <code>0</code> to <code>1</code>. Set it to <code>0</code> to switch the feature off without removing it.</li>
+<li><strong>Show Gizmos:</strong> draws the feature’s bones in the preview while <strong>Bones</strong> is on above the preview. It also draws them in the Scene view when you select a character with a <strong>Dynamic Retargeter</strong>.</li>
 </ul>
-<p>Cards appear in the <strong>Add Feature</strong> menu under shorter names: <strong>Basic</strong>, <strong>Copy Bone Feature</strong>, <strong>Fps</strong>, <strong>Ik</strong>, <strong>Mirror</strong>, <strong>Root Pelvis</strong> and <strong>Transform</strong>.</p>
-<section id="basic-retarget-and-rootpelvis-retarget" class="level2">
-<h2 class="anchored" data-anchor-id="basic-retarget-and-rootpelvis-retarget">Basic Retarget and Root/Pelvis Retarget</h2>
+<section id="sec-basic-retarget-and-root-pelvis-retarget" class="level2">
+<h2 class="anchored" data-anchor-id="sec-basic-retarget-and-root-pelvis-retarget">Basic Retarget and Root/Pelvis Retarget</h2>
 <p><strong>Basic Retarget</strong> copies how each bone of the source chain turns onto the target chain. The profile uses it for the spine, neck, head, toes and fingers. <strong>Root/Pelvis Retarget</strong> is the same card with travel copied as well. The profile uses it for the root and the hips.</p>
 <ul>
 <li><strong>Source Chain:</strong> the source bones to read.</li>
@@ -721,7 +844,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="ik-retarget" class="level1" data-section="Feature Settings">
+<section id="sec-ik-retarget" class="level1" data-section="Feature Settings">
 <h1 data-section="Feature Settings">IK Retarget</h1>
 <p><strong>IK Retarget</strong> places the end of a limb, such as a hand or a foot, where the source’s is, scaled to the target’s size. Then it bends the limb to reach that spot. The profile uses it for arms and legs. It has every setting of <strong>Basic Retarget</strong>, plus these:</p>
 <ul>
@@ -736,9 +859,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="fps-animation-retarget" class="level1" data-section="Feature Settings">
+<section id="sec-fps-animation-retarget" class="level1" data-section="Feature Settings">
 <h1 data-section="Feature Settings">FPS Animation Retarget</h1>
-<p><strong>FPS Animation Retarget</strong> makes a pair of arms hold a weapon the way the source holds it. The setup steps are in “Full body to first-person arms”.</p>
+<p><strong>FPS Animation Retarget</strong> makes a pair of arms hold a weapon the way the source holds it. The setup steps are in <a href="#sec-full-body-to-first-person-arms">Full body to first-person arms</a>.</p>
+<p>When you add the card, the package fills its six chains by searching the bone names of both models. <strong>Remap</strong> in the <strong>Profile</strong> tab searches again and replaces every chain it can fill.</p>
 <p>Under <strong>Source Chains</strong> and <strong>Target Chains</strong>:</p>
 <ul>
 <li><strong>Source Right Arm</strong> and <strong>Source Left Arm:</strong> the source’s upper arm, forearm and hand, in that order. An extra shoulder bone in front is fine.</li>
@@ -753,18 +877,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="copy-bone-transform-modifier-and-mirror" class="level1" data-section="Feature Settings">
+<section id="sec-copy-bone-transform-modifier-and-mirror" class="level1" data-section="Feature Settings">
 <h1 data-section="Feature Settings">Copy Bone, Transform Modifier and Mirror</h1>
-<section id="copy-bone" class="level2">
-<h2 class="anchored" data-anchor-id="copy-bone">Copy Bone</h2>
+<section id="sec-copy-bone" class="level2">
+<h2 class="anchored" data-anchor-id="sec-copy-bone">Copy Bone</h2>
 <p><strong>Copy Bone</strong> copies the position, turning and size of source bones onto target bones, measured from each character’s root. Nothing is scaled to the target’s body size. Its card title shows both bones, such as <strong>Copy from: Weapon, to: ik_hand_gun</strong>.</p>
 <ul>
 <li><strong>Copy From:</strong> the source bones to copy.</li>
 <li><strong>Copy To:</strong> the target bones that receive the copy. The first bone copies the first source bone, the second copies the second, and so on.</li>
 </ul>
 </section>
-<section id="transform-modifier" class="level2">
-<h2 class="anchored" data-anchor-id="transform-modifier">Transform Modifier</h2>
+<section id="sec-transform-modifier" class="level2">
+<h2 class="anchored" data-anchor-id="sec-transform-modifier">Transform Modifier</h2>
 <p><strong>Transform Modifier</strong> changes the position, rotation or scale of target bones after the cards above it have run.</p>
 <ul>
 <li><strong>Target Chain:</strong> the bones to change. Each bone gets the same change.</li>
@@ -773,9 +897,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Position Space</strong> and <strong>Rotation Space:</strong> the axes the value uses. <strong>Bone Space</strong> uses the bone’s own axes, and is the default. <strong>Parent Bone Space</strong> uses the parent bone’s axes. <strong>Component Space</strong> uses the character’s own axes. <strong>World Space</strong> uses the scene’s axes.</li>
 </ul>
 </section>
-<section id="mirror-retarget" class="level2">
-<h2 class="anchored" data-anchor-id="mirror-retarget">Mirror Retarget</h2>
-<p><strong>Mirror Retarget</strong> gives each bone in its chain the mirrored pose of its partner on the other side. See “Mirror an animation”.</p>
+<section id="sec-mirror-retarget" class="level2">
+<h2 class="anchored" data-anchor-id="sec-mirror-retarget">Mirror Retarget</h2>
+<p><strong>Mirror Retarget</strong> gives each bone in its chain the mirrored pose of its partner on the other side. See <a href="#sec-mirror-an-animation">Mirror an animation</a>.</p>
 <ul>
 <li><strong>Target Bone Chain:</strong> the bones that take the mirrored pose.</li>
 <li><strong>Axis:</strong> the mirror direction, along the character’s own axes. <code>1, 0, 0</code> mirrors left and right on a character that faces forward along Z. The largest of the three values, ignoring minus signs, decides the axis. The mirror is always along X, Y or Z.</li>
@@ -783,42 +907,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="bake-settings" class="level1" data-section="Settings">
+<section id="sec-bake-settings" class="level1" data-section="Settings">
 <h1 data-section="Settings">Bake settings</h1>
-<p>These settings are on the <strong>Bake</strong> tab (Figure 2) and in the <strong>Retarget Animations</strong> window. They’re saved on your computer, not in the profile, so each person on a team keeps their own.</p>
-<section id="animations" class="level2">
-<h2 class="anchored" data-anchor-id="animations">Animations</h2>
+<p>These settings are on the <strong>Bake</strong> tab (<a href="#fig-bake-tab">Figure 2</a>) and in the <strong>Retarget Animations</strong> window. They’re saved on your computer, not in the profile, so each person on a team keeps their own.</p>
+<section id="sec-animations" class="level2">
+<h2 class="anchored" data-anchor-id="sec-animations">Animations</h2>
 <ul>
 <li><strong>Clip list:</strong> the clips to bake. Click a clip to preview it and to choose it for <strong>Bake Selected</strong>. Click <strong>×</strong> to take it off the list; the clip stays in your project.</li>
 <li><strong>Range:</strong> the part of the selected clip that <strong>Bake Selected</strong> uses.</li>
 <li><strong>Add Clip:</strong> adds a clip to the list. You can also drop clips or models onto the list.</li>
 </ul>
 </section>
-<section id="output" class="level2">
-<h2 class="anchored" data-anchor-id="output">Output</h2>
+<section id="sec-output" class="level2">
+<h2 class="anchored" data-anchor-id="sec-output">Output</h2>
 <ul>
 <li><strong>Format:</strong> <strong>Animation Clip</strong> saves an <code>.anim</code> file. <strong>Fbx</strong> saves an FBX file with the target model and the animation.</li>
 <li><strong>Rig Type:</strong> <strong>Humanoid</strong> writes a humanoid clip, which needs a target with a valid humanoid avatar. <strong>Generic</strong> writes the movement of every target bone, including bones a humanoid avatar doesn’t have.</li>
 <li><strong>Copy Clip Settings:</strong> copies the loop settings and animation events of the source clip. Off by default.</li>
 </ul>
 </section>
-<section id="timing" class="level2">
-<h2 class="anchored" data-anchor-id="timing">Timing</h2>
+<section id="sec-timing" class="level2">
+<h2 class="anchored" data-anchor-id="sec-timing">Timing</h2>
 <ul>
 <li><strong>Source Frame Rate:</strong> bakes each clip at the frame rate of its source clip. On by default.</li>
 <li><strong>Frame Rate:</strong> the frame rate to bake at when <strong>Source Frame Rate</strong> is off, from <code>1</code> to <code>240</code>. The default is <code>30</code>. Higher values make larger clips.</li>
 <li><strong>Loop Count:</strong> how many times the clip is repeated in one bake. The default is <code>1</code>.</li>
 </ul>
 </section>
-<section id="motion" class="level2">
-<h2 class="anchored" data-anchor-id="motion">Motion</h2>
+<section id="sec-motion" class="level2">
+<h2 class="anchored" data-anchor-id="sec-motion">Motion</h2>
 <ul>
 <li><strong>Root Motion:</strong> carries the source’s travel over to the baked clip. Off by default.</li>
 <li><strong>Extract From Bone:</strong> the parts of <strong>Root Motion Bone</strong>’s movement that move the whole character. The default is <strong>Horizontal Position, Yaw</strong>. You can change it while <strong>Root Motion</strong> is on.</li>
 </ul>
 </section>
-<section id="bake-buttons-and-saved-files" class="level2">
-<h2 class="anchored" data-anchor-id="bake-buttons-and-saved-files">Bake buttons and saved files</h2>
+<section id="sec-bake-buttons-and-saved-files" class="level2">
+<h2 class="anchored" data-anchor-id="sec-bake-buttons-and-saved-files">Bake buttons and saved files</h2>
 <ul>
 <li><strong>Bake Selected:</strong> bakes the selected clip, using <strong>Range</strong>.</li>
 <li><strong>Bake All:</strong> bakes every clip in the list, each at full length.</li>
@@ -827,18 +951,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="retarget-while-the-game-runs" class="level1" data-section="Advanced">
+<section id="sec-retarget-while-the-game-runs" class="level1" data-section="Advanced">
 <h1 data-section="Advanced">Retarget while the game runs</h1>
 <p>Baking is the usual route. The <strong>Dynamic Retargeter</strong> component is for cases where you can’t bake ahead of time. Examples are animation that’s made while the game runs, or a character that switches who it copies. It retargets every frame.</p>
 <ol type="1">
 <li>Put the source and the target in your scene. Give the source an <strong>Animator</strong> that plays its animation.</li>
 <li>Select the target. Click <strong>Add Component</strong> and choose <strong>Advanced Retarget &gt; Dynamic Retargeter</strong>.</li>
-<li>Assign the source to <strong>Animation Source</strong> and the profile to <strong>Profile</strong> (Figure 13).</li>
+<li>Assign the source to <strong>Animation Source</strong> and the profile to <strong>Profile</strong> (<a href="#fig-dynamic-retargeter">Figure 13</a>).</li>
 <li>Enter Play Mode. The target copies the source.</li>
 </ol>
-<div class="doc-figure">
-<p><img src="/docs/advanced-retarget/Figures/dynamic-retargeter.png" class="img-fluid" style="width:511pt" alt="The Dynamic Retargeter component with the Animation Source, Profile and Apply Root Motion fields"></p>
-<p>Figure 13</p>
+<div id="fig-dynamic-retargeter" class="doc-figure quarto-float quarto-figure quarto-figure-center anchored" alt="The Dynamic Retargeter component with the Animation Source, Profile and Apply Root Motion fields">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dynamic-retargeter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="/docs/advanced-retarget/Figures/dynamic-retargeter.png" class="img-fluid figure-img" style="width:511pt" alt="The Dynamic Retargeter component with the Animation Source, Profile and Apply Root Motion fields">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dynamic-retargeter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: Figure 13
+</figcaption>
+</figure>
 </div>
 <ul>
 <li><strong>Apply Root Motion:</strong> moves the target along with the source, scaled to the target’s size and turned by <strong>Facing Alignment</strong>. On by default. Turn it off when something else moves the target, such as your character controller.</li>
@@ -853,7 +983,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="bake-from-a-script" class="level1" data-section="Advanced">
+<section id="sec-bake-from-a-script" class="level1" data-section="Advanced">
 <h1 data-section="Advanced">Bake from a script</h1>
 <p>This page is for programmers. Use <code>RetargetClipBaker</code> to bake clips from your own editor tools, such as a menu command that bakes a whole folder. Put the script in an <code>Editor</code> folder.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> UnityEditor<span class="op">;</span></span>
@@ -903,15 +1033,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="profiles-and-runtime-from-a-script" class="level1" data-section="Advanced">
+<section id="sec-profiles-and-runtime-from-a-script" class="level1" data-section="Advanced">
 <h1 data-section="Advanced">Profiles and runtime from a script</h1>
-<section id="create-a-profile" class="level2">
-<h2 class="anchored" data-anchor-id="create-a-profile">Create a profile</h2>
+<section id="sec-create-a-profile" class="level2">
+<h2 class="anchored" data-anchor-id="sec-create-a-profile">Create a profile</h2>
 <p><code>RetargetProfileTools.TryCreateProfile(source, target, out profile, out message)</code> does the same as <strong>Create Profile From Two Models</strong>. Pass model or prefab assets. It returns <code>false</code> with a message when something is missing. When the rigs could be read but no features could be made, <code>profile</code> is still set, so you can add features to it.</p>
 <p><code>RetargetProfileTools.TryRebuildRigs</code>, <code>TryRebuildMappings</code> and <code>TryRemap</code> match the buttons of the <strong>Profile</strong> tab. <code>TPoseClipGenerator.TryGenerate(model, folder, out clip, out error)</code> saves a pose clip, like the <strong>T-Pose</strong> button.</p>
 </section>
-<section id="switch-the-source-at-runtime" class="level2">
-<h2 class="anchored" data-anchor-id="switch-the-source-at-runtime">Switch the source at runtime</h2>
+<section id="sec-switch-the-source-at-runtime" class="level2">
+<h2 class="anchored" data-anchor-id="sec-switch-the-source-at-runtime">Switch the source at runtime</h2>
 <p><code>DynamicRetargeter.Initialize</code> points a running retargeter at a new source.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> UnityEngine<span class="op">;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">AdvancedRetarget</span><span class="op">;</span></span>
@@ -932,17 +1062,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>Initialize</code> returns <code>true</code> when at least one card of the profile could start. <code>IsRunning</code> tells you whether the retargeter is driving the character.</p>
 <p>Add the <strong>Dynamic Retargeter</strong> to the target in the Editor, and keep its fields filled. Adding it from a script with empty fields logs an error until you call <code>Initialize</code>.</p>
 </section>
-<section id="write-your-own-feature" class="level2">
-<h2 class="anchored" data-anchor-id="write-your-own-feature">Write your own feature</h2>
+<section id="sec-write-your-own-feature" class="level2">
+<h2 class="anchored" data-anchor-id="sec-write-your-own-feature">Write your own feature</h2>
 <p>Your own cards derive from <code>RetargetFeature</code> and return a <code>RetargetFeatureState</code> that does the work each frame. Every class that derives from <code>RetargetFeature</code> appears in the <strong>Add Feature</strong> menu.</p>
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="edge-cases" class="level1" data-section="Reference">
+<section id="sec-edge-cases" class="level1" data-section="Reference">
 <h1 data-section="Reference">Edge cases</h1>
 <p>These situations are easy to miss. Each one says what happens and what to do.</p>
-<section id="models-and-skeletons" class="level2">
-<h2 class="anchored" data-anchor-id="models-and-skeletons">Models and skeletons</h2>
+<section id="sec-models-and-skeletons" class="level2">
+<h2 class="anchored" data-anchor-id="sec-models-and-skeletons">Models and skeletons</h2>
 <ul>
 <li><strong>A model without a skinned mesh.</strong> The package reads bones from a skinned mesh, or from a humanoid avatar. A model with neither can’t be used, and the message says <code>Model has no SkinnedMeshRenderer and no valid avatar.</code></li>
 <li><strong>A mesh object named like a bone.</strong> A mesh called <code>Mesh_hand_r</code> can end up in a hand chain, because chains are found by name. Rename the mesh objects in your 3D program and re-import the model. Then click <strong>Rebuild Rigs</strong> and <strong>Rebuild Mappings</strong>. You can also empty the chain with <strong>×</strong> and add its bones again with <strong>Add bone…</strong>.</li>
@@ -953,8 +1083,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Rebuild Mappings after tuning.</strong> <strong>Rebuild Mappings</strong> replaces the <strong>Basic Retarget</strong>, <strong>IK Retarget</strong> and <strong>Root/Pelvis Retarget</strong> cards, and your changes to them are lost. Use <strong>Remap</strong> to keep them.</li>
 </ul>
 </section>
-<section id="clips" class="level2">
-<h2 class="anchored" data-anchor-id="clips">Clips</h2>
+<section id="sec-clips" class="level2">
+<h2 class="anchored" data-anchor-id="sec-clips">Clips</h2>
 <ul>
 <li><strong>A trimmed range never loops.</strong> <strong>Loop Time</strong> is turned off for it, even with <strong>Copy Clip Settings</strong> on.</li>
 <li><strong>Additive clips.</strong> The additive reference pose isn’t copied, because it belongs to the source skeleton. Set a new one on the baked clip if you need it.</li>
@@ -964,8 +1094,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Uneven scale with Yaw root motion.</strong> The bake stops when the target’s root or the parents of <strong>Root Motion Bone</strong> have uneven scale. Make the scale even, or deselect <strong>Yaw</strong>.</li>
 </ul>
 </section>
-<section id="features" class="level2">
-<h2 class="anchored" data-anchor-id="features">Features</h2>
+<section id="sec-features" class="level2">
+<h2 class="anchored" data-anchor-id="sec-features">Features</h2>
 <ul>
 <li><strong>Two cards on the same bone.</strong> The lower card wins. Keep fixes such as <strong>Transform Modifier</strong> below the card they correct.</li>
 <li><strong>Mirror without a partner.</strong> A bone with a side in its name but no partner mirrors onto itself. The <strong>Help</strong> list names those bones.</li>
@@ -976,106 +1106,106 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="nothing-moves-in-the-preview" class="level1" data-section="Troubleshooting">
+<section id="sec-nothing-moves-in-the-preview" class="level1" data-section="Troubleshooting">
 <h1 data-section="Troubleshooting">Nothing moves in the preview</h1>
-<section id="neither-character-moves" class="level2">
-<h2 class="anchored" data-anchor-id="neither-character-moves">Neither character moves</h2>
+<section id="sec-neither-character-moves" class="level2">
+<h2 class="anchored" data-anchor-id="sec-neither-character-moves">Neither character moves</h2>
 <p>No clip is playing. Click the <strong>Bake</strong> tab and click a clip in the <strong>Animations</strong> list. Then click <strong>Play</strong> under the preview.</p>
 </section>
-<section id="the-source-stands-still-in-a-neutral-pose" class="level2">
-<h2 class="anchored" data-anchor-id="the-source-stands-still-in-a-neutral-pose">The source stands still in a neutral pose</h2>
+<section id="sec-the-source-stands-still-in-a-neutral-pose" class="level2">
+<h2 class="anchored" data-anchor-id="sec-the-source-stands-still-in-a-neutral-pose">The source stands still in a neutral pose</h2>
 <p>The clip doesn’t fit the source. A humanoid source only plays humanoid clips. A generic source only plays clips made for its own bone names. Select the clip’s file and check its <strong>Animation Type</strong> in the <strong>Rig</strong> tab.</p>
 </section>
-<section id="the-source-moves-but-the-target-doesnt" class="level2">
-<h2 class="anchored" data-anchor-id="the-source-moves-but-the-target-doesnt">The source moves, but the target doesn’t</h2>
+<section id="sec-the-source-moves-but-the-target-doesn-t" class="level2">
+<h2 class="anchored" data-anchor-id="sec-the-source-moves-but-the-target-doesn-t">The source moves, but the target doesn’t</h2>
 <ol type="1">
 <li>Open the <strong>Messages</strong> tab and read <strong>Notifications</strong>. Fix every card it names.</li>
 <li>Open the <strong>Features</strong> tab and look for cards without a green dot.</li>
 <li>Check <strong>Feature Weight</strong> on the cards. At <code>0</code>, a card doesn’t move anything.</li>
-<li>If the tab has no cards at all, the package didn’t recognize the bones. See “Use a skeleton no preset knows”.</li>
+<li>If the tab has no cards at all, the package didn’t recognize the bones. See <a href="#sec-use-a-skeleton-no-preset-knows">Use a skeleton no preset knows</a>.</li>
 </ol>
 </section>
-<section id="create-profile-from-two-models-is-greyed-out" class="level2">
-<h2 class="anchored" data-anchor-id="create-profile-from-two-models-is-greyed-out">Create Profile From Two Models is greyed out</h2>
+<section id="sec-create-profile-from-two-models-is-greyed-out" class="level2">
+<h2 class="anchored" data-anchor-id="sec-create-profile-from-two-models-is-greyed-out">Create Profile From Two Models is greyed out</h2>
 <p>The menu needs exactly two models selected in the <strong>Project</strong> window. Objects in a scene don’t count. Select two model files or prefabs, such as FBX or Blender files.</p>
 </section>
-<section id="retarget-selected-clips-is-greyed-out" class="level2">
-<h2 class="anchored" data-anchor-id="retarget-selected-clips-is-greyed-out">Retarget Selected Clips is greyed out</h2>
+<section id="sec-retarget-selected-clips-is-greyed-out" class="level2">
+<h2 class="anchored" data-anchor-id="sec-retarget-selected-clips-is-greyed-out">Retarget Selected Clips is greyed out</h2>
 <p>Select at least one animation clip, or a model that contains clips, in the <strong>Project</strong> window.</p>
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="the-pose-looks-wrong" class="level1" data-section="Troubleshooting">
+<section id="sec-the-pose-looks-wrong" class="level1" data-section="Troubleshooting">
 <h1 data-section="Troubleshooting">The pose looks wrong</h1>
-<section id="the-arms-are-always-too-high-or-too-low" class="level2">
-<h2 class="anchored" data-anchor-id="the-arms-are-always-too-high-or-too-low">The arms are always too high or too low</h2>
-<p>The two characters stand in different rest poses, such as a T-pose and an A-pose. Give both the same starting pose. See “Characters that stand in different rest poses”.</p>
+<section id="sec-the-arms-are-always-too-high-or-too-low" class="level2">
+<h2 class="anchored" data-anchor-id="sec-the-arms-are-always-too-high-or-too-low">The arms are always too high or too low</h2>
+<p>The two characters stand in different rest poses, such as a T-pose and an A-pose. Give both the same starting pose. See <a href="#sec-characters-that-stand-in-different-rest-poses">Characters that stand in different rest poses</a>.</p>
 </section>
-<section id="feet-slide-or-float" class="level2">
-<h2 class="anchored" data-anchor-id="feet-slide-or-float">Feet slide or float</h2>
-<p>Check that the leg cards are <strong>IK Retarget</strong> cards with <strong>Ik Weight</strong> at <code>1</code>. Then lift or lower the hips with <strong>Offset</strong> on the <strong>Root/Pelvis Retarget</strong> card of the pelvis. See “Characters of different sizes”.</p>
+<section id="sec-feet-slide-or-float" class="level2">
+<h2 class="anchored" data-anchor-id="sec-feet-slide-or-float">Feet slide or float</h2>
+<p>Check that the leg cards are <strong>IK Retarget</strong> cards with <strong>Ik Weight</strong> at <code>1</code>. Then lift or lower the hips with <strong>Offset</strong> on the <strong>Root/Pelvis Retarget</strong> card of the pelvis. See <a href="#sec-characters-of-different-sizes">Characters of different sizes</a>.</p>
 </section>
-<section id="an-elbow-or-knee-bends-the-wrong-way" class="level2">
-<h2 class="anchored" data-anchor-id="an-elbow-or-knee-bends-the-wrong-way">An elbow or knee bends the wrong way</h2>
+<section id="sec-an-elbow-or-knee-bends-the-wrong-way" class="level2">
+<h2 class="anchored" data-anchor-id="sec-an-elbow-or-knee-bends-the-wrong-way">An elbow or knee bends the wrong way</h2>
 <ol type="1">
 <li>Open the arm or leg card and change <strong>Joint Offset</strong> to point the other way. For example, change <code>0, 0, 1</code> to <code>0, 0, -1</code>.</li>
 <li>Check that <strong>Joint Bone</strong> is the elbow or knee.</li>
 <li>If the joint flips only now and then, lower <strong>Pole Weight</strong>.</li>
 </ol>
 </section>
-<section id="a-limb-pops-when-its-stretched-straight" class="level2">
-<h2 class="anchored" data-anchor-id="a-limb-pops-when-its-stretched-straight">A limb pops when it’s stretched straight</h2>
+<section id="sec-a-limb-pops-when-it-s-stretched-straight" class="level2">
+<h2 class="anchored" data-anchor-id="sec-a-limb-pops-when-it-s-stretched-straight">A limb pops when it’s stretched straight</h2>
 <p>Lower <strong>Max Reach Multiplier</strong> on that card, such as from <code>0.98</code> to <code>0.95</code>.</p>
 </section>
-<section id="a-limb-twists-or-points-the-wrong-way" class="level2">
-<h2 class="anchored" data-anchor-id="a-limb-twists-or-points-the-wrong-way">A limb twists or points the wrong way</h2>
+<section id="sec-a-limb-twists-or-points-the-wrong-way" class="level2">
+<h2 class="anchored" data-anchor-id="sec-a-limb-twists-or-points-the-wrong-way">A limb twists or points the wrong way</h2>
 <p>Check the chain order on the card. Bones must go from the body outward, such as upper arm, forearm, hand. Empty the chain with <strong>×</strong> and add the bones again in order.</p>
 </section>
-<section id="the-target-bends-sideways-or-walks-sideways" class="level2">
-<h2 class="anchored" data-anchor-id="the-target-bends-sideways-or-walks-sideways">The target bends sideways or walks sideways</h2>
-<p>The skeletons face different ways inside their models. See “Skeletons that face different ways”.</p>
+<section id="sec-the-target-bends-sideways-or-walks-sideways" class="level2">
+<h2 class="anchored" data-anchor-id="sec-the-target-bends-sideways-or-walks-sideways">The target bends sideways or walks sideways</h2>
+<p>The skeletons face different ways inside their models. See <a href="#sec-skeletons-that-face-different-ways">Skeletons that face different ways</a>.</p>
 </section>
-<section id="a-fix-doesnt-show-up" class="level2">
-<h2 class="anchored" data-anchor-id="a-fix-doesnt-show-up">A fix doesn’t show up</h2>
+<section id="sec-a-fix-doesn-t-show-up" class="level2">
+<h2 class="anchored" data-anchor-id="sec-a-fix-doesn-t-show-up">A fix doesn’t show up</h2>
 <p>Another card below your fix moves the same bone and overwrites it. Use the three-dot button on the fixing card to move it down the list.</p>
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="baking-and-playback-problems" class="level1" data-section="Troubleshooting">
+<section id="sec-baking-and-playback-problems" class="level1" data-section="Troubleshooting">
 <h1 data-section="Troubleshooting">Baking and playback problems</h1>
-<section id="the-bake-stops-with-a-message-about-the-humanoid-avatar" class="level2">
-<h2 class="anchored" data-anchor-id="the-bake-stops-with-a-message-about-the-humanoid-avatar">The bake stops with a message about the humanoid avatar</h2>
+<section id="sec-the-bake-stops-with-a-message-about-the-humanoid-avatar" class="level2">
+<h2 class="anchored" data-anchor-id="sec-the-bake-stops-with-a-message-about-the-humanoid-avatar">The bake stops with a message about the humanoid avatar</h2>
 <p>The message is <code>The Humanoid baker needs a target with a valid humanoid avatar.</code> Set <strong>Rig Type</strong> to <strong>Generic</strong>, or set the target model’s <strong>Animation Type</strong> to <strong>Humanoid</strong>.</p>
 </section>
-<section id="the-bake-stops-with-a-message-about-yaw-and-scale" class="level2">
-<h2 class="anchored" data-anchor-id="the-bake-stops-with-a-message-about-yaw-and-scale">The bake stops with a message about Yaw and scale</h2>
+<section id="sec-the-bake-stops-with-a-message-about-yaw-and-scale" class="level2">
+<h2 class="anchored" data-anchor-id="sec-the-bake-stops-with-a-message-about-yaw-and-scale">The bake stops with a message about Yaw and scale</h2>
 <p>The target’s root or a parent of <strong>Root Motion Bone</strong> has uneven scale. Make the X, Y and Z scale the same in your 3D program, or deselect <strong>Yaw</strong> in <strong>Extract From Bone</strong>.</p>
 </section>
-<section id="the-baked-clip-doesnt-play-on-my-character" class="level2">
-<h2 class="anchored" data-anchor-id="the-baked-clip-doesnt-play-on-my-character">The baked clip doesn’t play on my character</h2>
+<section id="sec-the-baked-clip-doesn-t-play-on-my-character" class="level2">
+<h2 class="anchored" data-anchor-id="sec-the-baked-clip-doesn-t-play-on-my-character">The baked clip doesn’t play on my character</h2>
 <ul>
 <li>A Humanoid clip only plays on a character with a humanoid avatar.</li>
 <li>A Generic clip only plays on models with the same bone names and hierarchy as the target. Bake again with the right target, or bake with <strong>Rig Type</strong> set to <strong>Humanoid</strong>.</li>
 </ul>
 </section>
-<section id="the-character-walks-on-the-spot-in-the-game" class="level2">
-<h2 class="anchored" data-anchor-id="the-character-walks-on-the-spot-in-the-game">The character walks on the spot in the game</h2>
+<section id="sec-the-character-walks-on-the-spot-in-the-game" class="level2">
+<h2 class="anchored" data-anchor-id="sec-the-character-walks-on-the-spot-in-the-game">The character walks on the spot in the game</h2>
 <ol type="1">
 <li>Turn on <strong>Apply Root Motion</strong> on the character’s <strong>Animator</strong>.</li>
 <li>Check that <strong>Root Motion</strong> was on when you baked, and that <strong>Root Motion Bone</strong> is the bone that travels.</li>
 <li>For Humanoid clips, check that <strong>Bake Into Pose</strong> is off under <strong>Root Transform Position (XZ)</strong> on the baked clip.</li>
 </ol>
 </section>
-<section id="the-character-jumps-back-at-the-end-of-each-loop" class="level2">
-<h2 class="anchored" data-anchor-id="the-character-jumps-back-at-the-end-of-each-loop">The character jumps back at the end of each loop</h2>
-<p>The travel stayed in the hips. Bake again with <strong>Root Motion</strong> on. See “Bake a walk with root motion”.</p>
+<section id="sec-the-character-jumps-back-at-the-end-of-each-loop" class="level2">
+<h2 class="anchored" data-anchor-id="sec-the-character-jumps-back-at-the-end-of-each-loop">The character jumps back at the end of each loop</h2>
+<p>The travel stayed in the hips. Bake again with <strong>Root Motion</strong> on. See <a href="#sec-bake-a-walk-with-root-motion">Bake a walk with root motion</a>.</p>
 </section>
-<section id="the-character-bobs-up-and-down-while-walking" class="level2">
-<h2 class="anchored" data-anchor-id="the-character-bobs-up-and-down-while-walking">The character bobs up and down while walking</h2>
+<section id="sec-the-character-bobs-up-and-down-while-walking" class="level2">
+<h2 class="anchored" data-anchor-id="sec-the-character-bobs-up-and-down-while-walking">The character bobs up and down while walking</h2>
 <p><strong>Vertical Position</strong> is selected in <strong>Extract From Bone</strong>. Deselect it and bake again.</p>
 </section>
-<section id="the-hands-dont-hold-the-weapon" class="level2">
-<h2 class="anchored" data-anchor-id="the-hands-dont-hold-the-weapon">The hands don’t hold the weapon</h2>
+<section id="sec-the-hands-don-t-hold-the-weapon" class="level2">
+<h2 class="anchored" data-anchor-id="sec-the-hands-don-t-hold-the-weapon">The hands don’t hold the weapon</h2>
 <ol type="1">
 <li>Check that the <strong>FPS Animation Retarget</strong> card has a green dot.</li>
 <li>Check the arm chains: upper arm, forearm, hand, in that order.</li>
@@ -1083,69 +1213,73 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Move the card to the bottom of the list, so no other card moves the arms after it.</li>
 </ol>
 </section>
-<section id="the-weapon-bone-doesnt-move-in-the-baked-clip" class="level2">
-<h2 class="anchored" data-anchor-id="the-weapon-bone-doesnt-move-in-the-baked-clip">The weapon bone doesn’t move in the baked clip</h2>
+<section id="sec-the-weapon-bone-doesn-t-move-in-the-baked-clip" class="level2">
+<h2 class="anchored" data-anchor-id="sec-the-weapon-bone-doesn-t-move-in-the-baked-clip">The weapon bone doesn’t move in the baked clip</h2>
 <p>Humanoid clips don’t store weapon bones. Bake with <strong>Rig Type</strong> set to <strong>Generic</strong>, and add a <strong>Copy Bone</strong> card or an <strong>FPS Animation Retarget</strong> card for the weapon.</p>
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="questions-and-answers" class="level1" data-section="FAQ">
+<section id="sec-questions-and-answers" class="level1" data-section="FAQ">
 <h1 data-section="FAQ">Questions and answers</h1>
-<section id="does-it-change-my-source-clips-or-models" class="level2">
-<h2 class="anchored" data-anchor-id="does-it-change-my-source-clips-or-models">Does it change my source clips or models?</h2>
+<section id="sec-does-it-change-my-source-clips-or-models" class="level2">
+<h2 class="anchored" data-anchor-id="sec-does-it-change-my-source-clips-or-models">Does it change my source clips or models?</h2>
 <p>No.&nbsp;The package only reads them. It writes new assets: profiles, pose clips and baked clips.</p>
 </section>
-<section id="do-i-need-it-for-humanoid-to-humanoid" class="level2">
-<h2 class="anchored" data-anchor-id="do-i-need-it-for-humanoid-to-humanoid">Do I need it for humanoid to humanoid?</h2>
-<p>Not always. Unity already plays humanoid clips on every humanoid character. Use the package when you need IK fixes, offsets, root motion from a particular bone, a Generic clip or an FBX file. See “Humanoid to humanoid”.</p>
+<section id="sec-do-i-need-it-for-humanoid-to-humanoid" class="level2">
+<h2 class="anchored" data-anchor-id="sec-do-i-need-it-for-humanoid-to-humanoid">Do I need it for humanoid to humanoid?</h2>
+<p>Not always. Unity already plays humanoid clips on every humanoid character. Use the package when you need IK fixes, offsets, root motion from a particular bone, a Generic clip or an FBX file. See <a href="#sec-humanoid-to-humanoid">Humanoid to humanoid</a>.</p>
 </section>
-<section id="can-one-profile-serve-several-targets" class="level2">
-<h2 class="anchored" data-anchor-id="can-one-profile-serve-several-targets">Can one profile serve several targets?</h2>
+<section id="sec-can-one-profile-serve-several-targets" class="level2">
+<h2 class="anchored" data-anchor-id="sec-can-one-profile-serve-several-targets">Can one profile serve several targets?</h2>
 <p>No.&nbsp;A profile holds one source and one target. Make a profile for each pair. Every clip made for the source can be baked with the same profile.</p>
 </section>
-<section id="can-i-retarget-the-other-way" class="level2">
-<h2 class="anchored" data-anchor-id="can-i-retarget-the-other-way">Can I retarget the other way?</h2>
+<section id="sec-can-i-retarget-the-other-way" class="level2">
+<h2 class="anchored" data-anchor-id="sec-can-i-retarget-the-other-way">Can I retarget the other way?</h2>
 <p>Yes. Click <strong>Swap</strong> to turn the profile around, or make a second profile with the models picked in the other order. A second profile keeps both directions.</p>
 </section>
-<section id="where-are-my-baked-clips" class="level2">
-<h2 class="anchored" data-anchor-id="where-are-my-baked-clips">Where are my baked clips?</h2>
+<section id="sec-where-are-my-baked-clips" class="level2">
+<h2 class="anchored" data-anchor-id="sec-where-are-my-baked-clips">Where are my baked clips?</h2>
 <p>In the profile’s <strong>Save Folder Path</strong>. The <strong>Bake</strong> tab shows the path after each bake, and the <strong>Project</strong> window highlights the clip.</p>
 </section>
-<section id="can-i-bake-again-after-i-change-a-setting" class="level2">
-<h2 class="anchored" data-anchor-id="can-i-bake-again-after-i-change-a-setting">Can I bake again after I change a setting?</h2>
+<section id="sec-can-i-bake-again-after-i-change-a-setting" class="level2">
+<h2 class="anchored" data-anchor-id="sec-can-i-bake-again-after-i-change-a-setting">Can I bake again after I change a setting?</h2>
 <p>Yes. An <code>.anim</code> bake replaces the old clip in place, so Animator Controllers and Timelines that use it keep working.</p>
 </section>
-<section id="can-i-edit-a-baked-clip" class="level2">
-<h2 class="anchored" data-anchor-id="can-i-edit-a-baked-clip">Can I edit a baked clip?</h2>
+<section id="sec-can-i-edit-a-baked-clip" class="level2">
+<h2 class="anchored" data-anchor-id="sec-can-i-edit-a-baked-clip">Can I edit a baked clip?</h2>
 <p>Yes. A baked clip is an ordinary Unity animation clip. Open it in the <strong>Animation</strong> window, or bake an FBX file and edit it in a 3D program.</p>
 </section>
-<section id="are-fingers-retargeted" class="level2">
-<h2 class="anchored" data-anchor-id="are-fingers-retargeted">Are fingers retargeted?</h2>
+<section id="sec-are-fingers-retargeted" class="level2">
+<h2 class="anchored" data-anchor-id="sec-are-fingers-retargeted">Are fingers retargeted?</h2>
 <p>Yes, when both characters have finger bones. Each finger gets a card that covers both hands.</p>
 </section>
-<section id="is-facial-animation-retargeted" class="level2">
-<h2 class="anchored" data-anchor-id="is-facial-animation-retargeted">Is facial animation retargeted?</h2>
+<section id="sec-is-facial-animation-retargeted" class="level2">
+<h2 class="anchored" data-anchor-id="sec-is-facial-animation-retargeted">Is facial animation retargeted?</h2>
 <p>Face bones, such as a jaw, move when both characters have them and a card drives them. Blend shapes aren’t retargeted.</p>
 </section>
-<section id="do-baked-clips-work-on-mobile-web-and-consoles" class="level2">
-<h2 class="anchored" data-anchor-id="do-baked-clips-work-on-mobile-web-and-consoles">Do baked clips work on mobile, web and consoles?</h2>
+<section id="sec-do-baked-clips-work-on-mobile-web-and-consoles" class="level2">
+<h2 class="anchored" data-anchor-id="sec-do-baked-clips-work-on-mobile-web-and-consoles">Do baked clips work on mobile, web and consoles?</h2>
 <p>Yes. Baked clips are ordinary Unity animation clips.</p>
 </section>
-<section id="should-my-team-share-the-profile" class="level2">
-<h2 class="anchored" data-anchor-id="should-my-team-share-the-profile">Should my team share the profile?</h2>
+<section id="sec-should-my-team-share-the-profile" class="level2">
+<h2 class="anchored" data-anchor-id="sec-should-my-team-share-the-profile">Should my team share the profile?</h2>
 <p>Yes. Keep the profile asset in version control together with the models. Bake settings are saved per computer, so each person sets their own.</p>
 </section>
-<section id="which-unity-version-do-i-need" class="level2">
-<h2 class="anchored" data-anchor-id="which-unity-version-do-i-need">Which Unity version do I need?</h2>
+<section id="sec-which-unity-version-do-i-need" class="level2">
+<h2 class="anchored" data-anchor-id="sec-which-unity-version-do-i-need">Which Unity version do I need?</h2>
 <p>Unity 6 or newer. The package installs Unity’s FBX Exporter package for FBX output.</p>
 </section>
-<section id="can-i-retarget-while-the-game-runs" class="level2">
-<h2 class="anchored" data-anchor-id="can-i-retarget-while-the-game-runs">Can I retarget while the game runs?</h2>
-<p>Yes, with the <strong>Dynamic Retargeter</strong> component. See “Retarget while the game runs”. Prefer baked clips when you can.</p>
+<section id="sec-can-i-retarget-while-the-game-runs" class="level2">
+<h2 class="anchored" data-anchor-id="sec-can-i-retarget-while-the-game-runs">Can I retarget while the game runs?</h2>
+<p>Yes, with the <strong>Dynamic Retargeter</strong> component. See <a href="#sec-retarget-while-the-game-runs">Retarget while the game runs</a>. Prefer baked clips when you can.</p>
 </section>
-<section id="why-does-the-add-feature-menu-use-different-names-than-the-cards" class="level2">
-<h2 class="anchored" data-anchor-id="why-does-the-add-feature-menu-use-different-names-than-the-cards">Why does the Add Feature menu use different names than the cards?</h2>
-<p>The menu uses short names. <strong>Basic</strong> adds <strong>Basic Retarget</strong>, <strong>Ik</strong> adds <strong>IK Retarget</strong>, <strong>Root Pelvis</strong> adds <strong>Root/Pelvis Retarget</strong>, <strong>Fps</strong> adds <strong>FPS Animation Retarget</strong>, <strong>Transform</strong> adds <strong>Transform Modifier</strong>, <strong>Mirror</strong> adds <strong>Mirror Retarget</strong> and <strong>Copy Bone Feature</strong> adds a card titled <strong>Copy from: …, to: …</strong>.</p>
+<section id="sec-why-does-the-add-feature-menu-use-different-names-than-the-cards" class="level2">
+<h2 class="anchored" data-anchor-id="sec-why-does-the-add-feature-menu-use-different-names-than-the-cards">Why does the Add Feature menu use different names than the cards?</h2>
+<p>The menu uses a short name for each feature. <a href="#sec-choose-a-feature">Choose a feature</a> lists every feature with its menu name.</p>
+</section>
+<section id="sec-which-feature-fixes-my-problem" class="level2">
+<h2 class="anchored" data-anchor-id="sec-which-feature-fixes-my-problem">Which feature fixes my problem?</h2>
+<p><a href="#sec-choose-a-feature">Choose a feature</a> says what each feature is for. For a symptom, such as sliding feet or a bent elbow, start with <a href="#sec-the-pose-looks-wrong">The pose looks wrong</a>.</p>
 </section>
 </section>
 
