@@ -29,6 +29,13 @@
       "samples": []
     },
     {
+      "id": "com.zalinteractive.multiplayer-inventory",
+      "slug": "multiplayer-inventory",
+      "title": "Multiplayer Inventory",
+      "url": "/docs/multiplayer-inventory/index.html",
+      "samples": []
+    },
+    {
       "id": "com.zalinteractive.nebula",
       "slug": "nebula",
       "title": "Nebula",
