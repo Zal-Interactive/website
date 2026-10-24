@@ -214,11 +214,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Use the sample scene and prefabs as a reference. The minimum for a working inventory is:</p>
 <ol type="1">
 <li>Create an <strong>Item Database</strong> (<strong>Assets &gt; Create &gt; Multiplayer Inventory &gt; Item Database</strong>) and an <strong>Inventory Configurations</strong> asset that references it.</li>
-<li>Create item definitions (<strong>Assets &gt; Create &gt; Multiplayer Inventory &gt; Item Definition</strong>) and add them to the database.</li>
+<li>Create item definitions (<strong>Assets &gt; Create &gt; Multiplayer Inventory &gt; Item Definition</strong>) and add them to the database. In <strong>Inventory Configurations</strong>, assign <strong>Item View Prefab</strong>, <strong>Item Context Prefab</strong>, <strong>Dynamic Inventory View Prefab</strong>, <strong>Item Preview Prefab</strong> and <strong>Pickup Prefab</strong> using the sample prefabs as a reference.</li>
 <li>Add <strong>Inventory Setup</strong> (and <strong>Inventory Input Setup</strong> for the Input System) to a scene object, and assign the configurations asset.</li>
 <li>Build a player prefab with a <code>NetworkObject</code>, <strong>Inventory Component</strong>, <strong>Inventory Syncer</strong>, <strong>Player Inventory Actions</strong> and <strong>Inventory UI Opener</strong>.</li>
 <li>Add a <code>GameplayScope</code> (Autofac Unity) to the scene. It finds the package installers on its own. Add one installer of your own that calls <code>AddZalUI</code>. See <a href="#sec-register-the-installers">Register the installers</a>.</li>
-<li>Make the database, the UI prefabs and the network prefabs known to NGO and Zal UI.</li>
+<li>Register network prefabs with NGO and window view prefabs with Zal UI. See <a href="#sec-connect-zal-ui">Connect Zal UI</a>.</li>
 </ol>
 <p>The sample’s player prefab has these components: <code>InventoryComponent</code>, <code>InventorySyncer</code>, <code>PlayerInventoryActions</code>, <code>InventoryUIOpener</code> and <code>ServerInventoryAutoSaver</code>, plus the sample scripts for movement, interaction and the starter loadout. The sample chest has <code>InventoryComponent</code>, <code>InventorySyncer</code>, <code>LootSpawner</code> and <code>LootingInventoryInteractionReceiver</code>.</p>
 <div style="page-break-after: always;"></div>
@@ -277,8 +277,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>A stackable item cannot own containers or default sub-items. The definition logs an error and clears <code>IsStackable</code> if you set both.</p>
-<p>The <strong>Item Database</strong> (<code>ItemDatabase</code>) is the ordered list of every definition. It also holds the shared prefabs: item view, context menu, dynamic inventory view, item preview and the networked pickup prefab. The <strong>one-based index</strong> of a definition is its <code>ItemId</code>. Append new definitions at the end. Reordering or removing a definition changes the ids of the ones after it.</p>
-<p>The inspector of the database has an <strong>Add Missing Item Definitions</strong> button. It finds every <code>ItemDefinition</code> in the project that is not listed yet and appends it at the end. <strong>Inventory Configurations</strong> references the database and adds the grid cell size, the cell prefab, the drag conflict behaviour and the item search duration.</p>
+<p>The <strong>Item Database</strong> (<code>ItemDatabase</code>) is the default ordered list of definitions. The <strong>one-based index</strong> of a definition is its <code>ItemId</code>. Keep the order stable during a session and identical on the server and every client. A project can replace the database list with an <code>IItemDefinitionSource</code>; see <a href="#sec-custom-item-definitions">Provide your own item definitions</a>.</p>
+<p>The inspector of the database has an <strong>Add Missing Item Definitions</strong> button. It finds every <code>ItemDefinition</code> in the project that is not listed yet and appends it at the end. <strong>Inventory Configurations</strong> references the fallback database and holds the shared prefabs: item view, context menu, dynamic inventory view, item preview and networked pickup. It also holds the grid cell size, cell prefab, drag conflict behaviour and item search duration. A custom source does not need an assigned database; it still needs the configurations asset for these settings.</p>
 <p>Saves store the definition’s asset name (<code>ItemIdAuthoring</code>), not the numeric id. Keep asset names stable once players have saves.</p>
 <div style="page-break-after: always;"></div>
 </section>
@@ -431,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>The registrations of <code>ILocalization</code>, <code>IPlayerPersistenceIdProvider</code> and <code>IInventoryInputService</code> keep existing defaults. Register your own implementation in an <code>IGameplayInstaller</code> and it wins.</p>
+<p>The registrations of <code>IItemDefinitionSource</code>, <code>ILocalization</code>, <code>IPlayerPersistenceIdProvider</code> and <code>IInventoryInputService</code> keep existing defaults. Register your own implementation in an <code>IGameplayInstaller</code> and it wins.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="sec-connect-zal-ui" class="level1" data-section="Setup">
@@ -506,7 +506,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Move and split requests check the authority over the source item and over the target container. Pickup, discard and <code>MoveItemsInto</code> do not check authority. See <a href="#sec-known-gaps">Known Gaps</a>.</p>
 <p><strong>World inventories</strong> are open to every player at the same time. The package does not lock a chest to one player and does not check distance. Your interaction code decides who may open one.</p>
-<p><strong>Loot.</strong> <code>LootSpawner</code> fills its inventory on the server from a <code>LootTable</code> (weighted entries, a spawn chance and a count range). <code>PickupFactory.Create(item, position)</code> spawns a pickup from the database’s pickup prefab and moves an item into it. The server does this when a player discards an item.</p>
+<p><strong>Loot.</strong> <code>LootSpawner</code> fills its inventory on the server from a <code>LootTable</code> (weighted entries, a spawn chance and a count range). <code>PickupFactory.Create(item, position)</code> spawns a pickup from the pickup prefab in <strong>Inventory Configurations</strong> and moves an item into it. The server does this when a player discards an item.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="sec-persistence" class="level1" data-section="Persistence">
@@ -611,28 +611,90 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <div style="page-break-after: always;"></div>
 </section>
+<section id="sec-custom-item-definitions" class="level1" data-section="Extending">
+<h1 data-section="Extending">Provide your own item definitions</h1>
+<p>Implement <code>IItemDefinitionSource</code> in your runtime assembly and register it in an <code>IGameplayInstaller</code>. The package uses your source instead of <strong>Item Database</strong>, regardless of installer order. Return the complete list synchronously; finish any loading before the first inventory lookup.</p>
+<p>This example loads definitions from <code>Resources/InventoryItems</code> and sorts by asset name:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> System<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Collections</span><span class="op">.</span><span class="fu">Generic</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Linq</span><span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Autofac<span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> UnityEngine<span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">AutofacUnity</span><span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">MultiplayerInventory</span><span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> GameItemDefinitionSource <span class="op">:</span> IItemDefinitionSource</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> IReadOnlyList<span class="op">&lt;</span>ItemDefinition<span class="op">&gt;</span> Items <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="op">}</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">GameItemDefinitionSource</span><span class="op">()</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        Items <span class="op">=</span> Resources<span class="op">.</span><span class="fu">LoadAll</span><span class="op">&lt;</span>ItemDefinition<span class="op">&gt;(</span><span class="st">"InventoryItems"</span><span class="op">)</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">OrderBy</span><span class="op">(</span>item <span class="op">=&gt;</span> item<span class="op">.</span><span class="fu">Id</span><span class="op">.</span><span class="fu">Value</span><span class="op">,</span> StringComparer<span class="op">.</span><span class="fu">Ordinal</span><span class="op">)</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">ToArray</span><span class="op">();</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> GameInventoryInstaller <span class="op">:</span> IGameplayInstaller</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Configure</span><span class="op">(</span>ContainerBuilder builder<span class="op">)</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        builder<span class="op">.</span><span class="fu">RegisterType</span><span class="op">&lt;</span>GameItemDefinitionSource<span class="op">&gt;()</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">As</span><span class="op">&lt;</span>IItemDefinitionSource<span class="op">&gt;().</span><span class="fu">SingleInstance</span><span class="op">();</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Replace the loading code with your project’s catalogue or preloaded definitions. Return a non-null list with no null entries. An empty custom list remains empty; it does not enable the database fallback.</p>
+<p>The numeric <code>ItemId</code> is the one-based list position. Keep the list stable during a session and identical on every multiplayer peer. The example’s name sorting gives the same order when all peers have the same assets. Saves use asset names, so keep names stable too.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="sec-editor-item-definitions" class="level1" data-section="Extending">
+<h1 data-section="Extending">Show custom definitions in the Editor</h1>
+<p>Add a class implementing <code>IItemDefinitionSourceInstaller</code> to your project’s <strong>Editor</strong> assembly. Give it a public parameterless constructor. The Editor discovers it automatically and uses its source for item-ID dropdowns outside Play Mode.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Autofac<span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">MultiplayerInventory</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">MultiplayerInventory</span><span class="op">.</span><span class="fu">Editor</span><span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> GameItemDefinitionEditorInstaller</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> IItemDefinitionSourceInstaller</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Configure</span><span class="op">(</span>ContainerBuilder builder<span class="op">)</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        builder<span class="op">.</span><span class="fu">RegisterType</span><span class="op">&lt;</span>GameItemDefinitionSource<span class="op">&gt;()</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">As</span><span class="op">&lt;</span>IItemDefinitionSource<span class="op">&gt;().</span><span class="fu">SingleInstance</span><span class="op">();</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you use assembly definitions, reference <code>Zal.MultiplayerInventory</code>, <code>Zal.MultiplayerInventory.Editor</code>, your runtime source assembly and <code>Autofac.dll</code>. Register any dependencies the source requires here as well. The Editor container is separate from gameplay; registration must not start gameplay services.</p>
+<p>Register one custom source in each container and expose the same definitions. Without an Editor installer, dropdowns collect names from all project <strong>Item Database</strong> assets. Without a runtime registration, runtime lookup uses the database assigned to <strong>Inventory Configurations</strong>.</p>
+<p>Select a component containing an item-ID field and open its dropdown. Your custom definitions appear; a stored value absent from the list remains visible with <strong>(missing)</strong>. Project changes refresh the list and recreate the Editor container. Play Mode transitions and assembly reload also dispose it. A failing installer or source reports an error; it does not silently substitute database definitions.</p>
+<section id="moving-from-database-prefab-settings" class="level2">
+<h2 class="anchored" data-anchor-id="moving-from-database-prefab-settings">Moving from database prefab settings</h2>
+<p>Shared prefab properties now belong to <code>InventoryConfigurations</code>; the old <code>ItemDatabase</code> prefab properties have been removed. Update code such as <code>config.ItemDatabase.PickupPrefab</code> to <code>config.PickupPrefab</code>.</p>
+<p>Before upgrading an existing project, record the five prefab assignments from each database. After upgrading, assign those references to every <strong>Inventory Configurations</strong> asset that used it. The repository’s Basic Inventory sample and packaged sample have already been migrated. Definition order and asset GUIDs are unchanged.</p>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
 <section id="sec-extension-examples" class="level1" data-section="Extending">
 <h1 data-section="Extending">Extension examples</h1>
 <p>A validator and a use handler:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> NoRingsInBackpack <span class="op">:</span> ICustomOperationValidator</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> ValidationResult <span class="fu">CanItemBeAdded</span><span class="op">(</span>ContainerId containerId<span class="op">,</span> ItemId id<span class="op">,</span> <span class="dt">int</span> count<span class="op">)</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">=&gt;</span> id<span class="op">.</span><span class="fu">Definition</span><span class="op">.</span><span class="fu">name</span> <span class="op">==</span> <span class="st">"Ring"</span> <span class="op">?</span> ValidationResult<span class="op">.</span><span class="fu">Denied</span> <span class="op">:</span> ValidationResult<span class="op">.</span><span class="fu">Unhandled</span><span class="op">;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> ValidationResult <span class="fu">CanItemBeRemoved</span><span class="op">(</span>ContainerId containerId<span class="op">,</span> ItemId id<span class="op">,</span> <span class="dt">int</span> count<span class="op">)</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">=&gt;</span> ValidationResult<span class="op">.</span><span class="fu">Unhandled</span><span class="op">;</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> PotionUseHandler <span class="op">:</span> IItemUseHandler</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">bool</span> <span class="fu">TryUseItem</span><span class="op">(</span><span class="kw">in</span> InventoryItem item<span class="op">)</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>item<span class="op">.</span><span class="fu">GetDefinition</span><span class="op">()</span> <span class="kw">is</span> not PotionDefinition potion<span class="op">)</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span> <span class="kw">false</span><span class="op">;</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        potion<span class="op">.</span><span class="fu">Drink</span><span class="op">();</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="kw">true</span><span class="op">;</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> NoRingsInBackpack <span class="op">:</span> ICustomOperationValidator</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> ValidationResult <span class="fu">CanItemBeAdded</span><span class="op">(</span>ContainerId containerId<span class="op">,</span> ItemId id<span class="op">,</span> <span class="dt">int</span> count<span class="op">)</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">=&gt;</span> id<span class="op">.</span><span class="fu">Definition</span><span class="op">.</span><span class="fu">name</span> <span class="op">==</span> <span class="st">"Ring"</span> <span class="op">?</span> ValidationResult<span class="op">.</span><span class="fu">Denied</span> <span class="op">:</span> ValidationResult<span class="op">.</span><span class="fu">Unhandled</span><span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> ValidationResult <span class="fu">CanItemBeRemoved</span><span class="op">(</span>ContainerId containerId<span class="op">,</span> ItemId id<span class="op">,</span> <span class="dt">int</span> count<span class="op">)</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">=&gt;</span> ValidationResult<span class="op">.</span><span class="fu">Unhandled</span><span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> PotionUseHandler <span class="op">:</span> IItemUseHandler</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">bool</span> <span class="fu">TryUseItem</span><span class="op">(</span><span class="kw">in</span> InventoryItem item<span class="op">)</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>item<span class="op">.</span><span class="fu">GetDefinition</span><span class="op">()</span> <span class="kw">is</span> not PotionDefinition potion<span class="op">)</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        potion<span class="op">.</span><span class="fu">Drink</span><span class="op">();</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="sec-localization" class="level1" data-section="Extending">
