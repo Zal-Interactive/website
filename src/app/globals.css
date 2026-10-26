@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --midnight: #080912;
-  --ivory: #f2eee5;
-  --silver: #9998a6;
-  --violet: #7957e8;
-  --lilac: #b9a6ff;
-  --amber: #d9a85f;
+  --midnight: #000000;
+  --ivory: #ffffff;
+  --silver: #a3a3a3;
+  --violet: #ffffff;
+  --lilac: #d4d4d4;
+  --amber: #ffffff;
 }
 
 * { box-sizing: border-box; }
@@ -23,7 +23,7 @@ body {
   overflow-x: hidden;
 }
 
-::selection { background: var(--violet); color: white; }
+::selection { background: var(--violet); color: black; }
 
 a:focus-visible {
   outline: 2px solid var(--lilac);
