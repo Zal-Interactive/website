@@ -25,41 +25,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -73,7 +38,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="/docs/site_libs/quarto-html/quarto-syntax-highlighting-dark-5a1953863e1f72ef3b996ef827f01ca7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="/docs/site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="/docs/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="/docs/site_libs/bootstrap/bootstrap-e3fb44e77c5d532f3fd9b16b5f774869.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="/docs/site_libs/bootstrap/bootstrap-2816299b72722297539dafffbebcd8ed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 
 
 <link rel="stylesheet" href="/docs/theme.css">
@@ -88,7 +53,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Multiplayer Inventory</h1>
-<p class="subtitle lead">com.zalinteractive.multiplayer-inventory</p>
+<p class="subtitle lead">Rust Inventory sample</p>
 </div>
 
 
@@ -105,821 +70,78 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="sec-overview" class="level1" data-section="Overview">
-<h1 data-section="Overview">Overview</h1>
-<p>Multiplayer Inventory is a server-authoritative grid and slot inventory for Netcode for GameObjects (NGO). It ships the inventory logic, the network sync, JSON persistence and uGUI views.</p>
-<p><strong>Features</strong></p>
-<ul>
-<li>Grid containers and single-slot containers (equipment slots), on players, chests and dropped items.</li>
-<li>Stacking, splitting, rotating, quick-move and drag and drop.</li>
-<li>Nested containers: an item such as a pouch owns containers of its own.</li>
-<li>Custom per-item data (metadata) that is replicated to clients.</li>
-<li>Server-authoritative operations. Clients send requests, the server decides and replicates the result.</li>
-<li>Pickups, loot tables and a loot spawner.</li>
-<li>Save and load of items through JSON files, with an auto-saver.</li>
-<li>Extension points for validation, item use, context menus, item views, details panels, input and localization.</li>
-</ul>
-<p><strong>Requirements</strong></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Dependency</th>
-<th>Version</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Unity</td>
-<td>6000.0</td>
-</tr>
-<tr class="even">
-<td>Netcode for GameObjects (<code>com.unity.netcode.gameobjects</code>)</td>
-<td>2.13.3</td>
-</tr>
-<tr class="odd">
-<td>Zal UI (<code>com.zalinteractive.ui</code>)</td>
-<td>0.4.1</td>
-</tr>
-<tr class="even">
-<td>Autofac Unity (<code>com.zalinteractive.autofac-unity</code>)</td>
-<td>1.0.11</td>
-</tr>
-<tr class="odd">
-<td>Zal Common (<code>com.zalinteractive.common</code>)</td>
-<td>0.1.2</td>
-</tr>
-<tr class="even">
-<td>uGUI (<code>com.unity.ugui</code>)</td>
-<td>2.0.0</td>
-</tr>
-<tr class="odd">
-<td>Newtonsoft Json (<code>com.unity.nuget.newtonsoft-json</code>)</td>
-<td>3.2.2</td>
-</tr>
-</tbody>
-</table>
-<p>Unity Input System and Unity Localization are optional. When <code>com.unity.inputsystem</code> is installed, the package adds the Input System input. When <code>com.unity.localization</code> is installed, the package adds a Localization adapter.</p>
-<p><strong>Assemblies.</strong> <code>Zal.MultiplayerInventory</code> holds the engine-independent logic. <code>Zal.MultiplayerInventory.Netcode</code> holds the components and the sync. <code>Zal.MultiplayerInventory.UI</code> holds the views. <code>Zal.MultiplayerInventory.InputSystem</code> and <code>Zal.MultiplayerInventory.Localization</code> are optional. The Editor assembly holds the inspectors and a debug window.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="sec-run-the-sample" class="level1" data-section="Quick Start">
-<h1 data-section="Quick Start">Run the sample</h1>
-<p>The fastest way to see the inventory work is the Basic Inventory sample. It is a playable host scene with a player, equipment slots, pickups, a lootable chest, persistence and every UI prefab you need.</p>
+<section id="start-a-survival-session" class="level1" data-section="Rust Inventory">
+<h1 data-section="Rust Inventory">Start a survival session</h1>
+<p>Open the imported sample’s <strong>Scenes/RustInventory</strong> scene in a Unity 6 project with the Input System, Universal Render Pipeline, and TextMesh Pro Essential Resources installed. The sample uses the package’s server-authoritative inventory, drag-and-drop, equipment, and looting services.</p>
 <ol type="1">
-<li>Open <strong>Window &gt; Package Manager</strong> and select <strong>Multiplayer Inventory</strong>.</li>
-<li>Open the <strong>Samples</strong> tab and click <strong>Import</strong> next to <strong>Basic Inventory</strong>. The sample lands in <code>Assets/Samples/Multiplayer Inventory/&lt;version&gt;/Basic Inventory</code>.</li>
-<li>Open <code>Scenes/BasicInventory.unity</code> from the imported folder.</li>
-<li>Add the scene to <strong>File &gt; Build Settings &gt; Scenes In Build</strong>. NGO asks for this when it starts a session. Without it, NGO shows a prompt about the scene.</li>
-<li>Press <strong>Play</strong>. The scene starts a host on its own.</li>
+<li>Enter Play Mode and select <strong>HOST SESSION</strong> to create a session with a local survivor.</li>
+<li>Run the same scene in a second Editor or standalone build. Enter the host’s IP address and the same port, then select <strong>JOIN SESSION</strong>. For two instances on the same computer, use <strong>127.0.0.1</strong> and <strong>7777</strong>.</li>
 </ol>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Input</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>WASD</td>
-<td>Move</td>
-</tr>
-<tr class="even">
-<td>F</td>
-<td>Pick up the nearest item, or open the nearest chest</td>
-</tr>
-<tr class="odd">
-<td>Tab</td>
-<td>Open or close the inventory</td>
-</tr>
-<tr class="even">
-<td>Drag</td>
-<td>Move items between cells and slots</td>
-</tr>
-<tr class="odd">
-<td>Ctrl + click</td>
-<td>Split a stack</td>
-</tr>
-<tr class="even">
-<td>Right click</td>
-<td>Open the item menu</td>
-</tr>
-</tbody>
-</table>
-<p>The sample brings its own <code>Resources/Zal/UI/UISystemConfiguration</code> asset. Zal UI loads exactly one configuration from that path. If your project already has one, delete the sample’s copy and add the sample’s <code>BasicInventoryUICatalog</code> to your configuration instead. See <a href="#sec-connect-zal-ui">Connect Zal UI</a>.</p>
+<div class="doc-figure">
+<p><img src="/docs/multiplayer-inventory/Figures/session.png" class="img-fluid" style="width:511pt" alt="Connection screen with address, port, host, and join controls outlined."></p>
+<p>Figure 1</p>
+</div>
+<p>Each survivor starts with resources, tools, two weapons, clothing, and compatible attachments. Move with <strong>WASD</strong>, look with the mouse, and open your inventory with <strong>Tab</strong>. Select belt slots with <strong>1-6</strong>. Look at a nearby supply crate and press <strong>E</strong> to inspect its shared contents.</p>
+<p>The default transport uses UDP. Enable <strong>Use WebSockets</strong> on both the host and clients for a Web client. A browser joins a native host; it cannot listen as a host. Internet hosting needs a reachable server address and matching network/port configuration. The sample does not include a lobby, relay service, or matchmaking.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="sec-set-up-your-own-scene" class="level1" data-section="Quick Start">
-<h1 data-section="Quick Start">Set up your own scene</h1>
-<p>Use the sample scene and prefabs as a reference. The minimum for a working inventory is:</p>
-<ol type="1">
-<li>Create an <strong>Item Database</strong> (<strong>Assets &gt; Create &gt; Multiplayer Inventory &gt; Item Database</strong>) and an <strong>Inventory Configurations</strong> asset that references it.</li>
-<li>Create item definitions (<strong>Assets &gt; Create &gt; Multiplayer Inventory &gt; Item Definition</strong>) and add them to the database. In <strong>Inventory Configurations</strong>, assign <strong>Item View Prefab</strong>, <strong>Item Context Prefab</strong>, <strong>Dynamic Inventory View Prefab</strong>, <strong>Item Preview Prefab</strong> and <strong>Pickup Prefab</strong> using the sample prefabs as a reference.</li>
-<li>Add <strong>Inventory Setup</strong> (and <strong>Inventory Input Setup</strong> for the Input System) to a scene object, and assign the configurations asset.</li>
-<li>Build a player prefab with a <code>NetworkObject</code>, <strong>Inventory Component</strong>, <strong>Inventory Syncer</strong>, <strong>Player Inventory Actions</strong> and <strong>Inventory UI Opener</strong>.</li>
-<li>Add a <code>GameplayScope</code> (Autofac Unity) to the scene. It finds the package installers on its own. Add one installer of your own that calls <code>AddZalUI</code>. See <a href="#sec-register-the-installers">Register the installers</a>.</li>
-<li>Register network prefabs with NGO and window view prefabs with Zal UI. See <a href="#sec-connect-zal-ui">Connect Zal UI</a>.</li>
-</ol>
-<p>The sample’s player prefab has these components: <code>InventoryComponent</code>, <code>InventorySyncer</code>, <code>PlayerInventoryActions</code>, <code>InventoryUIOpener</code> and <code>ServerInventoryAutoSaver</code>, plus the sample scripts for movement, interaction and the starter loadout. The sample chest has <code>InventoryComponent</code>, <code>InventorySyncer</code>, <code>LootSpawner</code> and <code>LootingInventoryInteractionReceiver</code>.</p>
+<section id="move-equip-and-share-items" class="level1" data-section="Inventory">
+<h1 data-section="Inventory">Move, equip, and share items</h1>
+<p>The backpack contains <strong>24 one-cell slots</strong>. The belt contains <strong>six slots</strong>. Each clothing slot accepts its matching category: head, torso, legs, or feet. Resource stacks hold up to <strong>1000</strong> units; bandages hold up to <strong>10</strong>.</p>
+<p>Drag a stack from an occupied backpack cell to an empty cell to move it. Drag a compatible stack onto another stack to merge up to its limit. Move clothing between its equipment slot and the backpack in the same way; an incompatible item cannot occupy that clothing slot.</p>
+<div class="doc-figure">
+<p><img src="/docs/multiplayer-inventory/Figures/inventory.png" class="img-fluid" style="width:511pt" alt="Inventory with a source stack, backpack drop region, belt, and clothing slots outlined."></p>
+<p>Figure 2</p>
+</div>
+<p>Crates are shared network inventories. The server validates inventory requests, item compatibility, and world-container reach. Moving an item out of a crate changes the contents available to the other connected survivors. Closing the inventory with <strong>Tab</strong> restores movement and mouse look.</p>
+<p>This is an inventory demonstration. Clothing occupies equipment slots but does not alter the primitive survivor model or provide a damage simulation.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="sec-item-definitions-and-the-database" class="level1" data-section="Concepts">
-<h1 data-section="Concepts">Item definitions and the database</h1>
-<p>An <strong>Item Definition</strong> (<code>ItemDefinition</code>) describes one kind of item: icon, world model, size, weight, stacking and the containers it owns. Subclass it to add your own data. Subclasses need their own <code>CreateAssetMenu</code>.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Field</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>Icon</code>, <code>WorldVisualPrefab</code>, <code>GameplayPrefab</code></td>
-<td>What the item looks like in the UI, in the world and when equipped</td>
-</tr>
-<tr class="even">
-<td><code>CustomInventoryViewPrefab</code></td>
-<td>A view prefab for the item’s own containers. Empty uses the default view</td>
-</tr>
-<tr class="odd">
-<td><code>GenerateLivePreview</code></td>
-<td>Render a live 3D preview instead of the icon</td>
-</tr>
-<tr class="even">
-<td><code>CanRotate</code>, <code>Size</code></td>
-<td>Rotation and the size in grid cells</td>
-</tr>
-<tr class="odd">
-<td><code>IsStackable</code>, <code>MaxStack</code></td>
-<td>Several instances merge into one stack, up to <code>MaxStack</code></td>
-</tr>
-<tr class="even">
-<td><code>Weight</code></td>
-<td>Weight of one unit. It is reported but not enforced. See <a href="#sec-known-gaps">Known Gaps</a></td>
-</tr>
-<tr class="odd">
-<td><code>Containers</code></td>
-<td>The containers the item owns, such as the pockets of a backpack</td>
-</tr>
-<tr class="even">
-<td><code>AssignableSlots</code></td>
-<td>The <code>SlotType</code> assets the item fits</td>
-</tr>
-<tr class="odd">
-<td><code>MatchingFilters</code></td>
-<td>The <code>ContainerTag</code> assets that let filtered containers accept the item</td>
-</tr>
-<tr class="even">
-<td><code>DefaultSubItems</code></td>
-<td>Items created inside the item when it is created</td>
-</tr>
-</tbody>
-</table>
-<p>A stackable item cannot own containers or default sub-items. The definition logs an error and clears <code>IsStackable</code> if you set both.</p>
-<p>The <strong>Item Database</strong> (<code>ItemDatabase</code>) is the default ordered list of definitions. The <strong>one-based index</strong> of a definition is its <code>ItemId</code>. Keep the order stable during a session and identical on the server and every client. A project can replace the database list with an <code>IItemDefinitionSource</code>; see <a href="#sec-custom-item-definitions">Provide your own item definitions</a>.</p>
-<p>The inspector of the database has an <strong>Add Missing Item Definitions</strong> button. It finds every <code>ItemDefinition</code> in the project that is not listed yet and appends it at the end. <strong>Inventory Configurations</strong> references the fallback database and holds the shared prefabs: item view, context menu, dynamic inventory view, item preview and networked pickup. It also holds the grid cell size, cell prefab, drag conflict behaviour and item search duration. A custom source does not need an assigned database; it still needs the configurations asset for these settings.</p>
-<p>Saves store the definition’s asset name (<code>ItemIdAuthoring</code>), not the numeric id. Keep asset names stable once players have saves.</p>
+<section id="split-a-resource-stack" class="level1" data-section="Stacks">
+<h1 data-section="Stacks">Split a resource stack</h1>
+<p><strong>Ctrl + click</strong> the Wood stack to open its quantity popup. Move the slider to choose an amount, select <strong>Split</strong>, and then select an empty backpack cell. A 500-unit stack split in half becomes two 250-unit stacks. Drag one onto the other to merge them back into 500.</p>
+<div class="doc-figure">
+<p><img src="/docs/multiplayer-inventory/Figures/split.png" class="img-fluid" style="width:511pt" alt="Stack quantity popup in inventory context with the amount slider and Split button outlined."></p>
+<p>Figure 3</p>
+</div>
+<p><strong>Right click</strong> opens the item’s context actions. <strong>Shift + click</strong> requests a quick transfer; while a crate is open, this transfers between the crate and your inventory. Items that cannot fit remain at their source. The backpack, belt, and attachment slots continue to apply their compatibility and capacity rules.</p>
+<p>Closing and reopening an inventory does not reset its contents. Starting a new sample session creates fresh starting equipment and crate contents; this sample does not set up saved-world persistence.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="sec-containers-grids-and-slots" class="level1" data-section="Concepts">
-<h1 data-section="Concepts">Containers, grids and slots</h1>
-<p>An inventory owner has a list of <strong>containers</strong> (<code>ContainerDefinition</code>). The owner is a network object with an <code>InventoryComponent</code>, or an item that owns containers.</p>
-<ul>
-<li>A <strong>grid</strong> container (<code>IsGrid</code>) has a width and a height in cells. Items occupy <code>Size</code> cells and can be rotated when <code>CanRotate</code> is set.</li>
-<li>A <strong>slot</strong> container is a single place. Its <code>SlotType</code> asset decides which items fit: the item must list that slot type in <code>AssignableSlots</code>.</li>
-</ul>
-<p><code>SlotType</code> assets (<strong>Assets &gt; Create &gt; Multiplayer Inventory &gt; Slot Type</strong>) are labels such as Head or Hand. <code>InventoryComponent.GetAssignedItem(slotType)</code> returns the item in the container with that slot type.</p>
-<p><strong>Filters.</strong> A container with <code>ExtraFilters</code> accepts only items whose <code>MatchingFilters</code> share a <code>ContainerTag</code> (<strong>Create &gt; Multiplayer Inventory &gt; Container Tag</strong>). An empty filter list accepts everything. See <a href="#sec-known-gaps">Known Gaps</a>: the filter does not stop a merge into an existing stack.</p>
-<p><strong>Stacking.</strong> Stackable items merge up to <code>MaxStack</code>. <code>Inventory.Merge</code> fills a target stack. <code>Inventory.SplitItemIntoWithRemainder</code> takes part of a stack and returns what did not fit.</p>
-<p><strong>Nested containers.</strong> An item whose definition has <code>Containers</code> is itself an inventory owner. Its items are saved with it and replicate with the root owner. The UI opens such an item from the context menu (<strong>Open</strong>) into a popup.</p>
-<p><strong>Facade.</strong> The static <code>Inventory</code> class is the entry point for code, for example <code>Inventory.SpawnItemsInto(inventoryId, itemId, count)</code>, <code>Inventory.MoveItemInto</code>, <code>Inventory.GetItemCount</code>, <code>Inventory.CheckItems</code> and <code>Inventory.ConsumeItems</code>. Call these on the server. The facade is available once the <code>MultiplayerInventoryInstaller</code> has run in the gameplay scope.</p>
+<section id="customize-a-belt-weapon" class="level1" data-section="Weapons">
+<h1 data-section="Weapons">Customize a belt weapon</h1>
+<p>Open the inventory and select the rifle’s belt slot with <strong>1</strong>. Drag a <strong>Holo Sight</strong> or <strong>Scope4x</strong> into <strong>SCOPE</strong>, a <strong>Suppressor</strong> or <strong>Muzzle Brake</strong> into <strong>MUZZLE</strong>, and an <strong>Extended Magazine</strong> into <strong>MAGAZINE</strong>. These slots accept only their compatible attachment category. Remove an attachment by dragging it back into the backpack.</p>
+<div class="doc-figure">
+<p><img src="/docs/multiplayer-inventory/Figures/weapon.png" class="img-fluid" style="width:511pt" alt="Weapon panel showing scope, muzzle, and magazine attachment destinations and effective statistics."></p>
+<p>Figure 4</p>
+</div>
+<p>The rifle starts with <strong>40 damage</strong>, <strong>55% accuracy</strong>, <strong>70 recoil</strong>, and a <strong>20-round magazine</strong>. A Holo Sight adds 15 accuracy points. A Suppressor subtracts 5 damage and 8 recoil. An Extended Magazine adds 10 rounds and 5 recoil. Those three attachments produce <strong>35 damage</strong>, <strong>70% accuracy</strong>, <strong>67 recoil</strong>, and <strong>30 rounds</strong>.</p>
+<div class="doc-figure">
+<p><img src="/docs/multiplayer-inventory/Figures/weapon-result.png" class="img-fluid" style="width:350pt" alt="Configured rifle with effective statistics outlined."></p>
+<p>Figure 5</p>
+</div>
+<p>The alternative Scope4x adds 30 accuracy points and 5 recoil. A Muzzle Brake subtracts 25 recoil. The pistol accepts the same attachment categories and starts with 25 damage, 40% accuracy, 45 recoil, and 12 rounds.</p>
+<p>Attachments are nested inventory items belonging to the weapon instance, rather than shared mutable values on an item definition. Moving the weapon carries its installed attachments with it. Attachment moves use the same authoritative inventory requests as other item moves. The weapon panel watches the selected weapon’s contents and refreshes its displayed statistics after changes.</p>
+<p>Weapon statistics demonstrate configuration and inventory effects; the sample has no shooting, reload, ballistics, or combat simulation.</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="sec-item-metadata" class="level1" data-section="Concepts">
-<h1 data-section="Concepts">Item metadata</h1>
-<p>Metadata is custom data on one item instance, such as durability. Implement <code>IItemMetadata</code> with a public parameterless constructor. Write and read your fields in the same order. Register the type on the server and on every client.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> DurabilityMetadata <span class="op">:</span> IItemMetadata</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> Durability<span class="op">;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Serialize</span><span class="op">(</span>BinaryWriter writer<span class="op">)</span> <span class="op">=&gt;</span> writer<span class="op">.</span><span class="fu">Write</span><span class="op">(</span>Durability<span class="op">);</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Deserialize</span><span class="op">(</span>BinaryReader reader<span class="op">)</span> <span class="op">=&gt;</span> Durability <span class="op">=</span> reader<span class="op">.</span><span class="fu">ReadInt32</span><span class="op">();</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>Inventory<span class="op">.</span><span class="fu">RegisterMetadataType</span><span class="op">&lt;</span>DurabilityMetadata<span class="op">&gt;();</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Inventory<span class="op">.</span><span class="fu">SetMetadata</span><span class="op">(</span>item<span class="op">.</span><span class="fu">InstanceId</span><span class="op">,</span> <span class="kw">new</span> DurabilityMetadata <span class="op">{</span> Durability <span class="op">=</span> <span class="dv">100</span> <span class="op">});</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> durability <span class="op">=</span> Inventory<span class="op">.</span><span class="fu">GetMetadata</span><span class="op">&lt;</span>DurabilityMetadata<span class="op">&gt;(</span>item<span class="op">.</span><span class="fu">InstanceId</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>SetMetadata</code> replicates from the server. Metadata is <strong>not</strong> written to save files in this version. <code>DeleteItemMetadata</code> removes an entry. Metadata is part of the full sync a late joiner receives. Register metadata types before the first item is replicated. The type id is a hash of the type’s full name, so server and clients must be builds that compute the same hash.</p>
-<div style="page-break-after: always;"></div>
+<section id="adapt-the-sample" class="level1" data-section="Authoring">
+<h1 data-section="Authoring">Adapt the sample</h1>
+<p>The imported sample keeps its content together under <strong>Survival</strong>: definitions, icons, visual prefabs, materials, and slot categories. Every inventory item occupies one cell. The original art is built from Unity primitives.</p>
+<p><code>InitialLoadout.cs</code> on the player prefab supplies the starting backpack stacks, belt items, and clothing. It creates this equipment on the server after network spawn. <strong>SampleContent</strong> registers item definitions and visuals with the inventory package. Its UI configuration registers the inventory, connection screen, HUD, and item popups.</p>
+<p><strong>WeaponTuning</strong> stores each weapon definition’s base damage, accuracy, recoil, and magazine capacity. <strong>AttachmentTuning</strong> stores additive adjustments. <strong>ContainerExtension</strong> defines the weapon’s three nested attachment containers. The containers’ <strong>SlotType</strong> values and attachments’ <strong>AssignableSlots</strong> enforce category compatibility through the inventory package.</p>
+<p><strong>WeaponWorkbench</strong> renders the selected belt weapon and listens for changes in its attachment inventory. <strong>BeltSelection</strong> owns local belt selection. Selecting a belt slot does not execute a combat action. The inventory package continues to own item identities, placement, compatibility, request validation, and synchronization.</p>
+<p>The scene contains four shared crate prefab instances and four pickup spawn points. Crate contents use <strong>SpawnItemsInInventory</strong>. These are editable scene and prefab assets; the scene does not generate its level geometry at runtime.</p>
+<section id="input-and-platform-boundaries" class="level2">
+<h2 class="anchored" data-anchor-id="input-and-platform-boundaries">Input and platform boundaries</h2>
+<p>The sample’s first-person controls target keyboard and mouse. Gamepad bindings provide movement, interaction, inventory toggling, and belt cycling; the inventory’s drag-and-drop and context shortcuts are demonstrated with a pointer. The HUD also has inventory, interact, and belt buttons. A complete touch movement controller and console inventory navigation are integration work for the host game.</p>
+<p>Web clients require a WebSocket host. A production HTTPS site also needs a secure, reachable WebSocket endpoint. Native platform builds, console certification, and deployment security are outside this sample’s verification.</p>
 </section>
-<section id="sec-scene-components" class="level1" data-section="Setup">
-<h1 data-section="Setup">Scene components</h1>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Component</th>
-<th>Where</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>InventorySetup</code></td>
-<td>A scene object</td>
-<td>Holds the <code>InventoryConfigurations</code> asset</td>
-</tr>
-<tr class="even">
-<td><code>InventoryInputSetup</code></td>
-<td>A scene object (Input System)</td>
-<td>Holds the input actions asset. Assign your own to rebind, as long as it keeps the action names</td>
-</tr>
-<tr class="odd">
-<td><code>UnityLocalizationSetup</code></td>
-<td>A scene object (Localization)</td>
-<td>Names the string tables the adapter reads</td>
-</tr>
-<tr class="even">
-<td><code>InventoryComponent</code></td>
-<td>Network object</td>
-<td>Defines the containers. <strong>Is World Inventory</strong> lets every player use it</td>
-</tr>
-<tr class="odd">
-<td><code>InventorySyncer</code></td>
-<td>Network object with an inventory</td>
-<td>Replicates items and metadata to clients</td>
-</tr>
-<tr class="even">
-<td><code>PlayerInventoryActions</code></td>
-<td>Player prefab</td>
-<td>Sends move, split, pickup and discard requests to the server</td>
-</tr>
-<tr class="odd">
-<td><code>InventoryUIOpener</code></td>
-<td>Player prefab</td>
-<td>Opens the player inventory window</td>
-</tr>
-<tr class="even">
-<td><code>Pickup</code></td>
-<td>Pickup prefab</td>
-<td>An item in the world. Call <code>RequestPickup()</code> from your interaction code</td>
-</tr>
-<tr class="odd">
-<td><code>LootSpawner</code></td>
-<td>Chest or enemy</td>
-<td>Fills the inventory from a <code>LootTable</code> on the server</td>
-</tr>
-<tr class="even">
-<td><code>LootingInventoryInteractionReceiver</code></td>
-<td>Chest</td>
-<td><code>Open()</code> and <code>Close()</code> show the chest next to the player inventory</td>
-</tr>
-<tr class="odd">
-<td><code>PersistentInventoryId</code></td>
-<td>Scene object</td>
-<td>A stable id for saving</td>
-</tr>
-<tr class="even">
-<td><code>ServerInventoryAutoSaver</code></td>
-<td>Network object</td>
-<td>Saves after changes on the server</td>
-</tr>
-</tbody>
-</table>
-<p>Every network object with an <code>InventoryComponent</code> also needs an <code>InventorySyncer</code>. A <code>Pickup</code> requires an <code>InventoryComponent</code>.</p>
+<section id="if-a-session-cannot-connect" class="level2">
+<h2 class="anchored" data-anchor-id="if-a-session-cannot-connect">If a session cannot connect</h2>
+<p>Check that both instances run the same sample version and scene, use the same port and transport, and can reach the host address. <strong>127.0.0.1</strong> refers only to the same computer. If the host cannot bind its port, stop the other host using that port before retrying.</p>
+<p>If text is missing after importing the sample into another project, import <strong>TextMesh Pro Essential Resources</strong>. If the primitive materials render pink, check that the project uses the Universal Render Pipeline.</p>
 </section>
-<section id="sec-register-the-installers" class="level1" data-section="Setup">
-<h1 data-section="Setup">Register the installers</h1>
-<p>The package installers implement <code>IGameplayInstaller</code> from Autofac Unity. A <code>GameplayScope</code> in the scene discovers every installer and runs it. You do not register them by hand.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Installer</th>
-<th>Registers</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>MultiplayerInventoryInstaller</code></td>
-<td>The <code>Inventory</code> facade, item repository and factory, metadata, the add, merge, place and split handlers, consumption, queries, grids, quick-move, the persistence manager, JSON storage, the operation validator and <code>PassThroughLocalization</code></td>
-</tr>
-<tr class="even">
-<td><code>NetcodeInventoryInstaller</code></td>
-<td>The <code>NetworkManager</code>, authority checker, syncer provider, definition resolver, local player provider, grid action handler, player persistence id provider and persistent object id mapper</td>
-</tr>
-<tr class="odd">
-<td><code>UiInventoryInstaller</code></td>
-<td>Context menu buttons, item views, drag and drop, the item preview generator, item details, item search and the controllers of the four window views</td>
-</tr>
-<tr class="even">
-<td><code>InputSystemInventoryInstaller</code></td>
-<td><code>InventoryInputSetup</code> and the Input System implementation of <code>IInventoryInputService</code> and <code>IPlayerInput</code></td>
-</tr>
-<tr class="odd">
-<td><code>UnityLocalizationInstaller</code></td>
-<td><code>UnityLocalizationSetup</code> and <code>UnityLocalizationAdapter</code> as <code>ILocalization</code></td>
-</tr>
-</tbody>
-</table>
-<p>The registrations of <code>IItemDefinitionSource</code>, <code>ILocalization</code>, <code>IPlayerPersistenceIdProvider</code> and <code>IInventoryInputService</code> keep existing defaults. Register your own implementation in an <code>IGameplayInstaller</code> and it wins.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="sec-connect-zal-ui" class="level1" data-section="Setup">
-<h1 data-section="Setup">Connect Zal UI</h1>
-<p>The package does not register the UI system. <strong>Your project owns it.</strong> Add an installer that calls <code>AddZalUI</code>, and own the <code>UISystemConfiguration</code> and <code>UIPrefabCatalog</code> assets.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> GameUiInstaller <span class="op">:</span> IGameplayInstaller</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Configure</span><span class="op">(</span>ContainerBuilder builder<span class="op">)</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> error <span class="op">=</span> builder<span class="op">.</span><span class="fu">AddZalUI</span><span class="op">();</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>error<span class="op">.</span><span class="fu">HasValue</span><span class="op">)</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            Debug<span class="op">.</span><span class="fu">LogError</span><span class="op">(</span>error<span class="op">.</span><span class="fu">Value</span><span class="op">);</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The <code>UiInventoryInstaller</code> registers a controller for each of four views. Add these prefabs to a catalog that your <code>UISystemConfiguration</code> references, each with <strong>controller required</strong> set:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>View</th>
-<th>Layer</th>
-<th>Instance policy</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>PlayerInventoryView</code></td>
-<td>Window</td>
-<td>UniqueReuse</td>
-</tr>
-<tr class="even">
-<td><code>SplitItemPopupView</code></td>
-<td>Modal</td>
-<td>UniqueReuse</td>
-</tr>
-<tr class="odd">
-<td><code>ContainerItemPopupView</code></td>
-<td>Modal</td>
-<td>Multiple</td>
-</tr>
-<tr class="even">
-<td><code>ItemDetailsView</code></td>
-<td>Modal</td>
-<td>Multiple</td>
-</tr>
-</tbody>
-</table>
-<p>The sample catalog <code>BasicInventoryUICatalog</code> shows these settings.</p>
-<p>Zal UI loads one configuration from <code>Resources/Zal/UI/UISystemConfiguration</code>. The sample ships its own asset at that path. If your project already has one, delete the sample’s copy and add the inventory catalog to your own configuration. Two assets at one path would make Unity load only one of them.</p>
-<p>The UI also needs an <code>IInventoryInputService</code> and an <code>IPlayerInput</code>. The Input System installer provides both. Without the Input System, implement them for your input solution.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="sec-networking-model" class="level1" data-section="Networking">
-<h1 data-section="Networking">Networking model</h1>
-<p>The server owns the truth. Every inventory change happens on the server, which then tells the clients.</p>
-<ol type="1">
-<li>A client acts in the UI. <code>PlayerInventoryActions</code> checks the player’s authority locally, sends a server RPC (<code>MoveItemServerRpc</code>, <code>SplitItemServerRpc</code>, <code>PickupServerRpc</code>, <code>DiscardServerRpc</code>, <code>MoveItemsIntoServerRpc</code>, <code>SplitItemIntoServerRpc</code>) and also applies the change locally.</li>
-<li>The server runs the same action against its repository: merge, place, split or move.</li>
-<li><code>InventorySyncer</code> on the server sends the resulting item (<code>UpdateItemClientRpc</code>), a deletion (<code>DeleteItemClientRpc</code>) or a metadata change to the clients.</li>
-</ol>
-<p><strong>Full-item sync.</strong> An update carries the whole <code>InventoryItem</code>: instance id, item id, count, placement and container. Clients overwrite their copy. There are no deltas.</p>
-<p><strong>Late join.</strong> When an <code>InventorySyncer</code> spawns on a client, it asks the server for everything with <code>RequestItemsFromServerRpc</code>. The server answers that client only, with all items of the owner (including nested items) and their metadata. When the object despawns on a client, the client unloads its copy of those items.</p>
-<p><strong>Observers.</strong> Update RPCs use <code>SendTo.NotServer</code>, so every client that has the object spawned receives every update of that inventory, including other players’ inventories. See <a href="#sec-known-gaps">Known Gaps</a>.</p>
-<p><strong>Host mode.</strong> A host shares one repository between its server and its client. There is no separate replica on the host.</p>
-</section>
-<section id="sec-authority" class="level1" data-section="Networking">
-<h1 data-section="Networking">Authority</h1>
-<p><code>IAuthorityChecker</code> decides whether a sender may operate on an item, a container or an inventory. The Netcode implementation grants access when:</p>
-<ul>
-<li>the inventory is the player’s own (the owner id equals the player’s network object id),</li>
-<li>the inventory belongs to a network object whose <code>InventoryComponent</code> has <strong>Is World Inventory</strong> set (chests, pickups, dropped loot), or</li>
-<li>the inventory belongs to an item, and the root owner of that item passes one of the rules above.</li>
-</ul>
-<p>Move and split requests check the authority over the source item and over the target container. Pickup, discard and <code>MoveItemsInto</code> do not check authority. See <a href="#sec-known-gaps">Known Gaps</a>.</p>
-<p><strong>World inventories</strong> are open to every player at the same time. The package does not lock a chest to one player and does not check distance. Your interaction code decides who may open one.</p>
-<p><strong>Loot.</strong> <code>LootSpawner</code> fills its inventory on the server from a <code>LootTable</code> (weighted entries, a spawn chance and a count range). <code>PickupFactory.Create(item, position)</code> spawns a pickup from the pickup prefab in <strong>Inventory Configurations</strong> and moves an item into it. The server does this when a player discards an item.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="sec-persistence" class="level1" data-section="Persistence">
-<h1 data-section="Persistence">Persistence</h1>
-<p>Persistence saves the items of an owner as a JSON file and recreates them when you load.</p>
-<p><strong>Scene objects.</strong> Add <code>PersistentInventoryId</code> to a scene object. The editor generates a GUID when the component is added. Do not copy the same id to two objects. A prefab asset gets no id, so instances need their own id in the scene.</p>
-<p><strong>Players.</strong> Player objects are identified by the <code>IPlayerPersistenceIdProvider</code> you register, not by <code>PersistentInventoryId</code>. The default provider returns <code>"player-" + clientId</code>. Netcode assigns client ids per connection, so this id only lasts for one session. <strong>Ship your own provider</strong> that returns an id from your account or authentication system. The id must be unique per player and safe to use as a file name.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> AccountPlayerIdProvider <span class="op">:</span> IPlayerPersistenceIdProvider</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">string</span> <span class="fu">GetPersistenceId</span><span class="op">(</span><span class="dt">ulong</span> clientId<span class="op">)</span> <span class="op">=&gt;</span> Accounts<span class="op">.</span><span class="fu">GetAccountId</span><span class="op">(</span>clientId<span class="op">);</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Saving.</strong> Add <code>ServerInventoryAutoSaver</code> to the network object. It saves on the server after the last change, once <code>DebounceDelayMs</code> (default 250) has passed without another change. You can also call <code>InventoryPersistenceManager.SaveEntityItems(inventoryId)</code> yourself.</p>
-<p><strong>Loading.</strong> Loading is not automatic. Call <code>InventoryPersistenceManager.LoadEntityItems(persistenceId)</code> on the server after the owner has spawned. The sample’s <code>SamplePlayerLoadout</code> loads the player’s save and grants starter items if nothing was saved.</p>
-<p><strong>Storage.</strong> The default storage writes one file per owner to <code>Application.persistentDataPath/InventoryPersistence/&lt;id&gt;.json</code>. Characters that are invalid in file names become <code>_</code>. A file holds the item asset names, counts, placements and container indexes, with nested items inside their parent. Register your own <code>IPersistentDataStorage</code> to save elsewhere, such as a database or a cloud service.</p>
-<p><strong>WebGL.</strong> WebGL has no threads, so the save runs on the calling thread instead of a background task. A save blocks the frame while it writes. Use a longer debounce delay on WebGL.</p>
-<p><strong>Not saved.</strong> Metadata is not part of the JSON file in this version. The saved format keeps the item, count, placement and nested items.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="sec-extension-points" class="level1" data-section="Extending">
-<h1 data-section="Extending">Extension points</h1>
-<p>Implement the interface and register it in an <code>IGameplayInstaller</code>. For interfaces the package asks for as a list, every registered implementation is used.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Interface</th>
-<th>Use it to</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>ICustomOperationValidator</code></td>
-<td>Veto adding or removing items (<code>CanItemBeAdded</code>, <code>CanItemBeRemoved</code>), returning <code>Allowed</code>, <code>Denied</code> or <code>Unhandled</code></td>
-<td>Not consulted on every path. See <a href="#sec-known-gaps">Known Gaps</a></td>
-</tr>
-<tr class="even">
-<td><code>IUsableItemDefinition</code></td>
-<td>Mark an item definition as usable: <code>UseDuration</code> and <code>UseContextText</code></td>
-<td>Implement it on your <code>ItemDefinition</code> subclass. Adds a <strong>Use</strong> button to the context menu</td>
-</tr>
-<tr class="odd">
-<td><code>IItemUseHandler</code></td>
-<td>Run the use action: <code>TryUseItem(in InventoryItem)</code></td>
-<td>Handlers are tried in turn until one returns true</td>
-</tr>
-<tr class="even">
-<td><code>ICustomContextHandler</code></td>
-<td>Replace the buttons of the context menu for some items</td>
-<td>The first handler that returns true wins</td>
-</tr>
-<tr class="odd">
-<td><code>IItemContextButton</code></td>
-<td>Add a button to the context menu</td>
-<td><code>Order</code> sorts the buttons. <code>AddContext</code> adds it when it applies</td>
-</tr>
-<tr class="even">
-<td><code>IItemStatProvider</code></td>
-<td>Add statistics to the item details panel</td>
-<td>Every provider is asked for every item</td>
-</tr>
-<tr class="odd">
-<td><code>IItemDetailsSectionProvider</code> and <code>IItemDetailsSection</code></td>
-<td>Add a custom section to the item details panel</td>
-<td>The section is disposed when the panel closes</td>
-</tr>
-<tr class="even">
-<td><code>ICustomItemViewFactory</code></td>
-<td>Create your own <code>ItemView</code> for some items, and for the drag ghost</td>
-<td>The first factory that returns true wins</td>
-</tr>
-<tr class="odd">
-<td><code>IItemMetadata</code></td>
-<td>Attach data to items</td>
-<td>See <a href="#sec-item-metadata">Item metadata</a></td>
-</tr>
-<tr class="even">
-<td><code>IMetadataPostProcessor</code></td>
-<td>Adjust metadata when stacks merge or split</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><code>IQuickMoveStrategy</code></td>
-<td>Decide where a quick-moved item goes</td>
-<td>Not registered. Assign it to <code>QuickMoveManager.CurrentStrategy</code></td>
-</tr>
-<tr class="even">
-<td><code>IPlayerPersistenceIdProvider</code>, <code>IPersistentDataStorage</code></td>
-<td>Change player save ids and where saves go</td>
-<td>See <a href="#sec-persistence">Persistence</a></td>
-</tr>
-<tr class="odd">
-<td><code>ILocalization</code></td>
-<td>Provide item names and UI texts</td>
-<td>See below</td>
-</tr>
-<tr class="even">
-<td><code>IInventoryInputService</code></td>
-<td>Provide the input</td>
-<td>See below</td>
-</tr>
-</tbody>
-</table>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="sec-custom-item-definitions" class="level1" data-section="Extending">
-<h1 data-section="Extending">Provide your own item definitions</h1>
-<p>Implement <code>IItemDefinitionSource</code> in your runtime assembly and register it in an <code>IGameplayInstaller</code>. The package uses your source instead of <strong>Item Database</strong>, regardless of installer order. Return the complete list synchronously; finish any loading before the first inventory lookup.</p>
-<p>This example loads definitions from <code>Resources/InventoryItems</code> and sorts by asset name:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> System<span class="op">;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Collections</span><span class="op">.</span><span class="fu">Generic</span><span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Linq</span><span class="op">;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Autofac<span class="op">;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> UnityEngine<span class="op">;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">AutofacUnity</span><span class="op">;</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">MultiplayerInventory</span><span class="op">;</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> GameItemDefinitionSource <span class="op">:</span> IItemDefinitionSource</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> IReadOnlyList<span class="op">&lt;</span>ItemDefinition<span class="op">&gt;</span> Items <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="op">}</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">GameItemDefinitionSource</span><span class="op">()</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        Items <span class="op">=</span> Resources<span class="op">.</span><span class="fu">LoadAll</span><span class="op">&lt;</span>ItemDefinition<span class="op">&gt;(</span><span class="st">"InventoryItems"</span><span class="op">)</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">OrderBy</span><span class="op">(</span>item <span class="op">=&gt;</span> item<span class="op">.</span><span class="fu">Id</span><span class="op">.</span><span class="fu">Value</span><span class="op">,</span> StringComparer<span class="op">.</span><span class="fu">Ordinal</span><span class="op">)</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">ToArray</span><span class="op">();</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> GameInventoryInstaller <span class="op">:</span> IGameplayInstaller</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Configure</span><span class="op">(</span>ContainerBuilder builder<span class="op">)</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        builder<span class="op">.</span><span class="fu">RegisterType</span><span class="op">&lt;</span>GameItemDefinitionSource<span class="op">&gt;()</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">As</span><span class="op">&lt;</span>IItemDefinitionSource<span class="op">&gt;().</span><span class="fu">SingleInstance</span><span class="op">();</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Replace the loading code with your project’s catalogue or preloaded definitions. Return a non-null list with no null entries. An empty custom list remains empty; it does not enable the database fallback.</p>
-<p>The numeric <code>ItemId</code> is the one-based list position. Keep the list stable during a session and identical on every multiplayer peer. The example’s name sorting gives the same order when all peers have the same assets. Saves use asset names, so keep names stable too.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="sec-editor-item-definitions" class="level1" data-section="Extending">
-<h1 data-section="Extending">Show custom definitions in the Editor</h1>
-<p>Add a class implementing <code>IItemDefinitionSourceInstaller</code> to your project’s <strong>Editor</strong> assembly. Give it a public parameterless constructor. The Editor discovers it automatically and uses its source for item-ID dropdowns outside Play Mode.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Autofac<span class="op">;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">MultiplayerInventory</span><span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Zal<span class="op">.</span><span class="fu">MultiplayerInventory</span><span class="op">.</span><span class="fu">Editor</span><span class="op">;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> GameItemDefinitionEditorInstaller</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> IItemDefinitionSourceInstaller</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Configure</span><span class="op">(</span>ContainerBuilder builder<span class="op">)</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        builder<span class="op">.</span><span class="fu">RegisterType</span><span class="op">&lt;</span>GameItemDefinitionSource<span class="op">&gt;()</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">As</span><span class="op">&lt;</span>IItemDefinitionSource<span class="op">&gt;().</span><span class="fu">SingleInstance</span><span class="op">();</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If you use assembly definitions, reference <code>Zal.MultiplayerInventory</code>, <code>Zal.MultiplayerInventory.Editor</code>, your runtime source assembly and <code>Autofac.dll</code>. Register any dependencies the source requires here as well. The Editor container is separate from gameplay; registration must not start gameplay services.</p>
-<p>Register one custom source in each container and expose the same definitions. Without an Editor installer, dropdowns collect names from all project <strong>Item Database</strong> assets. Without a runtime registration, runtime lookup uses the database assigned to <strong>Inventory Configurations</strong>.</p>
-<p>Select a component containing an item-ID field and open its dropdown. Your custom definitions appear; a stored value absent from the list remains visible with <strong>(missing)</strong>. Project changes refresh the list and recreate the Editor container. Play Mode transitions and assembly reload also dispose it. A failing installer or source reports an error; it does not silently substitute database definitions.</p>
-<section id="moving-from-database-prefab-settings" class="level2">
-<h2 class="anchored" data-anchor-id="moving-from-database-prefab-settings">Moving from database prefab settings</h2>
-<p>Shared prefab properties now belong to <code>InventoryConfigurations</code>; the old <code>ItemDatabase</code> prefab properties have been removed. Update code such as <code>config.ItemDatabase.PickupPrefab</code> to <code>config.PickupPrefab</code>.</p>
-<p>Before upgrading an existing project, record the five prefab assignments from each database. After upgrading, assign those references to every <strong>Inventory Configurations</strong> asset that used it. The repository’s Basic Inventory sample and packaged sample have already been migrated. Definition order and asset GUIDs are unchanged.</p>
-<div style="page-break-after: always;"></div>
-</section>
-</section>
-<section id="sec-extension-examples" class="level1" data-section="Extending">
-<h1 data-section="Extending">Extension examples</h1>
-<p>A validator and a use handler:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> NoRingsInBackpack <span class="op">:</span> ICustomOperationValidator</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> ValidationResult <span class="fu">CanItemBeAdded</span><span class="op">(</span>ContainerId containerId<span class="op">,</span> ItemId id<span class="op">,</span> <span class="dt">int</span> count<span class="op">)</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">=&gt;</span> id<span class="op">.</span><span class="fu">Definition</span><span class="op">.</span><span class="fu">name</span> <span class="op">==</span> <span class="st">"Ring"</span> <span class="op">?</span> ValidationResult<span class="op">.</span><span class="fu">Denied</span> <span class="op">:</span> ValidationResult<span class="op">.</span><span class="fu">Unhandled</span><span class="op">;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> ValidationResult <span class="fu">CanItemBeRemoved</span><span class="op">(</span>ContainerId containerId<span class="op">,</span> ItemId id<span class="op">,</span> <span class="dt">int</span> count<span class="op">)</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">=&gt;</span> ValidationResult<span class="op">.</span><span class="fu">Unhandled</span><span class="op">;</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> PotionUseHandler <span class="op">:</span> IItemUseHandler</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">bool</span> <span class="fu">TryUseItem</span><span class="op">(</span><span class="kw">in</span> InventoryItem item<span class="op">)</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>item<span class="op">.</span><span class="fu">GetDefinition</span><span class="op">()</span> <span class="kw">is</span> not PotionDefinition potion<span class="op">)</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span> <span class="kw">false</span><span class="op">;</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        potion<span class="op">.</span><span class="fu">Drink</span><span class="op">();</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="kw">true</span><span class="op">;</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="sec-localization" class="level1" data-section="Extending">
-<h1 data-section="Extending">Localization</h1>
-<p>The UI asks <code>ILocalization</code> for item names, the pickup message, the weight text and, through <code>GetText(key)</code>, its fixed UI texts. The keys are constants in <code>LocalizationKeys</code>:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Key</th>
-<th>Text</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>LocalizationKeys.ContextDiscard</code> (<code>context-discard</code>)</td>
-<td>Discard button</td>
-</tr>
-<tr class="even">
-<td><code>LocalizationKeys.ContextSplit</code> (<code>context-split</code>)</td>
-<td>Split button</td>
-</tr>
-<tr class="odd">
-<td><code>LocalizationKeys.ContextOpen</code> (<code>context-open</code>)</td>
-<td>Open button</td>
-</tr>
-<tr class="even">
-<td><code>LocalizationKeys.ContextDetails</code> (<code>context-details</code>)</td>
-<td>Details button</td>
-</tr>
-<tr class="odd">
-<td><code>LocalizationKeys.StatCount</code> (<code>stat-count</code>)</td>
-<td>Count label in the details panel</td>
-</tr>
-<tr class="even">
-<td><code>LocalizationKeys.StatWeight</code> (<code>stat-weight</code>)</td>
-<td>Weight label in the details panel</td>
-</tr>
-</tbody>
-</table>
-<p><code>PassThroughLocalization</code> is the default. It shows the item asset name as the item name, English texts for the keys and the weight as a plain number.</p>
-<p><strong>Unity Localization.</strong> When <code>com.unity.localization</code> is installed, the <code>Zal.MultiplayerInventory.Localization</code> assembly compiles and <code>UnityLocalizationInstaller</code> registers <code>UnityLocalizationAdapter</code>. Add <strong>Unity Localization Setup</strong> to a scene object. It names the string tables (defaults: <code>Items</code> for item names with the asset name as key, and <code>Game</code> for UI texts, <code>pickup-interaction</code> and <code>weight-format</code>). Without the package installed, the assembly is excluded and the default stays.</p>
-</section>
-<section id="sec-input" class="level1" data-section="Extending">
-<h1 data-section="Extending">Input</h1>
-<p><code>IInventoryInputService</code> raises events for the inventory actions and reports the pointer position. <code>IPlayerInput</code> raises <code>OpenInventoryPerformed</code>. The Input System implementation reads an actions asset with the maps <strong>Inventory</strong>, <strong>Player</strong> and <strong>Pointer</strong>. The inventory map is active while the inventory is open and the player map while it is closed.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Action</th>
-<th>Keyboard and mouse</th>
-<th>Gamepad</th>
-<th>Touch</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Place item</td>
-<td>Left button</td>
-<td>South</td>
-<td>Primary touch</td>
-</tr>
-<tr class="even">
-<td>Cancel placement</td>
-<td>Right button</td>
-<td>East</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Open item menu</td>
-<td>Right button</td>
-<td>West</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Quick transfer</td>
-<td>Shift + left button</td>
-<td>North</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Split stack</td>
-<td>Ctrl + left button</td>
-<td>Left trigger</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Discard item</td>
-<td>Alt + left button, Delete</td>
-<td>Left stick press</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Rotate item</td>
-<td>R</td>
-<td>Right shoulder</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Open container</td>
-<td>Double click</td>
-<td>Right trigger</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Search item</td>
-<td>Left button</td>
-<td>Left shoulder</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Close inventory</td>
-<td>Tab</td>
-<td>Select</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Open inventory</td>
-<td>Tab</td>
-<td>Select</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Pointer position</td>
-<td>Mouse and pen position</td>
-<td></td>
-<td>Primary touch position</td>
-</tr>
-</tbody>
-</table>
-<p>Modifier actions (quick transfer, split, discard) combine a modifier with the left button. Assign your own asset to <strong>Inventory Input Setup</strong> to rebind, as long as it keeps these action and map names. To use another input solution, register your own <code>IInventoryInputService</code> and <code>IPlayerInput</code>.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="sec-platform-notes" class="level1" data-section="Platforms">
-<h1 data-section="Platforms">Platform notes</h1>
-<p>The package targets PC, mobile, console and WebGL. The runtime code has no platform-specific API except the points below.</p>
-<p><strong>WebGL.</strong> Browsers cannot open raw sockets. Set the NGO <code>UnityTransport</code> to <strong>WebSocket</strong> mode, on the server and the client. Saves run synchronously on the main thread because WebGL has no background threads. See <a href="#sec-persistence">Persistence</a>.</p>
-<p><strong>Mobile.</strong> The Input System bindings include touch for placing items and for the pointer position. The default bindings do not cover split, discard, rotate or quick transfer on touch. Add touch bindings for those actions to your own actions asset.</p>
-<p><strong>Console and gamepad.</strong> The default actions bind the gamepad to every inventory action. The inventory is pointer-driven, however: it reads the <strong>Point</strong> action for the cursor position, and the default asset binds no gamepad control to it. On a gamepad, drive a virtual cursor (for example the Input System <code>VirtualMouse</code>) that writes the Pointer position. Without one, the gamepad can press buttons but nothing is under the pointer.</p>
-<p><strong>Saves.</strong> <code>Application.persistentDataPath</code> must be writable. On a platform where it is not, register your own <code>IPersistentDataStorage</code>.</p>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="sec-known-gaps" class="level1" data-section="Known Gaps">
-<h1 data-section="Known Gaps">Known Gaps</h1>
-<p>This version ports an existing inventory as it was. These gaps exist in 0.1.0. Four are covered by tests that fail while the gap exists (category <code>KnownGaps</code>). Plan for each one before you ship a competitive or trading game.</p>
-<p><strong>Tested gaps</strong></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>#</th>
-<th>Gap</th>
-<th>What to do today</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td><strong>A server move into a container whose filter rejects the item still succeeds when the item merges into an existing stack.</strong> The merge lookup does not consult the container filter.</td>
-<td>Do not put stackable items into a filtered container. Make items that a filter must reject non-stackable, or keep stacks of that item out of that container. Check the target container in your own server code before you move an item for the player.</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td><strong><code>ICustomOperationValidator</code> is not consulted when stacks merge.</strong></td>
-<td>Do not rely on a validator for merges. Enforce the rule in your server code before the operation, or make the item non-stackable.</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td><strong><code>ICustomOperationValidator</code> is not consulted when an item is placed.</strong></td>
-<td>Check the rule in your own server code before calling <code>Inventory.PlaceItem</code>. Assume a player request can place an item.</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td><strong><code>ICustomOperationValidator</code> is not consulted when an item is moved into an inventory</strong> (<code>MoveItemInto</code>).</td>
-<td>Check the rule in your server code before you call <code>MoveItemInto</code>. Treat validators as honoured by split only.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Untested gaps</strong></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Gap</th>
-<th>What to do today</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Weight is not enforced.</strong> <code>ItemDefinition.Weight</code> is reported but nothing has a weight limit.</td>
-<td>Sum <code>Weight</code> times <code>Count</code> over <code>Inventory.GetInventoryItemsRecursive</code> in your server code and refuse to grant items over your limit. Slow the player down with the same sum.</td>
-</tr>
-<tr class="even">
-<td><strong>Pickup has no range check.</strong> The server accepts a pickup request for any pickup, at any distance.</td>
-<td>Treat <code>Pickup.RequestPickup()</code> as the only normal route and run it from interaction code that checks range. Use NGO object visibility (<code>NetworkObject.NetworkHide</code>) so far pickups are not sent to a client. A modified client that guesses an id can still send the request, so this reduces the risk and does not remove it.</td>
-</tr>
-<tr class="odd">
-<td><strong>Updates are broadcast to all observing clients.</strong> Every client that has an inventory’s network object spawned receives every update of it, including other players’ private inventories.</td>
-<td>Never store secrets in items or metadata. Hide objects from clients that must not see them with <code>NetworkHide</code>. If another player’s inventory contents must stay private, this version is not suitable without changes.</td>
-</tr>
-<tr class="even">
-<td><strong>The sync of a client replica cannot be tested in a single host process.</strong> A host shares one repository between server and client.</td>
-<td>Test replication with a real dedicated server and at least two clients.</td>
-</tr>
-<tr class="odd">
-<td><strong>Discard and <code>MoveItemsInto</code> do not check authority.</strong> A client can send these requests for item ids it does not own.</td>
-<td>Run extra checks in your own server code, and treat clients as trusted until this is fixed.</td>
-</tr>
-<tr class="even">
-<td><strong>Metadata is not saved.</strong> Metadata replicates but is not written to save files.</td>
-<td>Store data that must survive a restart in your own save, or in the item count.</td>
-</tr>
-<tr class="odd">
-<td><strong>The default player persistence id is session-only.</strong> The default provider uses the Netcode client id.</td>
-<td>Register your own <code>IPlayerPersistenceIdProvider</code>. See <a href="#sec-persistence">Persistence</a>.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Before you ship.</strong> Test with a real server and two clients. Review the server rules above against your game. A client cannot be trusted to enforce a rule that the server does not.</p>
 </section>
 
 </main>
