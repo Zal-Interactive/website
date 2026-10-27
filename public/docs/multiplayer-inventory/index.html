@@ -38,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="/docs/site_libs/quarto-html/quarto-syntax-highlighting-dark-5a1953863e1f72ef3b996ef827f01ca7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="/docs/site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="/docs/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="/docs/site_libs/bootstrap/bootstrap-2816299b72722297539dafffbebcd8ed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="/docs/site_libs/bootstrap/bootstrap-b1908d4a4da867a3149309abea67e85c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 
 
 <link rel="stylesheet" href="/docs/theme.css">
@@ -53,7 +53,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Multiplayer Inventory</h1>
-<p class="subtitle lead">Rust Inventory sample</p>
+<p class="subtitle lead">Inventory samples</p>
 </div>
 
 
@@ -141,7 +141,28 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="if-a-session-cannot-connect">If a session cannot connect</h2>
 <p>Check that both instances run the same sample version and scene, use the same port and transport, and can reach the host address. <strong>127.0.0.1</strong> refers only to the same computer. If the host cannot bind its port, stop the other host using that port before retrying.</p>
 <p>If text is missing after importing the sample into another project, import <strong>TextMesh Pro Essential Resources</strong>. If the primitive materials render pink, check that the project uses the Universal Render Pipeline.</p>
+<div style="page-break-after: always;"></div>
 </section>
+</section>
+<section id="load-and-unload-a-magazine" class="level1" data-section="Magazine Loading">
+<h1 data-section="Magazine Loading">Load and unload a magazine</h1>
+<p>Open <strong>Scenes/MagazineLoading.unity</strong> in the imported <strong>Magazine Loading</strong> sample and enter Play Mode. A local host starts and the inventory opens with three empty magazines and four ammunition stacks. The sample requires Unity 6, the Input System, and TextMesh Pro Essential Resources.</p>
+<p>Drag <strong>9mm FMJ</strong> onto either highlighted <strong>9mm</strong> magazine. Each round takes <strong>0.2 seconds</strong> to load; the source quantity decreases as the magazine count increases. <strong>9mm AP</strong> fits the same magazines. <strong>5.56mm</strong> ammunition fits only the 5.56mm magazine. Full magazines cannot accept more rounds.</p>
+<div class="doc-figure">
+<p><img src="/docs/multiplayer-inventory/Figures/magazine-loading.png" class="img-fluid" style="width:511pt" alt="Magazine inventory showing the ammunition source, both compatible magazine destinations, and the loading gesture."></p>
+<p>Figure 6</p>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="unload-in-reverse-order" class="level1" data-section="Magazine Loading">
+<h1 data-section="Magazine Loading">Unload in reverse order</h1>
+<p>Click, tap, or right-click a loading magazine and select <strong>Cancel loading</strong> to keep the rounds already inserted. Select <strong>Unload one</strong> to return the last round inserted, or <strong>Unload all</strong> to empty the magazine. <strong>Last unloaded</strong> identifies the returned bullet type. If the inventory has no room, the remaining rounds stay in the magazine.</p>
+<div class="doc-figure">
+<p><img src="/docs/multiplayer-inventory/Figures/magazine-actions.png" class="img-fluid" style="width:511pt" alt="Magazine context menu with Cancel loading, Unload one, and Unload all outlined."></p>
+<p>Figure 7</p>
+</div>
+<p>Mixed bullet types retain their insertion order even when their stored stacks merge. Loading two FMJ rounds, one AP, then one FMJ unloads FMJ, AP, FMJ, FMJ. <code>MagazineLoader.cs</code> transfers rounds on the host and updates <code>RoundOrder</code> metadata only after each successful transfer. The magazine’s <strong>Container Extension &gt; Item Move Duration</strong> sets the per-round delay; its <strong>Magazine Definition</strong> extension sets caliber and total capacity.</p>
+<p>This focused sample has no firing or saved-session persistence. Starting Play Mode again restores the initial contents. Browsers cannot host a listening server, so this auto-host-only sample requires the Editor or a native player.</p>
 </section>
 
 </main>
