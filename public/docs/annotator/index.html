@@ -269,10 +269,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="capture-a-window-from-an-agent" class="level1" data-section="Agent reference">
 <h1 data-section="Agent reference">Capture a window from an agent</h1>
-<p>With Unity Pipeline installed, <code>capture_editor_window</code> saves a visible Editor pane directly, without creating an annotation batch.</p>
+<p>With Unity Pipeline installed, <code>editor capture_window</code> saves a visible Editor pane directly, without creating an annotation batch.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"project_path"</span><span class="fu">:</span> <span class="st">"/absolute/path/to/project"</span><span class="fu">,</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"capture_editor_window"</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"editor capture_window"</span><span class="fu">,</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"args"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"window"</span><span class="fu">:</span> <span class="st">"SceneView"</span> <span class="fu">}</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>window</code> accepts an exact title, short type name or fully qualified type name. Matching is case-sensitive. <code>Inspector</code>, <code>InspectorWindow</code> and <code>UnityEditor.InspectorWindow</code> identify Inspector windows.</p>
