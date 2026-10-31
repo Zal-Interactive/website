@@ -15,6 +15,13 @@
       "samples": []
     },
     {
+      "id": "com.zalinteractive.area-of-interest",
+      "slug": "area-of-interest",
+      "title": "Area of Interest",
+      "url": "/docs/area-of-interest/index.html",
+      "samples": []
+    },
+    {
       "id": "com.zalinteractive.debug-menu",
       "slug": "debug-menu",
       "title": "Debug Menu",
