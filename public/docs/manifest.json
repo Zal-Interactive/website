@@ -36,6 +36,13 @@
       "samples": []
     },
     {
+      "id": "com.zalinteractive.interactions",
+      "slug": "interactions",
+      "title": "Interactions",
+      "url": "/docs/interactions/index.html",
+      "samples": []
+    },
+    {
       "id": "com.zalinteractive.multiplayer-inventory",
       "slug": "multiplayer-inventory",
       "title": "Multiplayer Inventory",
