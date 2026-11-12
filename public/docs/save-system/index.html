@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Partitions.</strong> A partition is a group of keys that is loaded and written together. Add a <strong>Save Partition</strong> component to a GameObject to make it and all of its children one partition. The nearest Save Partition above an object wins. Objects with no Save Partition above them use the built-in <code>global</code> partition.</li>
 <li><strong>Identities.</strong> A <strong>Persistent Identity</strong> component gives a GameObject a stable key inside its partition. An identity under another identity in the same partition nests its key under the parent’s key.</li>
 <li><strong>Slots.</strong> A DataStore is opened for one save slot. Slots are stored separately, so each one is its own world.</li>
-<li><strong>Storage.</strong> The store keeps its data in an ISaveStorage. FileSaveStorage stores each partition as a JSON file. InMemorySaveStorage keeps it in memory.</li>
+<li><strong>Storage.</strong> The store keeps its data in an ISaveStorage. FileSaveStorage stores each partition as a binary MessagePack file. InMemorySaveStorage keeps it in memory.</li>
 </ul>
 <p>Every change is written to storage immediately. A partition is loaded the first time one of its keys is used and stays in memory until you unload it.</p>
 <p>In online co-op, only the host opens and changes the store. Clients receive world state through your networking code.</p>
@@ -142,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> store <span class="op">=</span> opened<span class="op">.</span><span class="fu">Value</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>FileSaveStorage writes to <code>Saves/&lt;slot&gt;/&lt;partition&gt;.json</code> under Application.persistentDataPath. Pass a folder to the constructor to store saves elsewhere.</p>
+<p>FileSaveStorage writes to <code>Saves/&lt;slot&gt;/&lt;partition&gt;.msgpack</code> under Application.persistentDataPath. Pass a folder to the constructor to store saves elsewhere.</p>
 </section>
 <section id="read-and-write-values" class="level1" data-section="Scripting">
 <h1 data-section="Scripting">Read and write values</h1>
@@ -157,14 +157,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>store<span class="op">.</span><span class="fu">Set</span><span class="op">(</span>SaveKey<span class="op">.</span><span class="fu">Global</span><span class="op">.</span><span class="fu">Child</span><span class="op">(</span><span class="st">"time-of-day"</span><span class="op">),</span> <span class="fl">13.5f</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Get</strong> returns the fallback when nothing is stored. <strong>Has</strong> reports whether a key is stored. <strong>Remove</strong> deletes a key. Values are converted to JSON with Newtonsoft Json.NET, including Vector2, Vector3, Quaternion, and Color.</p>
+<p><strong>Get</strong> returns the fallback when nothing is stored. <strong>Has</strong> reports whether a key is stored. <strong>Remove</strong> deletes a key. Values are stored as MessagePack. Primitives, strings, arrays, lists, dictionaries, and Unity types such as Vector3, Quaternion, and Color work as they are.</p>
+<p>To save your own class or struct, mark it with <code>[MessagePackObject]</code> and give each saved member a unique <code>[Key]</code>. Unmarked types fail with SaveError.ValueNotConvertible.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>MessagePackObject<span class="op">]</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ChestState</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">[</span><span class="fu">Key</span><span class="op">(</span><span class="dv">0</span><span class="op">)]</span> <span class="kw">public</span> <span class="dt">int</span> Coins <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">[</span><span class="fu">Key</span><span class="op">(</span><span class="dv">1</span><span class="op">)]</span> <span class="kw">public</span> <span class="dt">string</span> Owner <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Keep existing key numbers when you change a saved type; add new members with new numbers.</p>
 <p><strong>Set</strong> and <strong>Remove</strong> write the partition to storage before they return. When the write fails, the previous value stays in memory and the call returns SaveError.StorageFailed.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="unload-partitions" class="level1" data-section="Scripting">
 <h1 data-section="Scripting">Unload partitions</h1>
 <p>A partition loads automatically the first time one of its keys is used. Call <strong>Unload</strong> when its area leaves the world to free its memory. Nothing is lost, because every change was already written.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>store<span class="op">.</span><span class="fu">Unload</span><span class="op">(</span><span class="st">"cave_03"</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>store<span class="op">.</span><span class="fu">Unload</span><span class="op">(</span><span class="st">"cave_03"</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>IsLoaded</strong> reports whether a partition is in memory.</p>
 </section>
 <section id="handle-failures" class="level1" data-section="Scripting">
@@ -174,14 +182,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>InvalidSlot</strong>, <strong>MissingStorage</strong>: Open received a bad slot name or no storage.</li>
 <li><strong>InvalidKey</strong>: the key has an invalid partition name or an empty path segment. Check SaveKey.IsValid.</li>
 <li><strong>StorageFailed</strong>: the storage could not read or write.</li>
-<li><strong>CorruptPartition</strong>: the stored partition is not valid JSON. It is not loaded and cannot be overwritten, so its data stays available for recovery.</li>
+<li><strong>CorruptPartition</strong>: the stored partition is not valid save data. It is not loaded and cannot be overwritten, so its data stays available for recovery.</li>
 <li><strong>ValueNotConvertible</strong>: the value cannot be converted to or from the requested type.</li>
 </ul>
 <p>The package logs the details of each failure to the Console.</p>
 </section>
 <section id="store-saves-elsewhere" class="level1" data-section="Scripting">
 <h1 data-section="Scripting">Store saves elsewhere</h1>
-<p>Implement ISaveStorage to keep saves somewhere other than files, for example in a console’s save API or a cloud service. It reads, writes, and deletes one text per partition of a slot. A failed write must leave the previous text readable, and implementations return a StorageError instead of throwing.</p>
+<p>Implement ISaveStorage to keep saves somewhere other than files, for example in a console’s save API or a cloud service. It reads, writes, and deletes one byte array per partition of a slot. A failed write must leave the previous data readable, and implementations return a StorageError instead of throwing.</p>
 <p>Consoles require their platform save APIs, so FileSaveStorage does not cover them. Some console platforms also limit how often a game may write; buffer writes in your ISaveStorage implementation when needed.</p>
 </section>
 
