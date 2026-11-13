@@ -109,9 +109,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-section="Overview">Save System</h1>
 <p>Save System is a key-value store for game state. It is built for open worlds: state is grouped into <strong>partitions</strong> that are loaded and saved independently, so a game reads only the parts of the world it needs.</p>
 <ul>
-<li><strong>Keys.</strong> A SaveKey names one value. It always contains the partition the value belongs to and a ‘/’-separated path inside that partition.</li>
+<li><strong>Keys.</strong> A SaveKey names one value. It contains a ‘/’-separated path and the partition the object is in. For a static object the partition is part of the key; a movable object keeps its key in any partition.</li>
 <li><strong>Partitions.</strong> A partition is a group of keys that is loaded and written together. Add a <strong>Save Partition</strong> component to a GameObject to make it and all of its children one partition. The nearest Save Partition above an object wins. Objects with no Save Partition above them use the built-in <code>global</code> partition.</li>
-<li><strong>Identities.</strong> A <strong>Persistent Identity</strong> component gives a GameObject a stable key inside its partition. An identity under another identity in the same partition nests its key under the parent’s key.</li>
+<li><strong>Identities.</strong> A <strong>Persistent Identity</strong> component gives a GameObject a stable key. An identity under another identity in the same partition nests its key under the parent’s key.</li>
+<li><strong>Static and movable objects.</strong> A GameObject marked <strong>Static</strong> in the Inspector stays in its partition, and its state is always saved there. Any other object can move: when it ends up under another partition, it keeps its key, and its next save moves its state, and the state of identities nested under it, to the new partition.</li>
 <li><strong>Slots.</strong> A DataStore is opened for one save slot. Slots are stored separately, so each one is its own world.</li>
 <li><strong>Storage.</strong> The store keeps its data in an ISaveStorage. FileSaveStorage stores each partition as a binary MessagePack file. InMemorySaveStorage keeps it in memory.</li>
 </ul>
@@ -128,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Add <strong>Persistent Identity</strong> to each GameObject whose state you save. Its id is assigned automatically.</li>
 </ol>
 <p>A Save Partition on a prefab asset keeps its Id empty, so instances do not share one partition. Give each placed instance its own Id.</p>
-<p>Partition names become file names. On Windows and macOS, file names ignore case, so do not use two partition names that differ only in case.</p>
+<p>Partition names become file names. On Windows and macOS, file names ignore case, so do not use two partition names that differ only in case. Names starting with <code>__</code> are reserved for the store.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="open-a-store" class="level1" data-section="Scripting">
@@ -167,6 +168,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Keep existing key numbers when you change a saved type; add new members with new numbers.</p>
 <p><strong>Set</strong> and <strong>Remove</strong> write the partition to storage before they return. When the write fails, the previous value stays in memory and the call returns SaveError.StorageFailed.</p>
+</section>
+<section id="moving-objects" class="level1" data-section="Scripting">
+<h1 data-section="Scripting">Moving objects</h1>
+<p>The store keeps a small location manifest that records which partition holds each movable object’s state. It is read the first time the store is used and stays in memory.</p>
+<p>After an object moves to another partition, its values can still be read with the same key. The next <strong>Set</strong> on the object writes its state to the new partition, then the manifest, then removes it from the old partition. If the game stops between these writes, the manifest decides which copy is real, and the other copy is dropped the next time its partition loads, so the object is never duplicated or lost.</p>
+<p>Static objects skip the manifest. Unity only keeps the Static flag in the Editor, so the package copies it into each Persistent Identity when a scene is built or entered in Play mode.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="unload-partitions" class="level1" data-section="Scripting">
@@ -182,7 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>InvalidSlot</strong>, <strong>MissingStorage</strong>: Open received a bad slot name or no storage.</li>
 <li><strong>InvalidKey</strong>: the key has an invalid partition name or an empty path segment. Check SaveKey.IsValid.</li>
 <li><strong>StorageFailed</strong>: the storage could not read or write.</li>
-<li><strong>CorruptPartition</strong>: the stored partition is not valid save data. It is not loaded and cannot be overwritten, so its data stays available for recovery.</li>
+<li><strong>CorruptPartition</strong>: the stored partition or location manifest is not valid save data. It is not loaded and cannot be overwritten, so its data stays available for recovery.</li>
 <li><strong>ValueNotConvertible</strong>: the value cannot be converted to or from the requested type.</li>
 </ul>
 <p>The package logs the details of each failure to the Console.</p>

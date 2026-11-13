@@ -163,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="/docs/nebula/images/samples-list.png" class="img-fluid" style="width:460pt" alt="Nebula Package Manager details with Samples and all four sample names and import/update buttons outlined."></p>
 <p>Figure 6</p>
 </div>
-<p>Open <code>Assets/Samples/Nebula/1.2.0/Nebula Demo/Nebula Demo.unity</code> to start with the four-part demo. Each imported sample includes its own PDF. Importing a sample does not add Nebula to your renderer.</p>
+<p>Open <code>Assets/Samples/Nebula/1.3.0/Nebula Demo/Nebula Demo.unity</code> to start with the four-part demo. Each imported sample includes its own PDF. Importing a sample does not add Nebula to your renderer.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="appearance" class="level1" data-section="Manual">
@@ -226,6 +226,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><strong>Outside Terrain &gt; Suppress Fog</strong> clears this contribution outside assigned tiles and over holes. <strong>Use World Height</strong> evaluates the same profile against world height there.</p>
 <p>A valid active terrain field removes <strong>all fog below the ground</strong>, including local fog that has no height attenuation. Above ground, global and local profiles still shape their own contributions.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="distant-fog" class="level1" data-section="Manual">
+<h1 data-section="Manual">Continue fog to the horizon</h1>
+<p>The volume ends at <strong>Maximum Distance</strong>. For large outdoor scenes, enable <strong>Distant Fog</strong> on the fog profile and set <strong>End Distance</strong> past it, for example <strong>Maximum Distance</strong> <code>600</code> and <strong>End Distance</strong> <code>2000</code>. Then set the camera’s <strong>Far</strong> clipping plane just past End Distance, and keep terrain, LOD, and detail draw distances at or beyond it.</p>
+<p>Distant fog continues the global fog from Maximum Distance with a closed-form calculation, so its cost does not grow with distance. It starts from the volume’s own density, height profile, and lighting, so there is no visible edge where the volume ends:</p>
+<ul>
+<li>Density follows <strong>Global Fog Density</strong> and <strong>Density In Light</strong>, shaped by the global height profile. With <strong>Height Reference &gt; Terrain</strong>, the ground past the volume is treated as level at the terrain height where each view ray leaves the volume.</li>
+<li>Color follows <strong>Global Scattering Albedo</strong>, ambient light, the main light’s <strong>Scattering Distribution</strong> glow, <strong>Lit Fog Color</strong>, and <strong>Global Emission</strong>.</li>
+<li>Haze adds to the global fog past Maximum Distance. It starts at zero there, so it adds no edge, and thickens with distance until a view ray at the camera’s height is fully hidden at End Distance, however thin the global fog’s height profile is. Below the camera, haze is at full strength, so valleys seen from above fill in. Above the camera it thins over <strong>Height Falloff</strong>: with the default <code>300</code>, a hill 100 units above the camera is still hidden at End Distance, while rays that climb steeply keep the sky overhead visible.</li>
+<li>Sky pixels use End Distance, so geometry cut off by the far plane fades into identical fog, and the sky fades into the haze toward the horizon.</li>
+</ul>
+<p><strong>Distant Fog Tint</strong> blends in as distant fog thickens. White keeps the volume’s color; other values change the far horizon without creating an edge at Maximum Distance.</p>
+<p>Distant fog does not include local fog volumes, noise, shadows, or additional lights past Maximum Distance, and it uses the scene ambient probe rather than probe volumes. If one of these is strong at Maximum Distance, its change at the boundary can show.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="local-fog" class="level1" data-section="Manual">
@@ -335,7 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>Nebula_ApplyTransparentFogPremultiplied(premultipliedRgb, alpha, fog)</code> weights incoming fog light by alpha, then adds transmitted premultiplied RGB.</li>
 <li><code>Nebula_ApplyTransparentFogAdditive(rgb, fog)</code> attenuates only the additive contribution; it does not add fog light again.</li>
 </ul>
-<p>Do not apply Nebula twice to the same final color. Transparent fog beyond the represented interval uses the accumulated fog at the maximum distance. These helpers do not add refraction or solve transparency sorting.</p>
+<p>Do not apply Nebula twice to the same final color. Transparent fog beyond the represented interval uses the accumulated fog at the maximum distance, plus <a href="#distant-fog">distant fog</a> when it is enabled. These helpers do not add refraction or solve transparency sorting.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="quality" class="level1" data-section="Manual">
@@ -469,7 +483,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="compatibility" class="level1" data-section="Compatibility">
 <h1 data-section="Compatibility">Choose a supported target</h1>
-<p>Nebula 1.2.0 is a RenderGraph renderer feature for the <strong>Universal Renderer</strong> in URP. Its package metadata declares Unity <strong>6000.0.5f1</strong> and URP <strong>17.0.4</strong>. This guide’s Editor captures and play checks use Unity <strong>6000.0.82f1</strong>, URP <strong>17.0.4</strong>, and Metal. The additional-light density checks use the same Unity and URP versions with Direct3D 11. These checks do not qualify other Editor versions or physical devices.</p>
+<p>Nebula 1.3.0 is a RenderGraph renderer feature for the <strong>Universal Renderer</strong> in URP. Its package metadata declares Unity <strong>6000.0.5f1</strong> and URP <strong>17.0.4</strong>. This guide’s Editor captures and play checks use Unity <strong>6000.0.82f1</strong>, URP <strong>17.0.4</strong>, and Metal. The additional-light density and distant-fog checks use the same Unity and URP versions with Direct3D 11. These checks do not qualify other Editor versions or physical devices.</p>
 <section id="pipeline-and-cameras" class="level2">
 <h2 class="anchored" data-anchor-id="pipeline-and-cameras">Pipeline and cameras</h2>
 <p>URP Compatibility Mode bypasses the required RenderGraph path. Built-in and HDRP are not supported. Base Game cameras and Scene views can render Nebula; overlay, reflection/preview camera types, and XR are skipped. The package’s feature targets the Universal Renderer, not the 2D Renderer.</p>
